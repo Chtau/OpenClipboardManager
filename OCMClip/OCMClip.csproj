@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClipHandler\ClipText.cs" />
+    <Compile Include="ClipHandler\Entities\ClipData.cs" />
+    <Compile Include="ClipHandler\Entities\ClipDataText.cs" />
+    <Compile Include="ClipHandler\Nativ.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="ConfigurationWatcher.cs" />
     <Compile Include="ILogger.cs" />

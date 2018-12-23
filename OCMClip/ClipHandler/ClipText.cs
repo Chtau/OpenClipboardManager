@@ -22,31 +22,7 @@ namespace OCMClip.ClipHandler
 
             if (!string.IsNullOrWhiteSpace(textValue) && lastValue != textValue)
             {
-                bool handleClip = false;
-                System.Windows.Forms.TextDataFormat currentFormat = System.Windows.Forms.TextDataFormat.Text;
-                if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.CommaSeparatedValue))
-                {
-                    currentFormat = System.Windows.Forms.TextDataFormat.CommaSeparatedValue;
-                }
-                else if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.Html))
-                {
-                    currentFormat = System.Windows.Forms.TextDataFormat.Html;
-                }
-                else if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.Rtf))
-                {
-                    currentFormat = System.Windows.Forms.TextDataFormat.Rtf;
-                }
-                else if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.Text))
-                {
-                    currentFormat = System.Windows.Forms.TextDataFormat.Text;
-                }
-                else if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.UnicodeText))
-                {
-                    currentFormat = System.Windows.Forms.TextDataFormat.UnicodeText;
-                }
-                //handleClip = Clip.CopyClipText(textValue, currentFormat, out Entities.ClipDataText entity);
-
-                if (handleClip)
+                if (OnGetEntity(textValue, OnGetCurrentTextFormat(), out Entities.ClipDataText entity))
                 {
                     lastValue = textValue;
                     /*if (Internal.Global.Instance.Settings.ShowBallonFromTextClip)
@@ -59,6 +35,48 @@ namespace OCMClip.ClipHandler
                     }
                     Internal.Global.Instance.InvokeClipChanged(entity, entity != null ? entity.Id : -1);*/
                 }
+            }
+        }
+
+        private System.Windows.Forms.TextDataFormat OnGetCurrentTextFormat()
+        {
+            System.Windows.Forms.TextDataFormat currentFormat = System.Windows.Forms.TextDataFormat.Text;
+            if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.CommaSeparatedValue))
+            {
+                currentFormat = System.Windows.Forms.TextDataFormat.CommaSeparatedValue;
+            }
+            else if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.Html))
+            {
+                currentFormat = System.Windows.Forms.TextDataFormat.Html;
+            }
+            else if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.Rtf))
+            {
+                currentFormat = System.Windows.Forms.TextDataFormat.Rtf;
+            }
+            else if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.UnicodeText))
+            {
+                currentFormat = System.Windows.Forms.TextDataFormat.UnicodeText;
+            }
+            else if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.Text))
+            {
+                currentFormat = System.Windows.Forms.TextDataFormat.Text;
+            }
+            
+            return currentFormat;
+        }
+
+        private bool OnGetEntity(string value, System.Windows.Forms.TextDataFormat format, out Entities.ClipDataText entity)
+        {
+            entity = null;
+            try
+            {
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                return false;
             }
         }
     }
