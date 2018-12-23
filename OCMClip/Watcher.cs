@@ -32,13 +32,14 @@ namespace OCMClip
         }
         #endregion
 
+        public event EventHandler<string> ClipboardTextRecived;
+        public event EventHandler<System.Drawing.Image> ClipboardImageRecived;
+        public event EventHandler<System.IO.Stream> ClipboardAudioRecived;
+        public event EventHandler<System.Collections.Specialized.StringCollection> ClipboardFileListRecived;
+
         private System.Timers.Timer dispatcherTimer;
-        /*private string lastClipText = null;
-        private byte[] lastClipImage = null;
-        private static LastImageClip LastImageClipboardValue = null;*/
         private bool isRestarting = false;
         private ConfigurationWatcher configuration;
-        private readonly ClipHandler.ClipText clipText = new ClipHandler.ClipText(Manager.logger);
 
         private void OnStartTimer(int refreshRateMilliseconds, int refreshRateSeconds)
         {
@@ -77,9 +78,10 @@ namespace OCMClip
             {
                 if (configuration.ActiveText && System.Windows.Forms.Clipboard.ContainsText())
                 {
+                    ClipboardTextRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetText());
                     /*if (!ApplicationFilter.AllowToUse())
                             return;*/
-                    clipText.Handle(System.Windows.Forms.Clipboard.GetText());
+                    //clipText.Handle(System.Windows.Forms.Clipboard.GetText());
                     /*string clip = System.Windows.Forms.Clipboard.GetText();
                     if (!string.IsNullOrWhiteSpace(clip) && lastClipText != clip)
                     {
@@ -124,7 +126,8 @@ namespace OCMClip
                 }
                 else if (configuration.ActiveImage && System.Windows.Forms.Clipboard.ContainsImage())
                 {
-                    System.Drawing.Image image = System.Windows.Forms.Clipboard.GetImage();
+                    ClipboardImageRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetImage());
+                    //System.Drawing.Image image = System.Windows.Forms.Clipboard.GetImage();
                     /*if (!ApplicationFilter.AllowToUse())
                         return;
 
@@ -172,13 +175,11 @@ namespace OCMClip
                 }
                 else if (configuration.ActiveAudio && System.Windows.Forms.Clipboard.ContainsAudio())
                 {
-                    //no implementation
-                    var data = System.Windows.Forms.Clipboard.GetAudioStream();
+                    ClipboardAudioRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetAudioStream());
                 }
                 else if (configuration.ActiveFileDropList && System.Windows.Forms.Clipboard.ContainsFileDropList())
                 {
-                    //no implementation
-                    var data = System.Windows.Forms.Clipboard.GetFileDropList();
+                    ClipboardFileListRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetFileDropList());
                 }
             }
             catch (Exception ex)

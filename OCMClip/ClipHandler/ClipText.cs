@@ -11,12 +11,18 @@ namespace OCMClip.ClipHandler
         private readonly ILogger logger;
         private string lastValue = null;
 
-        public ClipText(ILogger _logger)
+        public ClipText(ILogger _logger, string _lastValue)
         {
             logger = _logger;
+            lastValue = _lastValue;
         }
 
-        public void Handle(string textValue)
+        /// <summary>
+        /// creates a Entity for the Clipboard text value is it is a new value
+        /// </summary>
+        /// <param name="textValue"></param>
+        /// <returns></returns>
+        public Entities.ClipDataText Handle(string textValue)
         {
             logger.Diagnostic("ClipText handle => " + textValue);
 
@@ -25,17 +31,10 @@ namespace OCMClip.ClipHandler
                 if (OnGetEntity(textValue, OnGetCurrentTextFormat(), out Entities.ClipDataText entity))
                 {
                     lastValue = textValue;
-                    /*if (Internal.Global.Instance.Settings.ShowBallonFromTextClip)
-                    {
-                        string title = Internal.Global.Instance.Localize.GetText("Text") + " - " + DateTime.Now.ToString("HH:mm");
-                        if (Internal.Global.Instance.Settings.ShowCustomBallonTipOnClip)
-                            Controls.BallonHelper.ShowCustomBallonText(lastClipText, title);
-                        if (Internal.Global.Instance.Settings.ShowSystemBallonTipOnClip)
-                            Controls.BallonHelper.ShowSystemBallon(title, lastClipText);
-                    }
-                    Internal.Global.Instance.InvokeClipChanged(entity, entity != null ? entity.Id : -1);*/
+                    return entity;
                 }
             }
+            return null;
         }
 
         private System.Windows.Forms.TextDataFormat OnGetCurrentTextFormat()
