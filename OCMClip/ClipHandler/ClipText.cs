@@ -69,6 +69,18 @@ namespace OCMClip.ClipHandler
             entity = null;
             try
             {
+                var nativData = Nativ.GetActiveWindow();
+                entity = new Entities.ClipDataText
+                {
+                    Id = Guid.NewGuid(),
+                    DateCreated = DateTime.UtcNow,
+                    SourceTextFormat = format,
+                    Value = value,
+                    ApplicationWindowTitle = nativData.Item1,
+                    ProcessId = nativData.Item2.Id,
+                    ProcessName = nativData.Item2.ProcessName,
+                    ApplicationName = nativData.Item2.ProcessName
+                };
 
                 return true;
             }

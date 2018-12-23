@@ -11,6 +11,7 @@ namespace OCMClip
         public event EventHandler<ClipHandler.Entities.ClipDataText> ClipboardTextChanged;
 
         internal static ILogger logger;
+        private Configuration configuration;
         private ClipHandler.ClipText clipText;
 
         public Manager(ILogger _logger)
@@ -22,11 +23,19 @@ namespace OCMClip
             Watcher.Instance.ClipboardTextRecived += Instance_ClipboardTextRecived;
         }
 
-        public void Load()
+        public void Load(Configuration _configuration)
         {
+            configuration = _configuration;
             clipText = new ClipHandler.ClipText(logger, null);
 
-            Watcher.Instance.ConfigurationChange(null);
+            Watcher.Instance.ConfigurationChange(configuration.ConfigurationWatcher);
+        }
+
+        public void StartWatcher()
+        {
+            if (configuration == null)
+                throw new Exception("Load a configuration before you start the clipboard watcher");
+            Watcher.Instance.StartTimer();
         }
 
 

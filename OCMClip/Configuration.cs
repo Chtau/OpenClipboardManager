@@ -8,5 +8,11 @@ namespace OCMClip
 {
     public class Configuration
     {
+        public ConfigurationWatcher ConfigurationWatcher { get; private set; }
+
+        public Configuration(ConfigurationWatcher configurationWatcher)
+        {
+            ConfigurationWatcher = configurationWatcher;
+        }
     }
 }
