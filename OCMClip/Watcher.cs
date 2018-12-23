@@ -47,12 +47,10 @@ namespace OCMClip
         {
             try
             {
-                // TODO: fix Timer problem with STAThread (is requiered for access to the Clipboard)
                 dispatcherTimer = new System.Timers.Timer();
                 dispatcherTimer.Elapsed += DispatcherTimer_Elapsed;
                 dispatcherTimer.Interval = (int)(new TimeSpan(0, 0, 0, refreshRateSeconds, refreshRateMilliseconds).TotalMilliseconds);
                 dispatcherTimer.Start();
-                //DispatcherTimer_Tick(null, null);
             }
             catch (Exception ex)
             {
@@ -82,103 +80,13 @@ namespace OCMClip
             {
                 InvokeSTATThread(() =>
                 {
-                    //configuration.ActiveText && 
-                    if (System.Windows.Forms.Clipboard.ContainsText())
+                    if (configuration.ActiveText && System.Windows.Forms.Clipboard.ContainsText())
                     {
                         ClipboardTextRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetText());
-                        /*if (!ApplicationFilter.AllowToUse())
-                                return;*/
-                        //clipText.Handle(System.Windows.Forms.Clipboard.GetText());
-                        /*string clip = System.Windows.Forms.Clipboard.GetText();
-                        if (!string.IsNullOrWhiteSpace(clip) && lastClipText != clip)
-                        {
-                            bool handleClip = false;
-                            System.Windows.Forms.TextDataFormat currentFormat = System.Windows.Forms.TextDataFormat.Text;
-                            if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.CommaSeparatedValue))
-                            {
-                                currentFormat = System.Windows.Forms.TextDataFormat.CommaSeparatedValue;
-                            }
-                            else if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.Html))
-                            {
-                                currentFormat = System.Windows.Forms.TextDataFormat.Html;
-                            }
-                            else if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.Rtf))
-                            {
-                                currentFormat = System.Windows.Forms.TextDataFormat.Rtf;
-                            }
-                            else if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.Text))
-                            {
-                                currentFormat = System.Windows.Forms.TextDataFormat.Text;
-                            }
-                            else if (System.Windows.Forms.Clipboard.ContainsText(System.Windows.Forms.TextDataFormat.UnicodeText))
-                            {
-                                currentFormat = System.Windows.Forms.TextDataFormat.UnicodeText;
-                            }
-                            handleClip = Clip.CopyClipText(clip, currentFormat, out Entities.ClipDataText entity);
-
-                            if (handleClip)
-                            {
-                                lastClipText = clip;
-                                if (Internal.Global.Instance.Settings.ShowBallonFromTextClip)
-                                {
-                                    string title = Internal.Global.Instance.Localize.GetText("Text") + " - " + DateTime.Now.ToString("HH:mm");
-                                    if (Internal.Global.Instance.Settings.ShowCustomBallonTipOnClip)
-                                        Controls.BallonHelper.ShowCustomBallonText(lastClipText, title);
-                                    if (Internal.Global.Instance.Settings.ShowSystemBallonTipOnClip)
-                                        Controls.BallonHelper.ShowSystemBallon(title, lastClipText);
-                                }
-                                Internal.Global.Instance.InvokeClipChanged(entity, entity != null ? entity.Id : -1);
-                            }
-                        }*/
                     }
                     else if (configuration.ActiveImage && System.Windows.Forms.Clipboard.ContainsImage())
                     {
                         ClipboardImageRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetImage());
-                        //System.Drawing.Image image = System.Windows.Forms.Clipboard.GetImage();
-                        /*if (!ApplicationFilter.AllowToUse())
-                            return;
-
-                        System.Drawing.Image image = System.Windows.Forms.Clipboard.GetImage();
-                        if (image == null)
-                            return;
-
-                        LastImageClip curValue = new LastImageClip()
-                        {
-                            Width = image.Width,
-                            Height = image.Height,
-                            Flags = image.Flags,
-                            HResolution = image.HorizontalResolution,
-                        };
-
-                        if (LastImageClipboardValue != null)
-                        {
-                            if (LastImageClipboardValue.Width == curValue.Width &&
-                                LastImageClipboardValue.Height == curValue.Height &&
-                                LastImageClipboardValue.Flags == curValue.Flags &&
-                                LastImageClipboardValue.HResolution == curValue.HResolution)
-                                return;
-                        }
-                        LastImageClipboardValue = curValue;
-
-                        var newByteArray = DataConverter.ImageToByteArray(image);
-                        if (lastClipImage == null || !lastClipImage.SequenceEqual(newByteArray))
-                        {
-                            bool handleClip = false;
-                            handleClip = Clip.CopyClipImage(image, out Entities.ClipDataImage entity);
-                            if (handleClip)
-                            {
-                                lastClipImage = newByteArray;
-                                if (Internal.Global.Instance.Settings.ShowBallonFromTextClip)
-                                {
-                                    string title = Internal.Global.Instance.Localize.GetText("Image") + " - " + DateTime.Now.ToString("HH:mm");
-                                    if (Internal.Global.Instance.Settings.ShowCustomBallonTipOnClip)
-                                        Controls.BallonHelper.ShowCustomBallonImage(image, title);
-                                    if (Internal.Global.Instance.Settings.ShowSystemBallonTipOnClip)
-                                        Controls.BallonHelper.ShowSystemBallon(title);
-                                }
-                                Internal.Global.Instance.InvokeClipChanged(entity, entity != null ? entity.Id : -1);
-                            }
-                        }*/
                     }
                     else if (configuration.ActiveAudio && System.Windows.Forms.Clipboard.ContainsAudio())
                     {

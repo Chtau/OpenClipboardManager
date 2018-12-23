@@ -9,10 +9,12 @@ namespace OCMClip
     public class Manager : IDisposable
     {
         public event EventHandler<ClipHandler.Entities.ClipDataText> ClipboardTextChanged;
+        public event EventHandler<ClipHandler.Entities.ClipDataImage> ClipboardImageChanged;
 
         internal static ILogger logger;
         private Configuration configuration;
         private ClipHandler.ClipText clipText;
+        private ClipHandler.ClipImage clipImage;
 
         public Manager(ILogger _logger)
         {
@@ -27,6 +29,7 @@ namespace OCMClip
         {
             configuration = _configuration;
             clipText = new ClipHandler.ClipText(logger, null);
+            clipImage = new ClipHandler.ClipImage(logger, null);
 
             Watcher.Instance.ConfigurationChange(configuration.ConfigurationWatcher);
         }
@@ -50,7 +53,11 @@ namespace OCMClip
 
         private void Instance_ClipboardImageRecived(object sender, System.Drawing.Image e)
         {
-            throw new NotImplementedException();
+            ClipHandler.Entities.ClipDataImage entity = clipImage.Handle(e);
+            if (entity != null)
+            {
+                ClipboardImageChanged?.Invoke(this, entity);
+            }
         }
 
         private void Instance_ClipboardFileListRecived(object sender, System.Collections.Specialized.StringCollection e)

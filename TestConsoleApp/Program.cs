@@ -22,7 +22,14 @@ namespace TestConsoleApp
                 Console.WriteLine("Clipboard Text => " + e.Value);
                 Console.ResetColor();
             };
-            ocm.Load(new OCMClip.Configuration(new OCMClip.ConfigurationWatcher(50, 0, true, false, false, false)));
+            ocm.ClipboardImageChanged += (obj, e) =>
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Clipboard Image bytes length => " + e.Value.Length);
+                Console.ResetColor();
+            };
+
+            ocm.Load(new OCMClip.Configuration(new OCMClip.ConfigurationWatcher(50, 0, true, true, false, false)));
             ocm.StartWatcher();
 
             Console.ReadKey();
