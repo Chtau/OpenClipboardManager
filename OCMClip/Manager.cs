@@ -19,7 +19,6 @@ namespace OCMClip
         public Manager(ILogger _logger)
         {
             logger = _logger;
-            Watcher.Instance.ClipboardAudioRecived += Instance_ClipboardAudioRecived;
             Watcher.Instance.ClipboardFileListRecived += Instance_ClipboardFileListRecived;
             Watcher.Instance.ClipboardImageRecived += Instance_ClipboardImageRecived;
             Watcher.Instance.ClipboardTextRecived += Instance_ClipboardTextRecived;
@@ -65,11 +64,6 @@ namespace OCMClip
             throw new NotImplementedException();
         }
 
-        private void Instance_ClipboardAudioRecived(object sender, System.IO.Stream e)
-        {
-            throw new NotImplementedException();
-        }
-
         #region IDisposable Support
         private bool disposedValue = false;
 
@@ -79,7 +73,6 @@ namespace OCMClip
             {
                 if (disposing)
                 {
-                    Watcher.Instance.ClipboardAudioRecived -= Instance_ClipboardAudioRecived;
                     Watcher.Instance.ClipboardFileListRecived -= Instance_ClipboardFileListRecived;
                     Watcher.Instance.ClipboardImageRecived -= Instance_ClipboardImageRecived;
                     Watcher.Instance.ClipboardTextRecived -= Instance_ClipboardTextRecived;

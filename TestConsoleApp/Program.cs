@@ -29,7 +29,7 @@ namespace TestConsoleApp
                 Console.ResetColor();
             };
 
-            ocm.Load(new OCMClip.Configuration(new OCMClip.ConfigurationWatcher(50, 0, true, true, false, false)));
+            ocm.Load(new OCMClip.Configuration(new OCMClip.ConfigurationWatcher(50, 0, true, true, false)));
             ocm.StartWatcher();
 
             Console.ReadKey();

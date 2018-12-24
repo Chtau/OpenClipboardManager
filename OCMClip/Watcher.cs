@@ -36,7 +36,6 @@ namespace OCMClip
 
         public event EventHandler<string> ClipboardTextRecived;
         public event EventHandler<System.Drawing.Image> ClipboardImageRecived;
-        public event EventHandler<System.IO.Stream> ClipboardAudioRecived;
         public event EventHandler<System.Collections.Specialized.StringCollection> ClipboardFileListRecived;
 
         private System.Timers.Timer dispatcherTimer;
@@ -87,10 +86,6 @@ namespace OCMClip
                     else if (configuration.ActiveImage && System.Windows.Forms.Clipboard.ContainsImage())
                     {
                         ClipboardImageRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetImage());
-                    }
-                    else if (configuration.ActiveAudio && System.Windows.Forms.Clipboard.ContainsAudio())
-                    {
-                        ClipboardAudioRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetAudioStream());
                     }
                     else if (configuration.ActiveFileDropList && System.Windows.Forms.Clipboard.ContainsFileDropList())
                     {

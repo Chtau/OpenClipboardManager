@@ -12,19 +12,16 @@ namespace OCMClip
         public int RefreshRateSeconds { get; private set; }
         public bool ActiveText { get; private set; }
         public bool ActiveImage { get; private set; }
-        public bool ActiveAudio { get; private set; }
         public bool ActiveFileDropList { get; private set; }
 
         public ConfigurationWatcher(int refreshRateMilliseconds,
             int refreshRateSeconds,
             bool activeText,
             bool activeImage,
-            bool activeAudio,
             bool activeFileDropList)
         {
             RefreshRateMilliseconds = refreshRateMilliseconds;
             RefreshRateSeconds = RefreshRateSeconds;
-            ActiveAudio = activeAudio;
             ActiveFileDropList = activeFileDropList;
             ActiveImage = activeImage;
             ActiveText = activeText;
