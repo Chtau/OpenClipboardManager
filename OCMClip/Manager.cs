@@ -10,11 +10,13 @@ namespace OCMClip
     {
         public event EventHandler<ClipHandler.Entities.ClipDataText> ClipboardTextChanged;
         public event EventHandler<ClipHandler.Entities.ClipDataImage> ClipboardImageChanged;
+        public event EventHandler<ClipHandler.Entities.ClipDataFile> ClipboardFileChanged;
 
         internal static ILogger logger;
         private Configuration configuration;
         private ClipHandler.ClipText clipText;
         private ClipHandler.ClipImage clipImage;
+        private ClipHandler.ClipFile clipFile;
 
         public Manager(ILogger _logger)
         {
@@ -29,6 +31,7 @@ namespace OCMClip
             configuration = _configuration;
             clipText = new ClipHandler.ClipText(logger, null);
             clipImage = new ClipHandler.ClipImage(logger, null);
+            clipFile = new ClipHandler.ClipFile(logger, null);
 
             Watcher.Instance.ConfigurationChange(configuration.ConfigurationWatcher);
         }
@@ -61,7 +64,11 @@ namespace OCMClip
 
         private void Instance_ClipboardFileListRecived(object sender, System.Collections.Specialized.StringCollection e)
         {
-            throw new NotImplementedException();
+            ClipHandler.Entities.ClipDataFile entity = clipFile.Handle(e);
+            if (entity != null)
+            {
+                ClipboardFileChanged?.Invoke(this, entity);
+            }
         }
 
         #region IDisposable Support

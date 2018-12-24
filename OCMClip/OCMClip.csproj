@@ -43,10 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClipHandler\ClipFile.cs" />
     <Compile Include="ClipHandler\ClipImage.cs" />
     <Compile Include="ClipHandler\ClipText.cs" />
     <Compile Include="ClipHandler\ConvertImage.cs" />
     <Compile Include="ClipHandler\Entities\ClipData.cs" />
+    <Compile Include="ClipHandler\Entities\ClipDataFile.cs" />
     <Compile Include="ClipHandler\Entities\ClipDataImage.cs" />
     <Compile Include="ClipHandler\Entities\ClipDataText.cs" />
     <Compile Include="ClipHandler\Nativ.cs" />

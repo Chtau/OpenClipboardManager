@@ -28,8 +28,18 @@ namespace TestConsoleApp
                 Console.WriteLine("Clipboard Image bytes length => " + e.Value.Length);
                 Console.ResetColor();
             };
+            ocm.ClipboardFileChanged += (obj, e) =>
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Clipboard Files => " + e.Value.Count);
+                for (int i = 0; i < e.Value.Count; i++)
+                {
+                    Console.WriteLine($"{i}. File: " + e.Value[i]);
+                }
+                Console.ResetColor();
+            };
 
-            ocm.Load(new OCMClip.Configuration(new OCMClip.ConfigurationWatcher(50, 0, true, true, false)));
+            ocm.Load(new OCMClip.Configuration(new OCMClip.ConfigurationWatcher(50, 0, true, true, true)));
             ocm.StartWatcher();
 
             Console.ReadKey();
