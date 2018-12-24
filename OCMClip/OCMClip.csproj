@@ -51,6 +51,7 @@
     <Compile Include="ClipHandler\Entities\ClipDataFile.cs" />
     <Compile Include="ClipHandler\Entities\ClipDataImage.cs" />
     <Compile Include="ClipHandler\Entities\ClipDataText.cs" />
+    <Compile Include="ClipHandler\Entities\Enums.cs" />
     <Compile Include="ClipHandler\Nativ.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="ConfigurationWatcher.cs" />

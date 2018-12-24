@@ -8,6 +8,7 @@ namespace OCMClip
 {
     public class Configuration
     {
+        public ClipHandler.Entities.Enums.ImageFormatType DefaultImageFormat { get; private set; }
         public ConfigurationWatcher ConfigurationWatcher { get; private set; }
 
         public Configuration(ConfigurationWatcher configurationWatcher)

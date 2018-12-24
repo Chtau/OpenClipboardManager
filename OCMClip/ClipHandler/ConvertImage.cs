@@ -6,25 +6,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OCMClip.ClipHandler.Entities;
 
 namespace OCMClip.ClipHandler
 {
     internal static class ConvertImage
     {
-        public enum ImageFormatType
-        {
-            Png = 0,
-            Bmp = 1,
-            Emf = 2,
-            Exif = 3,
-            Gif = 4,
-            Icon = 5,
-            Jpeg = 6,
-            Tiff = 7,
-            Wmf = 8
-        }
-
-        public static byte[] ImageToByteArray(System.Drawing.Image imageIn, ImageFormatType formatType)
+        public static byte[] ImageToByteArray(System.Drawing.Image imageIn, Enums.ImageFormatType formatType)
         {
             using (MemoryStream stream = new MemoryStream())
             {
@@ -79,27 +67,27 @@ namespace OCMClip.ClipHandler
             }
         }
 
-        public static ImageFormat GetImageFormat(ImageFormatType format)
+        public static ImageFormat GetImageFormat(Enums.ImageFormatType format)
         {
             switch (format)
             {
-                case ImageFormatType.Bmp:
+                case Enums.ImageFormatType.Bmp:
                     return ImageFormat.Bmp;
-                case ImageFormatType.Emf:
+                case Enums.ImageFormatType.Emf:
                     return ImageFormat.Emf;
-                case ImageFormatType.Exif:
+                case Enums.ImageFormatType.Exif:
                     return ImageFormat.Exif;
-                case ImageFormatType.Gif:
+                case Enums.ImageFormatType.Gif:
                     return ImageFormat.Gif;
-                case ImageFormatType.Icon:
+                case Enums.ImageFormatType.Icon:
                     return ImageFormat.Icon;
-                case ImageFormatType.Jpeg:
+                case Enums.ImageFormatType.Jpeg:
                     return ImageFormat.Jpeg;
-                case ImageFormatType.Tiff:
+                case Enums.ImageFormatType.Tiff:
                     return ImageFormat.Tiff;
-                case ImageFormatType.Wmf:
+                case Enums.ImageFormatType.Wmf:
                     return ImageFormat.Wmf;
-                case ImageFormatType.Png:
+                case Enums.ImageFormatType.Png:
                 default:
                     return ImageFormat.Png;
             }

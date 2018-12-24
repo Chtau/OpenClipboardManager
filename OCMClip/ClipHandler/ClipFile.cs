@@ -10,10 +10,12 @@ namespace OCMClip.ClipHandler
     internal class ClipFile
     {
         private readonly ILogger logger;
+        private readonly Configuration configuration;
         private List<string> lastValue = null;
 
-        public ClipFile(ILogger _logger, List<string> _lastValue)
+        public ClipFile(Configuration _configuration, ILogger _logger, List<string> _lastValue)
         {
+            configuration = _configuration;
             logger = _logger;
             lastValue = _lastValue;
         }

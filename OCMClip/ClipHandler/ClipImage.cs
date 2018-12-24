@@ -4,16 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using OCMClip.ClipHandler.Entities;
 
 namespace OCMClip.ClipHandler
 {
     internal class ClipImage
     {
         private readonly ILogger logger;
+        private readonly Configuration configuration;
         private Image lastValue = null;
 
-        public ClipImage(ILogger _logger, Image _lastValue)
+        public ClipImage(Configuration _configuration, ILogger _logger, Image _lastValue)
         {
+            configuration = _configuration;
             logger = _logger;
             lastValue = _lastValue;
         }
@@ -22,7 +25,7 @@ namespace OCMClip.ClipHandler
         {
             if (image != null && !Nativ.CompareMemCmp(image ,lastValue))
             {
-                if (OnGetEntity(image, out Entities.ClipDataImage entity))
+                if (OnGetEntity(image, configuration.DefaultImageFormat, out Entities.ClipDataImage entity))
                 {
                     lastValue = image;
                     return entity;
@@ -31,7 +34,7 @@ namespace OCMClip.ClipHandler
             return null;
         }
 
-        private bool OnGetEntity(Image image, out Entities.ClipDataImage entity)
+        private bool OnGetEntity(Image image, Enums.ImageFormatType formatType, out Entities.ClipDataImage entity)
         {
             entity = null;
             try
@@ -41,7 +44,8 @@ namespace OCMClip.ClipHandler
                 {
                     Id = Guid.NewGuid(),
                     DateCreated = DateTime.UtcNow,
-                    Value = ConvertImage.ImageToByteArray(image, ConvertImage.ImageFormatType.Png),
+                    Value = ConvertImage.ImageToByteArray(image, formatType),
+                    FormatType = formatType,
                     ApplicationWindowTitle = nativData.Item1,
                     ProcessId = nativData.Item2.Id,
                     ProcessName = nativData.Item2.ProcessName,

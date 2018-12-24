@@ -29,9 +29,9 @@ namespace OCMClip
         public void Load(Configuration _configuration)
         {
             configuration = _configuration;
-            clipText = new ClipHandler.ClipText(logger, null);
-            clipImage = new ClipHandler.ClipImage(logger, null);
-            clipFile = new ClipHandler.ClipFile(logger, null);
+            clipText = new ClipHandler.ClipText(configuration, logger, null);
+            clipImage = new ClipHandler.ClipImage(configuration, logger, null);
+            clipFile = new ClipHandler.ClipFile(configuration, logger, null);
 
             Watcher.Instance.ConfigurationChange(configuration.ConfigurationWatcher);
         }

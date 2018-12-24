@@ -9,10 +9,12 @@ namespace OCMClip.ClipHandler
     internal class ClipText
     {
         private readonly ILogger logger;
+        private readonly Configuration configuration;
         private string lastValue = null;
 
-        public ClipText(ILogger _logger, string _lastValue)
+        public ClipText(Configuration _configuration, ILogger _logger, string _lastValue)
         {
+            configuration = _configuration;
             logger = _logger;
             lastValue = _lastValue;
         }
