@@ -11,9 +11,11 @@ namespace OCMClip
         public ClipHandler.Entities.Enums.ImageFormatType DefaultImageFormat { get; private set; }
         public ConfigurationWatcher ConfigurationWatcher { get; private set; }
 
-        public Configuration(ConfigurationWatcher configurationWatcher)
+        public Configuration(ConfigurationWatcher configurationWatcher, 
+            ClipHandler.Entities.Enums.ImageFormatType defaultImageFormatType = ClipHandler.Entities.Enums.ImageFormatType.Png)
         {
             ConfigurationWatcher = configurationWatcher;
+            DefaultImageFormat = defaultImageFormatType;
         }
     }
 }
