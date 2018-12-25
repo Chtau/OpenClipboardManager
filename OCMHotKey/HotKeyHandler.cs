@@ -61,7 +61,7 @@ namespace OCMHotKey
         {
             int virtualKeyCode = KeyInterop.VirtualKeyFromKey((Key)hotKey.Key);
             int registerId = virtualKeyCode + ((int)hotKey.KeyModifiers * 0x10000);
-            if (!hotKeyItems.ContainsKey(registerId))
+            if (!hotKeyItems.ContainsKey(registerId) && !hotKeyItems.Any(x => x.Value.UniqueName.ToUpper() == hotKey.UniqueName.ToUpper()))
             {
                 bool result = false;
                 wpfApp.Dispatcher.Invoke(() =>
@@ -71,10 +71,15 @@ namespace OCMHotKey
 
                 if (!hotKeyItems.ContainsKey(registerId))
                     hotKeyItems.Add(registerId, hotKey);
-
-                Debug.Print(result.ToString() + ", " + registerId + ", " + virtualKeyCode);
                 return result;
             }
+            return false;
+        }
+
+        public bool Unregister(string uniqueName)
+        {
+            if (hotKeyItems.Any(x => x.Value.UniqueName.ToUpper() == uniqueName.ToUpper()))
+                return Unregister(hotKeyItems.First(x => x.Value.UniqueName.ToUpper() == uniqueName.ToUpper()).Value.Id);
             return false;
         }
 
@@ -119,6 +124,12 @@ namespace OCMHotKey
             } else
                 hotKeyItems.Clear();
             return result;
+        }
+
+        public IEnumerable<HotKey> GetItems()
+        {
+            return from x in hotKeyItems
+                   select x.Value;
         }
 
         private void ComponentDispatcherThreadFilterMessage(ref MSG msg, ref bool handled)

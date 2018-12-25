@@ -10,6 +10,14 @@ namespace OCMHotKey
     {
         public event EventHandler<HotKey> HotKeyPressed;
 
+        public IEnumerable<HotKey> HotKeys
+        {
+            get
+            {
+                return HotKeyHandler.Instance.GetItems();
+            }
+        }
+
         public Manager()
         {
             HotKeyHandler.Instance.HotKeyPressed += Instance_HotKeyPressed;
@@ -30,14 +38,19 @@ namespace OCMHotKey
             HotKeyHandler.Instance.Register(new HotKey(key, keyModifiers, callback));
         }
 
-        public void Remove(Guid id)
+        public bool Remove(string uniqueName)
         {
-            HotKeyHandler.Instance.Unregister(id);
+            return HotKeyHandler.Instance.Unregister(uniqueName);
         }
 
-        public void Clear()
+        public bool Remove(Guid id)
         {
-            HotKeyHandler.Instance.UnregisterAll();
+            return HotKeyHandler.Instance.Unregister(id);
+        }
+
+        public bool Clear()
+        {
+            return HotKeyHandler.Instance.UnregisterAll();
         }
 
         #region IDisposable Support
