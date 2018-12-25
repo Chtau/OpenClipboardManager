@@ -13,11 +13,11 @@ namespace OCMClip.ClipHandler
         private readonly Configuration configuration;
         private List<string> lastValue = null;
 
-        public ClipFile(Configuration _configuration, ILogger _logger, List<string> _lastValue)
+        public ClipFile(Configuration _configuration, ILogger _logger)
         {
             configuration = _configuration;
             logger = _logger;
-            lastValue = _lastValue;
+            lastValue = configuration.LastClipboardFileValue;
         }
 
         public Entities.ClipDataFile Handle(StringCollection textValue)

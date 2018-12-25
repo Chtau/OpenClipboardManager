@@ -12,11 +12,11 @@ namespace OCMClip.ClipHandler
         private readonly Configuration configuration;
         private string lastValue = null;
 
-        public ClipText(Configuration _configuration, ILogger _logger, string _lastValue)
+        public ClipText(Configuration _configuration, ILogger _logger)
         {
             configuration = _configuration;
             logger = _logger;
-            lastValue = _lastValue;
+            lastValue = configuration.LastClipboardTextValue;
         }
 
         /// <summary>

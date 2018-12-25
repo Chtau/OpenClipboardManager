@@ -40,9 +40,9 @@ namespace OCMClip.ClipHandler
         public void Init(ILogger logger, Configuration _configuration)
         {
             configuration = _configuration;
-            clipText = new ClipHandler.ClipText(configuration, logger, null);
-            clipImage = new ClipHandler.ClipImage(configuration, logger, null);
-            clipFile = new ClipHandler.ClipFile(configuration, logger, null);
+            clipText = new ClipHandler.ClipText(configuration, logger);
+            clipImage = new ClipHandler.ClipImage(configuration, logger);
+            clipFile = new ClipHandler.ClipFile(configuration, logger);
         }
 
         public Entities.ClipDataText Text(string value)

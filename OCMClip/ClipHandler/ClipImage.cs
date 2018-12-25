@@ -14,11 +14,11 @@ namespace OCMClip.ClipHandler
         private readonly Configuration configuration;
         private Image lastValue = null;
 
-        public ClipImage(Configuration _configuration, ILogger _logger, Image _lastValue)
+        public ClipImage(Configuration _configuration, ILogger _logger)
         {
             configuration = _configuration;
             logger = _logger;
-            lastValue = _lastValue;
+            lastValue = configuration.LastClipboardImageValue;
         }
 
         public Entities.ClipDataImage Handle(Image image)
