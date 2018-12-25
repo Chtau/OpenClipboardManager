@@ -25,5 +25,15 @@ namespace OCMApp
         {
             InitializeComponent();
         }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            this.SettingsFlyout.IsOpen = !this.SettingsFlyout.IsOpen;
+        }
+
+        private void Info_Click(object sender, RoutedEventArgs e)
+        {
+            this.InfoFlyout.IsOpen = !this.InfoFlyout.IsOpen;
+        }
     }
 }
