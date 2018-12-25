@@ -46,7 +46,7 @@ namespace OCMClip
         public void Query()
         {
             if (configuration == null)
-                throw new Exception("Load a configuration before you start the clipboard watcher");
+                throw new Exception("Load a configuration before you can query for clipboard content");
             Watcher.Instance.QueryClipboard();
         }
 

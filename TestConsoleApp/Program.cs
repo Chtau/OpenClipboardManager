@@ -40,6 +40,7 @@ namespace TestConsoleApp
             };
 
             ocm.Load(new OCMClip.Configuration(new OCMClip.ConfigurationWatcher(50, 0, true, true, true)));
+            ocm.Query();
             ocm.StartWatcher();
 
             Console.ReadKey();
