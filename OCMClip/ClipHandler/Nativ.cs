@@ -21,12 +21,6 @@ namespace OCMClip.ClipHandler
         [DllImport("user32.dll")]
         internal static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, out uint ProcessId);
 
-        [DllImport("user32.dll")]
-        internal static extern bool RegisterHotKey(IntPtr hWnd, int id, UInt32 fsModifiers, UInt32 vlc);
-
-        [DllImport("user32.dll")]
-        internal static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-
         [DllImport("msvcrt.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int memcmp(IntPtr b1, IntPtr b2, IntPtr count);
 

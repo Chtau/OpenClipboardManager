@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCMClip", "OCMClip\OCMClip.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsoleApp", "TestConsoleApp\TestConsoleApp.csproj", "{1A0AEBE9-1D72-4ED2-8BF8-1DF0582C451F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCMHotKey", "OCMHotKey\OCMHotKey.csproj", "{A95992C7-2654-4378-8C64-3FEAE5D0AD26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1A0AEBE9-1D72-4ED2-8BF8-1DF0582C451F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A0AEBE9-1D72-4ED2-8BF8-1DF0582C451F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A0AEBE9-1D72-4ED2-8BF8-1DF0582C451F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A95992C7-2654-4378-8C64-3FEAE5D0AD26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A95992C7-2654-4378-8C64-3FEAE5D0AD26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A95992C7-2654-4378-8C64-3FEAE5D0AD26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A95992C7-2654-4378-8C64-3FEAE5D0AD26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
