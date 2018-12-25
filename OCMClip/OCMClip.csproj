@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClipHandler\ClipFile.cs" />
+    <Compile Include="ClipHandler\ClipHandle.cs" />
     <Compile Include="ClipHandler\ClipImage.cs" />
     <Compile Include="ClipHandler\ClipText.cs" />
     <Compile Include="ClipHandler\ConvertImage.cs" />

@@ -16,12 +16,12 @@ namespace TestConsoleApp
             Console.WriteLine("Start Clipboard Test App");
             var logger = new Logger();
             var ocm = new OCMClip.Manager(logger);
-            ocm.ClipboardTextChanged += (obj, e) =>
+            /*ocm.ClipboardTextChanged += (obj, e) =>
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Clipboard Text => " + e.Value);
                 Console.ResetColor();
-            };
+            };*/
             ocm.ClipboardImageChanged += (obj, e) =>
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -42,6 +42,14 @@ namespace TestConsoleApp
             ocm.Load(new OCMClip.Configuration(new OCMClip.ConfigurationWatcher(50, 0, true, true, true)));
             ocm.Query();
             ocm.StartWatcher();
+
+            var ocm1 = new OCMClip.Manager(logger);
+            ocm1.ClipboardTextChanged += (obj, e) =>
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("[Instance 2] Clipboard Text => " + e.Value);
+                Console.ResetColor();
+            };
 
             Console.ReadKey();
         }

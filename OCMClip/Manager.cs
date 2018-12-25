@@ -14,9 +14,6 @@ namespace OCMClip
 
         internal static ILogger logger;
         private Configuration configuration;
-        private ClipHandler.ClipText clipText;
-        private ClipHandler.ClipImage clipImage;
-        private ClipHandler.ClipFile clipFile;
 
         public Manager(ILogger _logger)
         {
@@ -29,10 +26,8 @@ namespace OCMClip
         public void Load(Configuration _configuration)
         {
             configuration = _configuration;
-            clipText = new ClipHandler.ClipText(configuration, logger, null);
-            clipImage = new ClipHandler.ClipImage(configuration, logger, null);
-            clipFile = new ClipHandler.ClipFile(configuration, logger, null);
-
+            
+            ClipHandler.ClipHandle.Instance.Init(logger, configuration);
             Watcher.Instance.ConfigurationChange(configuration.ConfigurationWatcher);
         }
 
@@ -50,31 +45,39 @@ namespace OCMClip
             Watcher.Instance.QueryClipboard();
         }
 
-
         private void Instance_ClipboardTextRecived(object sender, string e)
         {
-            ClipHandler.Entities.ClipDataText entity = clipText.Handle(e);
-            if (entity != null)
+            if (ClipboardTextChanged != null)
             {
-                ClipboardTextChanged?.Invoke(this, entity);
+                ClipHandler.Entities.ClipDataText entity = ClipHandler.ClipHandle.Instance.Text(e);
+                if (entity != null)
+                {
+                    ClipboardTextChanged?.Invoke(this, entity);
+                }
             }
         }
 
         private void Instance_ClipboardImageRecived(object sender, System.Drawing.Image e)
         {
-            ClipHandler.Entities.ClipDataImage entity = clipImage.Handle(e);
-            if (entity != null)
+            if (ClipboardImageChanged != null)
             {
-                ClipboardImageChanged?.Invoke(this, entity);
+                ClipHandler.Entities.ClipDataImage entity = ClipHandler.ClipHandle.Instance.Image(e);
+                if (entity != null)
+                {
+                    ClipboardImageChanged?.Invoke(this, entity);
+                }
             }
         }
 
         private void Instance_ClipboardFileListRecived(object sender, System.Collections.Specialized.StringCollection e)
         {
-            ClipHandler.Entities.ClipDataFile entity = clipFile.Handle(e);
-            if (entity != null)
+            if (ClipboardFileChanged != null)
             {
-                ClipboardFileChanged?.Invoke(this, entity);
+                ClipHandler.Entities.ClipDataFile entity = ClipHandler.ClipHandle.Instance.File(e);
+                if (entity != null)
+                {
+                    ClipboardFileChanged?.Invoke(this, entity);
+                }
             }
         }
 
