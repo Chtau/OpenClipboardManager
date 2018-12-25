@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OCMHotKey
 {
-    public class Manager : IDisposable
+    public class OCMHotKey : IDisposable
     {
         public event EventHandler<HotKey> HotKeyPressed;
 
@@ -18,7 +18,7 @@ namespace OCMHotKey
             }
         }
 
-        public Manager()
+        public OCMHotKey()
         {
             HotKeyHandler.Instance.HotKeyPressed += Instance_HotKeyPressed;
         }

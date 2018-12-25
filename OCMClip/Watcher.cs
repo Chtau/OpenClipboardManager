@@ -53,7 +53,7 @@ namespace OCMClip
             }
             catch (Exception ex)
             {
-                Manager.logger.Error(ex);
+                OCMClip.logger.Error(ex);
             }
         }
 
@@ -67,7 +67,7 @@ namespace OCMClip
             }
             catch (Exception ex)
             {
-                Manager.logger.Error(ex);
+                OCMClip.logger.Error(ex);
             }
         }
         
@@ -81,7 +81,7 @@ namespace OCMClip
             }
             catch (Exception ex)
             {
-                Manager.logger.Error(ex);
+                OCMClip.logger.Error(ex);
             }
             finally
             {
@@ -133,7 +133,7 @@ namespace OCMClip
             }
             catch (Exception ex)
             {
-                Manager.logger.Error(ex);
+                OCMClip.logger.Error(ex);
             }
             finally
             {
@@ -153,7 +153,7 @@ namespace OCMClip
             }
             catch (Exception ex)
             {
-                Manager.logger.Error(ex);
+                OCMClip.logger.Error(ex);
             }
         }
 
@@ -169,7 +169,7 @@ namespace OCMClip
             }
             catch (Exception ex)
             {
-                Manager.logger.Error(ex);
+                OCMClip.logger.Error(ex);
                 return false;
             }
         }
@@ -182,7 +182,7 @@ namespace OCMClip
             }
             catch (Exception ex)
             {
-                Manager.logger.Error(ex);
+                OCMClip.logger.Error(ex);
             }
         }
 

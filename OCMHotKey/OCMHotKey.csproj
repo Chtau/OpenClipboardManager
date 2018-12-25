@@ -46,7 +46,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="HotKey.cs" />
     <Compile Include="HotKeyHandler.cs" />
-    <Compile Include="Manager.cs" />
+    <Compile Include="OCMHotKey.cs" />
     <Compile Include="Nativ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

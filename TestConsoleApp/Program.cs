@@ -15,7 +15,7 @@ namespace TestConsoleApp
 
             Console.WriteLine("Start Clipboard Test App");
             var logger = new Logger();
-            var ocm = new OCMClip.Manager(logger);
+            var ocm = new OCMClip.OCMClip(logger);
             /*ocm.ClipboardTextChanged += (obj, e) =>
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -43,7 +43,7 @@ namespace TestConsoleApp
             ocm.Query();
             ocm.StartWatcher();
 
-            var ocm1 = new OCMClip.Manager(logger);
+            var ocm1 = new OCMClip.OCMClip(logger);
             ocm1.ClipboardTextChanged += (obj, e) =>
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -51,7 +51,7 @@ namespace TestConsoleApp
                 Console.ResetColor();
             };
 
-            var hotKey = new OCMHotKey.Manager();
+            var hotKey = new OCMHotKey.OCMHotKey();
             hotKey.Add(OCMHotKey.Enums.Key.B, 
                 OCMHotKey.Enums.KeyModifier.Ctrl, 
                 (e) =>

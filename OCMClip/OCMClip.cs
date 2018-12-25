@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OCMClip
 {
-    public class Manager : IDisposable
+    public class OCMClip : IDisposable
     {
         public event EventHandler<ClipHandler.Entities.ClipDataText> ClipboardTextChanged;
         public event EventHandler<ClipHandler.Entities.ClipDataImage> ClipboardImageChanged;
@@ -15,7 +15,7 @@ namespace OCMClip
         internal static ILogger logger;
         private Configuration configuration;
 
-        public Manager(ILogger _logger)
+        public OCMClip(ILogger _logger)
         {
             logger = _logger;
             Watcher.Instance.ClipboardFileListRecived += Instance_ClipboardFileListRecived;

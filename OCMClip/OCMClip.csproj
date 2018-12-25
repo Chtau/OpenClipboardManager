@@ -57,7 +57,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="ConfigurationWatcher.cs" />
     <Compile Include="ILogger.cs" />
-    <Compile Include="Manager.cs" />
+    <Compile Include="OCMClip.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Watcher.cs" />
   </ItemGroup>

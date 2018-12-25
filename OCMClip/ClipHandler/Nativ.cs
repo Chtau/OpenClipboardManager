@@ -47,7 +47,7 @@ namespace OCMClip.ClipHandler
             }
             catch (Exception ex)
             {
-                Manager.logger.Error(ex);
+                OCMClip.logger.Error(ex);
                 return null;
             }
         }
@@ -68,7 +68,7 @@ namespace OCMClip.ClipHandler
             }
             catch (Exception ex)
             {
-                Manager.logger.Error(ex);
+                OCMClip.logger.Error(ex);
                 return null;
             }
         }
@@ -84,7 +84,7 @@ namespace OCMClip.ClipHandler
             }
             catch (Exception ex)
             {
-                Manager.logger.Error(ex);
+                OCMClip.logger.Error(ex);
                 return null;
             }
         }
