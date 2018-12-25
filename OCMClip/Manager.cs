@@ -43,6 +43,13 @@ namespace OCMClip
             Watcher.Instance.StartTimer();
         }
 
+        public void Query()
+        {
+            if (configuration == null)
+                throw new Exception("Load a configuration before you start the clipboard watcher");
+            Watcher.Instance.QueryClipboard();
+        }
+
 
         private void Instance_ClipboardTextRecived(object sender, string e)
         {

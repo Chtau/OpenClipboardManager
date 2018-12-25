@@ -77,21 +77,7 @@ namespace OCMClip
             dispatcherTimer.Enabled = false;
             try
             {
-                InvokeSTATThread(() =>
-                {
-                    if (configuration.ActiveText && System.Windows.Forms.Clipboard.ContainsText())
-                    {
-                        ClipboardTextRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetText());
-                    }
-                    else if (configuration.ActiveImage && System.Windows.Forms.Clipboard.ContainsImage())
-                    {
-                        ClipboardImageRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetImage());
-                    }
-                    else if (configuration.ActiveFileDropList && System.Windows.Forms.Clipboard.ContainsFileDropList())
-                    {
-                        ClipboardFileListRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetFileDropList());
-                    }
-                });
+                OnGetClipboardContent();
             }
             catch (Exception ex)
             {
@@ -102,6 +88,25 @@ namespace OCMClip
                 dispatcherTimer.Enabled = true;
                 isRestarting = false;
             }
+        }
+
+        private void OnGetClipboardContent()
+        {
+            InvokeSTATThread(() =>
+            {
+                if (configuration.ActiveText && System.Windows.Forms.Clipboard.ContainsText())
+                {
+                    ClipboardTextRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetText());
+                }
+                else if (configuration.ActiveImage && System.Windows.Forms.Clipboard.ContainsImage())
+                {
+                    ClipboardImageRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetImage());
+                }
+                else if (configuration.ActiveFileDropList && System.Windows.Forms.Clipboard.ContainsFileDropList())
+                {
+                    ClipboardFileListRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetFileDropList());
+                }
+            });
         }
 
         private void InvokeSTATThread(Action action)
@@ -166,6 +171,18 @@ namespace OCMClip
             {
                 Manager.logger.Error(ex);
                 return false;
+            }
+        }
+
+        public void QueryClipboard()
+        {
+            try
+            {
+                OnGetClipboardContent();
+            }
+            catch (Exception ex)
+            {
+                Manager.logger.Error(ex);
             }
         }
 
