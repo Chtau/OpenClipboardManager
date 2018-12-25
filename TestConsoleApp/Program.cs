@@ -51,6 +51,22 @@ namespace TestConsoleApp
                 Console.ResetColor();
             };
 
+            var hotKey = new OCMHotKey.Manager();
+            hotKey.Add(OCMHotKey.Enums.Key.B, 
+                OCMHotKey.Enums.KeyModifier.Ctrl, 
+                (e) =>
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("HotKey callback => " + e.UniqueName);
+                Console.ResetColor();
+            });
+            hotKey.HotKeyPressed += (obj, e) =>
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("HotKey event => " + e.UniqueName);
+                Console.ResetColor();
+            };
+
             Console.ReadKey();
         }
     }

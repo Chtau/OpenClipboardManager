@@ -26,8 +26,6 @@ namespace OCMHotKey
         // Summary:
         //     Specifies the possible key values on a keyboard.
         //     This is a copy from System.Windows.Input (WindowsBase.dll) to remove the need to reference WindowsBase.dll in Project based on this
-        [TypeConverter(typeof(KeyConverter))]
-        [ValueSerializer(typeof(KeyValueSerializer))]
         public enum Key
         {
             //
