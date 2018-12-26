@@ -14,7 +14,12 @@ namespace OCMClip
         private static volatile Watcher instance;
         private static readonly object syncRoot = new Object();
 
-        private Watcher() { }
+        private Watcher()
+        {
+            var state = System.Threading.Thread.CurrentThread.GetApartmentState();
+            if (state == System.Threading.ApartmentState.STA)
+                useOwnThread = false;
+        }
 
         public static Watcher Instance
         {
@@ -41,6 +46,7 @@ namespace OCMClip
         private System.Timers.Timer dispatcherTimer;
         private bool isRestarting = false;
         private ConfigurationWatcher configuration;
+        private bool useOwnThread = true;
 
         private void OnStartTimer(int refreshRateMilliseconds, int refreshRateSeconds)
         {
