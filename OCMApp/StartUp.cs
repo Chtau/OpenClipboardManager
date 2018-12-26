@@ -37,6 +37,7 @@ namespace OCMApp
         #endregion
 
         public OCMClip.OCMClip Clip { get; private set; }
+        public OCMHotKey.OCMHotKey HotKey { get; private set; }
 
         private bool isInit = false;
         public void Init()
@@ -53,12 +54,19 @@ namespace OCMApp
                 .CreateLogger();
 
                 Clip = new OCMClip.OCMClip(new OCMClipLogger());
-                Clip.Load(new Configuration(
+                HotKey = new OCMHotKey.OCMHotKey();
+
+                SettingsChange();
+            }
+        }
+
+        public void SettingsChange()
+        {
+            Clip.Load(new Configuration(
                     new ConfigurationWatcher(50, 0, true, true, true),
                     null, null, null,
                     OCMClip.ClipHandler.Entities.Enums.ImageFormatType.Png
                     ));
-            }
         }
 
         public void Close()

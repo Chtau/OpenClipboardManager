@@ -20,15 +20,25 @@ namespace OCMHotKey
         {
             var startupTcs = new TaskCompletionSource<object>();
 
-            Task.Run(() =>
+            var state = System.Threading.Thread.CurrentThread.GetApartmentState();
+            if (state == System.Threading.ApartmentState.STA)
+                useOwnThread = false;
+
+            if (useOwnThread)
+            {
+                Task.Run(() =>
+                {
+                    ComponentDispatcher.ThreadFilterMessage += new ThreadMessageEventHandler(ComponentDispatcherThreadFilterMessage);
+                    wpfApp = new Application();
+                    wpfApp.Startup += (s, e) => startupTcs.SetResult(null);
+                    wpfApp.Run();
+                });
+
+                startupTcs.Task.Wait();
+            } else
             {
                 ComponentDispatcher.ThreadFilterMessage += new ThreadMessageEventHandler(ComponentDispatcherThreadFilterMessage);
-                wpfApp = new Application();
-                wpfApp.Startup += (s, e) => startupTcs.SetResult(null);
-                wpfApp.Run();
-            });
-
-            startupTcs.Task.Wait();
+            }
         }
 
         public static HotKeyHandler Instance
@@ -50,6 +60,7 @@ namespace OCMHotKey
         #endregion
 
         private Application wpfApp;
+        private bool useOwnThread = true;
 
         public event EventHandler<HotKey> HotKeyPressed;
 
@@ -64,10 +75,16 @@ namespace OCMHotKey
             if (!hotKeyItems.ContainsKey(registerId) && !hotKeyItems.Any(x => x.Value.UniqueName.ToUpper() == hotKey.UniqueName.ToUpper()))
             {
                 bool result = false;
-                wpfApp.Dispatcher.Invoke(() =>
+                if (useOwnThread)
+                {
+                    wpfApp.Dispatcher.Invoke(() =>
+                    {
+                        result = Nativ.RegisterHotKey(IntPtr.Zero, registerId, (UInt32)hotKey.KeyModifiers, (UInt32)virtualKeyCode);
+                    });
+                } else
                 {
                     result = Nativ.RegisterHotKey(IntPtr.Zero, registerId, (UInt32)hotKey.KeyModifiers, (UInt32)virtualKeyCode);
-                });
+                }
 
                 if (!hotKeyItems.ContainsKey(registerId))
                     hotKeyItems.Add(registerId, hotKey);
@@ -89,10 +106,16 @@ namespace OCMHotKey
             if (hotKeyItems.Any(x => x.Value.Id == id))
             {
                 int registerId = hotKeyItems.First(x => x.Value.Id == id).Key;
-                wpfApp.Dispatcher.Invoke(() =>
+                if (useOwnThread)
+                {
+                    wpfApp.Dispatcher.Invoke(() =>
+                    {
+                        result = Nativ.UnregisterHotKey(IntPtr.Zero, registerId);
+                    });
+                } else
                 {
                     result = Nativ.UnregisterHotKey(IntPtr.Zero, registerId);
-                });
+                }
                 hotKeyItems.Remove(registerId);
             }
             return result;
