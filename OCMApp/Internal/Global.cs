@@ -39,6 +39,7 @@ namespace OCMApp.Internal
         public OCMClip.OCMClip Clip { get; private set; }
         public OCMHotKey.OCMHotKey HotKey { get; private set; }
         public Settings.Settings Settings { get; private set; } = new Settings.Settings();
+        public Localize Localize { get; private set; }
 
         private bool isInit = false;
         public void Init()
@@ -54,6 +55,7 @@ namespace OCMApp.Internal
                     rollOnFileSizeLimit: true)
                 .CreateLogger();
 
+                Localize = new Localize();
                 Clip = new OCMClip.OCMClip(new OCMClipLogger());
                 HotKey = new OCMHotKey.OCMHotKey();
 
@@ -125,6 +127,7 @@ namespace OCMApp.Internal
                     null, null, null,
                     Settings.ClipWatcherDefaultImageFormat
                     ));
+            Localize.SetLanguage();
         }
     }
 }
