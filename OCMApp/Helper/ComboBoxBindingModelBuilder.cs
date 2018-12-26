@@ -15,7 +15,12 @@ namespace OCMApp.Helper
 
             foreach (int eValue in values)
             {
-                returnValue.Add(new KeyValuePair<int, string>(eValue, Enum.GetName(@enum, eValue)));
+                returnValue.Add(
+                    new KeyValuePair<int, string>(
+                        eValue, 
+                        Internal.Global.Instance.Localize.GetText(Enum.GetName(@enum, eValue))
+                    )
+                );
             }
             return returnValue;
         }
