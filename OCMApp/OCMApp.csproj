@@ -81,6 +81,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -106,6 +107,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OCMClip\OCMClip.csproj">
+      <Project>{e3246dc0-dd22-46b8-8ae0-29eeb1465e44}</Project>
+      <Name>OCMClip</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OCMHotKey\OCMHotKey.csproj">
+      <Project>{a95992c7-2654-4378-8c64-3feae5d0ad26}</Project>
+      <Name>OCMHotKey</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

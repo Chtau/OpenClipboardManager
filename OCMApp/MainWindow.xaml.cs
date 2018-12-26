@@ -21,8 +21,13 @@ namespace OCMApp
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        private readonly MainWindowViewModel _viewModel;
+
         public MainWindow()
         {
+            _viewModel = new MainWindowViewModel();
+            DataContext = _viewModel;
+
             InitializeComponent();
         }
 
