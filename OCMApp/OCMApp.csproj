@@ -81,6 +81,12 @@
     <Compile Include="GlobalValues.cs" />
     <Compile Include="Helper\ComboBoxBindingModelBuilder.cs" />
     <Compile Include="Helper\Folder.cs" />
+    <Compile Include="Internal\Localize.cs" />
+    <Compile Include="Resources\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="OCMClipLogger.cs" />
     <Compile Include="Internal\Global.cs" />
@@ -124,6 +130,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -135,7 +145,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OCMClip\OCMClip.csproj">

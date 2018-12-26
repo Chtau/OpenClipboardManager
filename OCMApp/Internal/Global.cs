@@ -57,7 +57,7 @@ namespace OCMApp.Internal
                 Clip = new OCMClip.OCMClip(new OCMClipLogger());
                 HotKey = new OCMHotKey.OCMHotKey();
 
-                SettingsChange();
+                OnLoadSettings();
             }
         }
 
@@ -85,11 +85,37 @@ namespace OCMApp.Internal
             return true;
         }
 
+        private bool OnLoadSettings()
+        {
+            try
+            {
+                string file = System.IO.Path.Combine(Helper.Folder.GetUserFolder(), GlobalValues.SettingsFile);
+                if (System.IO.File.Exists(file))
+                {
+                    string content = System.IO.File.ReadAllText(file);
+                    var settings = Newtonsoft.Json.JsonConvert.DeserializeObject<Settings.Settings>(content);
+                    if (settings != null)
+                    {
+                        Settings = settings;
+                        SettingsChange();
+                        return true;
+                    }
+                } else
+                {
+                    if (Settings == null)
+                        Settings = new Settings.Settings();
+                    SaveSettings(Settings);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to read Settings file");
+            }
+            return false;
+        }
+
         private void SettingsChange()
         {
-            if (Settings == null)
-                Settings = new Settings.Settings();
-
             Clip.Load(new Configuration(
                     new ConfigurationWatcher(Settings.ClipWatcherRefreshRateMilliseconds,
                         Settings.ClipWatcherRefreshRateSeconds,

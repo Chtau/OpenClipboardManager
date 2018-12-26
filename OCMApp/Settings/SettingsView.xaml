@@ -37,9 +37,11 @@
                     <Separator Margin="0,2,0,10"/>
                 </StackPanel>
                 <Label Grid.Row="1" Grid.Column="0" Content="Culture"/>
-                <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cultureSelection" SelectedIndex="0">
-                    <ComboBoxItem Content="en-EN" />
-                </ComboBox>
+                <ComboBox Grid.Row="1" Grid.Column="1"
+                  ItemsSource="{Binding Path=CultureEnum}" 
+                  DisplayMemberPath="Value" 
+                  SelectedValuePath="Key"
+                  SelectedValue="{Binding Path=CultureEnumSelected, Mode=TwoWay}"/>
                 <Label Grid.Row="2" Grid.Column="0" Content="Autostart"/>
                 <Controls:ToggleSwitch Grid.Row="2" Grid.Column="1" IsChecked="{Binding Settings.AutoStart }"/>
                 <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
@@ -61,11 +63,7 @@
                   ItemsSource="{Binding Path=ClipWatcherImageFormatTypeEnum}" 
                   DisplayMemberPath="Value" 
                   SelectedValuePath="Key"
-                  SelectedValue="{Binding Path=ClipWatcherImageFormatTypeEnumSelected, Mode=TwoWay}"
-                          />
-                <!--<ComboBox Grid.Row="9" Grid.Column="1" SelectedIndex="0">
-                    <ComboBoxItem Content="Png" />
-                </ComboBox>-->
+                  SelectedValue="{Binding Path=ClipWatcherImageFormatTypeEnumSelected, Mode=TwoWay}"/>
             </Grid>
         </ScrollViewer>
         <StackPanel Grid.Row="2" Margin="0,0,0,10">

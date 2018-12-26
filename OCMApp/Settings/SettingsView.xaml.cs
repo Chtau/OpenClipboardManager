@@ -33,6 +33,8 @@ namespace OCMApp.Settings
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.Settings.ClipWatcherDefaultImageFormat = (OCMClip.ClipHandler.Entities.Enums.ImageFormatType)_viewModel.ClipWatcherImageFormatTypeEnumSelected;
+            _viewModel.Settings.Culture = (Internal.Localize.Language)_viewModel.CultureEnumSelected;
+
             Internal.Global.Instance.SaveSettings(_viewModel.Settings);
         }
     }

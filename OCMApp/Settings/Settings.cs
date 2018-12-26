@@ -8,7 +8,7 @@ namespace OCMApp.Settings
 {
     public class Settings
     {
-        public string Culture { get; set; } = "en-EN";
+        public Internal.Localize.Language Culture { get; set; } = Internal.Localize.Language.English;
         public bool AutoStart { get; set; } = false;
         public string DataPath { get; set; } = null;
 

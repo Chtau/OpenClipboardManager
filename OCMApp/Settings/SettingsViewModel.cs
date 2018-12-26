@@ -12,11 +12,17 @@ namespace OCMApp.Settings
         public List<KeyValuePair<int, string>> ClipWatcherImageFormatTypeEnum { get; set; }
         public int ClipWatcherImageFormatTypeEnumSelected { get; set; }
 
+        public List<KeyValuePair<int, string>> CultureEnum { get; set; }
+        public int CultureEnumSelected { get; set; }
+
         public SettingsViewModel()
         {
             Settings = Internal.Global.Instance.Settings;
             ClipWatcherImageFormatTypeEnumSelected = (int)Settings.ClipWatcherDefaultImageFormat;
             ClipWatcherImageFormatTypeEnum = Helper.ComboBoxBindingModelBuilder.FromEnum(typeof(OCMClip.ClipHandler.Entities.Enums.ImageFormatType));
+
+            CultureEnumSelected = (int)Settings.Culture;
+            CultureEnum = Helper.ComboBoxBindingModelBuilder.FromEnum(typeof(Internal.Localize.Language));
         }
     }
 }
