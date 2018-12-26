@@ -61,22 +61,6 @@ namespace OCMApp.Internal
             }
         }
 
-        private void SettingsChange()
-        {
-            if (Settings == null)
-                Settings = new Models.Settings();
-
-            Clip.Load(new Configuration(
-                    new ConfigurationWatcher(Settings.ClipWatcherRefreshRateMilliseconds,
-                        Settings.ClipWatcherRefreshRateSeconds,
-                        Settings.ClipWatcherActiveText,
-                        Settings.ClipWatcherActiveImage,
-                        Settings.ClipWatcherActiveFile),
-                    null, null, null,
-                    Settings.ClipWatcherDefaultImageFormat
-                    ));
-        }
-
         public void Close()
         {
             Clip.Dispose();
@@ -101,6 +85,22 @@ namespace OCMApp.Internal
                 }
             }
             return true;
+        }
+
+        private void SettingsChange()
+        {
+            if (Settings == null)
+                Settings = new Models.Settings();
+
+            Clip.Load(new Configuration(
+                    new ConfigurationWatcher(Settings.ClipWatcherRefreshRateMilliseconds,
+                        Settings.ClipWatcherRefreshRateSeconds,
+                        Settings.ClipWatcherActiveText,
+                        Settings.ClipWatcherActiveImage,
+                        Settings.ClipWatcherActiveFile),
+                    null, null, null,
+                    Settings.ClipWatcherDefaultImageFormat
+                    ));
         }
     }
 }

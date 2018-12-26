@@ -10,6 +10,7 @@ namespace OCMApp.Models
     {
         public string Culture { get; set; } = "en-EN";
         public bool AutoStart { get; set; } = false;
+        public string DataPath { get; set; } = null;
 
         #region OCMClip
         public int ClipWatcherRefreshRateMilliseconds { get; set; } = 50;
