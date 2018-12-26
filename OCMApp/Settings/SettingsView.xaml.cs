@@ -20,9 +20,20 @@ namespace OCMApp.Settings
     /// </summary>
     public partial class SettingsView : UserControl
     {
+        private readonly SettingsViewModel _viewModel;
+
         public SettingsView()
         {
+            _viewModel = new SettingsViewModel();
+            DataContext = _viewModel;
+
             InitializeComponent();
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.Settings.ClipWatcherDefaultImageFormat = (OCMClip.ClipHandler.Entities.Enums.ImageFormatType)_viewModel.ClipWatcherImageFormatTypeEnumSelected;
+            Internal.Global.Instance.SaveSettings(_viewModel.Settings);
         }
     }
 }

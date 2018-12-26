@@ -69,20 +69,18 @@ namespace OCMApp.Internal
 
         public bool SaveSettings(Settings.Settings settings)
         {
-            if (!settings.Equals(Settings))
+            Settings = settings;
+            SettingsChange();
+            try
             {
-                Settings = settings;
-                SettingsChange();
-                try
-                {
-                    string file = System.IO.Path.Combine(Helper.Folder.GetUserFolder(), GlobalValues.SettingsFile);
-                    var content = Newtonsoft.Json.JsonConvert.SerializeObject(Settings);
-                    System.IO.File.WriteAllText(file, content);
-                } catch (Exception ex)
-                {
-                    Log.Error(ex, "Failed to write Settings file");
-                    return false;
-                }
+                string file = System.IO.Path.Combine(Helper.Folder.GetUserFolder(), GlobalValues.SettingsFile);
+                var content = Newtonsoft.Json.JsonConvert.SerializeObject(Settings);
+                System.IO.File.WriteAllText(file, content);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to write Settings file");
+                return false;
             }
             return true;
         }

@@ -79,6 +79,7 @@
     </ApplicationDefinition>
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="GlobalValues.cs" />
+    <Compile Include="Helper\ComboBoxBindingModelBuilder.cs" />
     <Compile Include="Helper\Folder.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="OCMClipLogger.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Settings\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings\SettingsViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

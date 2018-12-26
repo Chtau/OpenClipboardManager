@@ -41,29 +41,36 @@
                     <ComboBoxItem Content="en-EN" />
                 </ComboBox>
                 <Label Grid.Row="2" Grid.Column="0" Content="Autostart"/>
-                <Controls:ToggleSwitch Grid.Row="2" Grid.Column="1" IsChecked="False"/>
+                <Controls:ToggleSwitch Grid.Row="2" Grid.Column="1" IsChecked="{Binding Settings.AutoStart }"/>
                 <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
                     <Label Content="Clipboard" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <Separator Margin="0,2,0,10"/>
                 </StackPanel>
                 <Label Grid.Row="4" Grid.Column="0" Content="Activate Text interceptor"/>
-                <Controls:ToggleSwitch Grid.Row="4" Grid.Column="1" IsChecked="False"/>
+                <Controls:ToggleSwitch Grid.Row="4" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveText }"/>
                 <Label Grid.Row="5" Grid.Column="0" Content="Activate Image interceptor"/>
-                <Controls:ToggleSwitch Grid.Row="5" Grid.Column="1" IsChecked="False"/>
+                <Controls:ToggleSwitch Grid.Row="5" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveImage }"/>
                 <Label Grid.Row="6" Grid.Column="0" Content="Activate File interceptor"/>
-                <Controls:ToggleSwitch Grid.Row="6" Grid.Column="1" IsChecked="False"/>
+                <Controls:ToggleSwitch Grid.Row="6" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveFile }"/>
                 <Label Grid.Row="7" Grid.Column="0" Content="Refresh Rate Milliseconds"/>
-                <Controls:NumericUpDown Grid.Row="7" Grid.Column="1" Minimum="0" Maximum="1000" Interval="50" Value="50"/>
+                <Controls:NumericUpDown Grid.Row="7" Grid.Column="1" Minimum="0" Maximum="1000" Interval="50" Value="{Binding Settings.ClipWatcherRefreshRateMilliseconds }"/>
                 <Label Grid.Row="8" Grid.Column="0" Content="Refresh Rate Seconds"/>
-                <Controls:NumericUpDown Grid.Row="8" Grid.Column="1" Minimum="0" Maximum="60" Interval="1" Value="0"/>
+                <Controls:NumericUpDown Grid.Row="8" Grid.Column="1" Minimum="0" Maximum="60" Interval="1" Value="{Binding Settings.ClipWatcherRefreshRateSeconds }"/>
                 <Label Grid.Row="9" Grid.Column="0" Content="Default Image format"/>
-                <ComboBox Grid.Row="9" Grid.Column="1" SelectedIndex="0">
+                <ComboBox Grid.Row="9" Grid.Column="1"
+                  ItemsSource="{Binding Path=ClipWatcherImageFormatTypeEnum}" 
+                  DisplayMemberPath="Value" 
+                  SelectedValuePath="Key"
+                  SelectedValue="{Binding Path=ClipWatcherImageFormatTypeEnumSelected, Mode=TwoWay}"
+                          />
+                <!--<ComboBox Grid.Row="9" Grid.Column="1" SelectedIndex="0">
                     <ComboBoxItem Content="Png" />
-                </ComboBox>
+                </ComboBox>-->
             </Grid>
         </ScrollViewer>
         <StackPanel Grid.Row="2" Margin="0,0,0,10">
-            <Button Style="{StaticResource AccentedSquareButtonStyle}"
+            <Button x:Name="save" Style="{StaticResource AccentedSquareButtonStyle}"
+                    Click="Save_Click"
                     Width="100">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconModern VerticalAlignment="Center" Kind="Save" />
