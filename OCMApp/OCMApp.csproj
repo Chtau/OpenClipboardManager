@@ -82,6 +82,7 @@
     <Compile Include="Helper\ComboBoxBindingModelBuilder.cs" />
     <Compile Include="Helper\Folder.cs" />
     <Compile Include="Internal\Localize.cs" />
+    <Compile Include="Internal\LocalizeConverter.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -9,30 +9,30 @@
                       xmlns:settings="clr-namespace:OCMApp.Settings"
                       mc:Ignorable="d"
         RightWindowCommandsOverlayBehavior="Never"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding Source='MainWindow',Converter={ StaticResource LocalizeConverter}}" Height="450" Width="800" WindowButtonCommandsOverlayBehavior="Never">
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Button x:Name="Settings" Click="Settings_Click">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconModern Width="16" Height="16" Kind="Settings" />
-                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Settings" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="{Binding Source='Settings',Converter={ StaticResource LocalizeConverter}}" />
                 </StackPanel>
             </Button>
             <Button x:Name="Info" Click="Info_Click">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconModern Width="16" Height="16" Kind="Information" />
-                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Info" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="{Binding Source='Info',Converter={ StaticResource LocalizeConverter}}" />
                 </StackPanel>
             </Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
-            <Controls:Flyout x:Name="SettingsFlyout" Header="Settings" Position="Right" Width="400">
+            <Controls:Flyout x:Name="SettingsFlyout" Header="{Binding Source='Settings',Converter={ StaticResource LocalizeConverter}}" Position="Right" Width="400">
                 <!-- Your custom content here -->
                 <settings:SettingsView/>
             </Controls:Flyout>
-            <Controls:Flyout x:Name="InfoFlyout" Header="Info" Position="Right" Width="400">
+            <Controls:Flyout x:Name="InfoFlyout" Header="{Binding Source='Info',Converter={ StaticResource LocalizeConverter}}" Position="Right" Width="400">
                 <!-- Your custom content here -->
             </Controls:Flyout>
         </Controls:FlyoutsControl>
@@ -44,11 +44,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Stretch">
-            <MenuItem Header="Filter"></MenuItem>
-            <MenuItem Header="Export"/>
+            <MenuItem Header="{Binding Source='Filter',Converter={ StaticResource LocalizeConverter}}"></MenuItem>
+            <MenuItem Header="{Binding Source='Export',Converter={ StaticResource LocalizeConverter}}"/>
         </Menu>
         <Controls:MetroAnimatedSingleRowTabControl x:Name="MainTabControl" Grid.Row="1">
-            <TabItem Header="Text">
+            <TabItem Header="{Binding Source='Text',Converter={ StaticResource LocalizeConverter}}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -63,26 +63,26 @@
                               HeadersVisibility="All"
                               >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Value}" Header="Content" />
-                            <DataGridTextColumn Binding="{Binding DateCreated}" Header="Created" />
-                            <DataGridTextColumn Binding="{Binding ApplicationName}" Header="Application" />
-                            <DataGridTextColumn Binding="{Binding ApplicationWindowTitle}" Header="Window" />
+                            <DataGridTextColumn Binding="{Binding Value}" Header="{Binding Source='Content',Converter={ StaticResource LocalizeConverter}}" />
+                            <DataGridTextColumn Binding="{Binding DateCreated}" Header="{Binding Source='Created',Converter={ StaticResource LocalizeConverter}}" />
+                            <DataGridTextColumn Binding="{Binding ApplicationName}" Header="{Binding Source='Application',Converter={ StaticResource LocalizeConverter}}" />
+                            <DataGridTextColumn Binding="{Binding ApplicationWindowTitle}" Header="{Binding Source='Window',Converter={ StaticResource LocalizeConverter}}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Image">
+            <TabItem Header="{Binding Source='Image',Converter={ StaticResource LocalizeConverter}}">
 
             </TabItem>
-            <TabItem Header="File">
+            <TabItem Header="{Binding Source='File',Converter={ StaticResource LocalizeConverter}}">
 
             </TabItem>
-            <TabItem Header="Summary">
+            <TabItem Header="{Binding Source='Summary',Converter={ StaticResource LocalizeConverter}}">
 
             </TabItem>
         </Controls:MetroAnimatedSingleRowTabControl>
         <StatusBar Grid.Row="2">
-            <StatusBarItem>Open Clipboard Manager</StatusBarItem>
+            <StatusBarItem Content="{Binding Source='Open Clipboard Manager',Converter={ StaticResource LocalizeConverter}}"/>
             <Separator Style="{StaticResource MetroStatusBarSeparator}" />
             <StatusBarItem>Selected Tab:</StatusBarItem>
             <StatusBarItem Content="{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}" />

@@ -33,32 +33,32 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
-                    <Label Content="Application" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Label Content="{Binding Source='Application',Converter={ StaticResource LocalizeConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <Separator Margin="0,2,0,10"/>
                 </StackPanel>
-                <Label Grid.Row="1" Grid.Column="0" Content="Culture"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="{Binding Source='Culture',Converter={ StaticResource LocalizeConverter}}"/>
                 <ComboBox Grid.Row="1" Grid.Column="1"
                   ItemsSource="{Binding Path=CultureEnum}" 
                   DisplayMemberPath="Value" 
                   SelectedValuePath="Key"
                   SelectedValue="{Binding Path=CultureEnumSelected, Mode=TwoWay}"/>
-                <Label Grid.Row="2" Grid.Column="0" Content="Autostart"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="{Binding Source='Autostart',Converter={ StaticResource LocalizeConverter}}"/>
                 <Controls:ToggleSwitch Grid.Row="2" Grid.Column="1" IsChecked="{Binding Settings.AutoStart }"/>
                 <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
-                    <Label Content="Clipboard" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Label Content="{Binding Source='Clipboard',Converter={ StaticResource LocalizeConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <Separator Margin="0,2,0,10"/>
                 </StackPanel>
-                <Label Grid.Row="4" Grid.Column="0" Content="Activate Text interceptor"/>
+                <Label Grid.Row="4" Grid.Column="0" Content="{Binding Source='Activate Text interceptor',Converter={ StaticResource LocalizeConverter}}"/>
                 <Controls:ToggleSwitch Grid.Row="4" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveText }"/>
-                <Label Grid.Row="5" Grid.Column="0" Content="Activate Image interceptor"/>
+                <Label Grid.Row="5" Grid.Column="0" Content="{Binding Source='Activate Image interceptor',Converter={ StaticResource LocalizeConverter}}"/>
                 <Controls:ToggleSwitch Grid.Row="5" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveImage }"/>
-                <Label Grid.Row="6" Grid.Column="0" Content="Activate File interceptor"/>
+                <Label Grid.Row="6" Grid.Column="0" Content="{Binding Source='Activate File interceptor',Converter={ StaticResource LocalizeConverter}}"/>
                 <Controls:ToggleSwitch Grid.Row="6" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveFile }"/>
-                <Label Grid.Row="7" Grid.Column="0" Content="Refresh Rate Milliseconds"/>
+                <Label Grid.Row="7" Grid.Column="0" Content="{Binding Source='Refresh Rate Milliseconds',Converter={ StaticResource LocalizeConverter}}"/>
                 <Controls:NumericUpDown Grid.Row="7" Grid.Column="1" Minimum="0" Maximum="1000" Interval="50" Value="{Binding Settings.ClipWatcherRefreshRateMilliseconds }"/>
-                <Label Grid.Row="8" Grid.Column="0" Content="Refresh Rate Seconds"/>
+                <Label Grid.Row="8" Grid.Column="0" Content="{Binding Source='Refresh Rate Seconds',Converter={ StaticResource LocalizeConverter}}"/>
                 <Controls:NumericUpDown Grid.Row="8" Grid.Column="1" Minimum="0" Maximum="60" Interval="1" Value="{Binding Settings.ClipWatcherRefreshRateSeconds }"/>
-                <Label Grid.Row="9" Grid.Column="0" Content="Default Image format"/>
+                <Label Grid.Row="9" Grid.Column="0" Content="{Binding Source='Default Image format',Converter={ StaticResource LocalizeConverter}}"/>
                 <ComboBox Grid.Row="9" Grid.Column="1"
                   ItemsSource="{Binding Path=ClipWatcherImageFormatTypeEnum}" 
                   DisplayMemberPath="Value" 
@@ -72,7 +72,7 @@
                     Width="100">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconModern VerticalAlignment="Center" Kind="Save" />
-                    <Label Content="Save"/>
+                    <Label Content="{Binding Source='Save',Converter={ StaticResource LocalizeConverter}}"/>
                 </StackPanel>
             </Button>
         </StackPanel>
