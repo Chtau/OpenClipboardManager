@@ -84,7 +84,7 @@
         <StatusBar Grid.Row="2">
             <StatusBarItem Content="{Binding Source='Open Clipboard Manager',Converter={ StaticResource LocalizeConverter}}"/>
             <Separator Style="{StaticResource MetroStatusBarSeparator}" />
-            <StatusBarItem>Selected Tab:</StatusBarItem>
+            <StatusBarItem Content="{Binding Source='Selected Tab:',Converter={ StaticResource LocalizeConverter}}"/>
             <StatusBarItem Content="{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}" />
         </StatusBar>
     </Grid>
