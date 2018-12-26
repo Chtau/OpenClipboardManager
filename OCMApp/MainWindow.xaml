@@ -6,7 +6,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OCMApp"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        mc:Ignorable="d"
+                      xmlns:settings="clr-namespace:OCMApp.Settings"
+                      mc:Ignorable="d"
         RightWindowCommandsOverlayBehavior="Never"
         Title="MainWindow" Height="450" Width="800">
     <Controls:MetroWindow.RightWindowCommands>
@@ -29,6 +30,7 @@
         <Controls:FlyoutsControl>
             <Controls:Flyout x:Name="SettingsFlyout" Header="Settings" Position="Right" Width="400">
                 <!-- Your custom content here -->
+                <settings:SettingsView/>
             </Controls:Flyout>
             <Controls:Flyout x:Name="InfoFlyout" Header="Info" Position="Right" Width="400">
                 <!-- Your custom content here -->

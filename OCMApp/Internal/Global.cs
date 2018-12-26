@@ -38,7 +38,7 @@ namespace OCMApp.Internal
 
         public OCMClip.OCMClip Clip { get; private set; }
         public OCMHotKey.OCMHotKey HotKey { get; private set; }
-        public Models.Settings Settings { get; private set; } = new Models.Settings();
+        public Settings.Settings Settings { get; private set; } = new Settings.Settings();
 
         private bool isInit = false;
         public void Init()
@@ -67,7 +67,7 @@ namespace OCMApp.Internal
             Log.CloseAndFlush();
         }
 
-        public bool SaveSettings(Models.Settings settings)
+        public bool SaveSettings(Settings.Settings settings)
         {
             if (!settings.Equals(Settings))
             {
@@ -90,7 +90,7 @@ namespace OCMApp.Internal
         private void SettingsChange()
         {
             if (Settings == null)
-                Settings = new Models.Settings();
+                Settings = new Settings.Settings();
 
             Clip.Load(new Configuration(
                     new ConfigurationWatcher(Settings.ClipWatcherRefreshRateMilliseconds,

@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="OCMApp.Settings.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:local="clr-namespace:OCMApp.Settings"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="1" Margin="25,0,25,10">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+                    <Label Content="Application" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Separator Margin="0,2,0,10"/>
+                </StackPanel>
+                <Label Grid.Row="1" Grid.Column="0" Content="Culture"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cultureSelection" SelectedIndex="0">
+                    <ComboBoxItem Content="en-EN" />
+                </ComboBox>
+                <Label Grid.Row="2" Grid.Column="0" Content="Autostart"/>
+                <Controls:ToggleSwitch Grid.Row="2" Grid.Column="1" IsChecked="False"/>
+                <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
+                    <Label Content="Clipboard" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Separator Margin="0,2,0,10"/>
+                </StackPanel>
+                <Label Grid.Row="4" Grid.Column="0" Content="Activate Text interceptor"/>
+                <Controls:ToggleSwitch Grid.Row="4" Grid.Column="1" IsChecked="False"/>
+                <Label Grid.Row="5" Grid.Column="0" Content="Activate Image interceptor"/>
+                <Controls:ToggleSwitch Grid.Row="5" Grid.Column="1" IsChecked="False"/>
+                <Label Grid.Row="6" Grid.Column="0" Content="Activate File interceptor"/>
+                <Controls:ToggleSwitch Grid.Row="6" Grid.Column="1" IsChecked="False"/>
+                <Label Grid.Row="7" Grid.Column="0" Content="Refresh Rate Milliseconds"/>
+                <Controls:NumericUpDown Grid.Row="7" Grid.Column="1" Minimum="0" Maximum="1000" Interval="50" Value="50"/>
+                <Label Grid.Row="8" Grid.Column="0" Content="Refresh Rate Seconds"/>
+                <Controls:NumericUpDown Grid.Row="8" Grid.Column="1" Minimum="0" Maximum="60" Interval="1" Value="0"/>
+                <Label Grid.Row="9" Grid.Column="0" Content="Default Image format"/>
+                <ComboBox Grid.Row="9" Grid.Column="1" SelectedIndex="0">
+                    <ComboBoxItem Content="Png" />
+                </ComboBox>
+            </Grid>
+        </ScrollViewer>
+        <StackPanel Grid.Row="2" Margin="0,0,0,10">
+            <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                    Width="100">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconModern VerticalAlignment="Center" Kind="Save" />
+                    <Label Content="Save"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
