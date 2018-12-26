@@ -121,6 +121,9 @@
     <Compile Include="GlobalValues.cs" />
     <Compile Include="Helper\ComboBoxBindingModelBuilder.cs" />
     <Compile Include="Helper\Folder.cs" />
+    <Compile Include="Info\InfoView.xaml.cs">
+      <DependentUpon>InfoView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Internal\Localize.cs" />
     <Compile Include="Internal\LocalizeConverter.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
@@ -135,6 +138,10 @@
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\SettingsViewModel.cs" />
+    <Page Include="Info\InfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

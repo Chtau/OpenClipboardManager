@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:OCMApp"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                       xmlns:settings="clr-namespace:OCMApp.Settings"
+                      xmlns:info="clr-namespace:OCMApp.Info"
                       mc:Ignorable="d"
         RightWindowCommandsOverlayBehavior="Never"
         Title="{Binding Source='MainWindow',Converter={ StaticResource LocalizeConverter}}" Height="450" Width="800" WindowButtonCommandsOverlayBehavior="Never">
@@ -29,11 +30,10 @@
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
             <Controls:Flyout x:Name="SettingsFlyout" Header="{Binding Source='Settings',Converter={ StaticResource LocalizeConverter}}" Position="Right" Width="400">
-                <!-- Your custom content here -->
                 <settings:SettingsView/>
             </Controls:Flyout>
             <Controls:Flyout x:Name="InfoFlyout" Header="{Binding Source='Info',Converter={ StaticResource LocalizeConverter}}" Position="Right" Width="400">
-                <!-- Your custom content here -->
+                <info:InfoView/>
             </Controls:Flyout>
         </Controls:FlyoutsControl>
     </Controls:MetroWindow.Flyouts>

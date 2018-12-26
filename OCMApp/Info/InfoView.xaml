@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="OCMApp.Info.InfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:local="clr-namespace:OCMApp.Info"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="1" Margin="15">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Open Clipboard Manager Version " TextWrapping="Wrap"/>
+                        <TextBlock Text="1.0.0.0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                    <Separator/>
+                </StackPanel>
+                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Development by Christoph Taucher" TextWrapping="Wrap"/>
+                <StackPanel Grid.Row="1" Grid.Column="2">
+                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Right">
+                    <Hyperlink x:Name="websiteLink" NavigateUri="http://www.dlution.com">Source on Github</Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+        <Separator Grid.Row="2"/>
+        <ScrollViewer Grid.Row="3" Margin="15">
+            <StackPanel>
+                <TextBlock Text="Open Clipboard Manager&#10;Copyright (C) dlution and Christoph Taucher. All Rights Reserved.&#10;&#10;Open Clipboard Manager is free for use in any environment, including but not necessarily limited to: personal, academic, commercial, government, business, non-profit, and for-profit. 'Free' in the preceding sentence means that there is no cost or charge associated with the installation and use of Open Clipboard Manager.&#10;&#10;Permission is hereby granted, free of charge, to any person obtaining a copy of this software (the 'Software'), to use the Software without restriction, including the rights to use, copy, publish, and distribute the Software, and to permit persons to whom the Software is furnished to do so.&#10;&#10;You may not modify, adapt, rent, lease, loan, sell, or create derivative works based upon the Software or any part thereof.&#10;&#10;The above copyright notice and this permission notice shall be included in all copies of the Software.&#10;&#10;THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE." TextWrapping="Wrap"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
