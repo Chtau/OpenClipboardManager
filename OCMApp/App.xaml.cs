@@ -17,7 +17,7 @@ namespace OCMApp
         {
             base.OnStartup(e);
 
-            StartUp.Instance.Init();
+            Internal.Global.Instance.Init();
         }
     }
 }
