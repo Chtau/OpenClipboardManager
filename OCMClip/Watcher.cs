@@ -117,14 +117,19 @@ namespace OCMClip
 
         private void InvokeSTATThread(Action action)
         {
-            Thread staThread = new Thread(
-                delegate ()
-                {
-                    action();
-                });
-            staThread.SetApartmentState(ApartmentState.STA);
-            staThread.Start();
-            staThread.Join();
+            if (useOwnThread)
+            {
+                Thread staThread = new Thread(
+                    delegate ()
+                    {
+                        action();
+                    });
+                staThread.SetApartmentState(ApartmentState.STA);
+                staThread.Start();
+                staThread.Join();
+            }
+            else
+                action();
         }
 
         public void StartTimer()
