@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OCMApp
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : BaseViewModel
     {
         public List<OCMClip.ClipHandler.Entities.ClipDataText> ClipDataTexts { get; set; }
 
@@ -15,18 +15,5 @@ namespace OCMApp
         {
             ClipDataTexts = new List<OCMClip.ClipHandler.Entities.ClipDataText>();
         }
-
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Raises the PropertyChanged event if needed.
-        /// </summary>
-        /// <param name="propertyName">The name of the property that changed.</param>
-        protected virtual void RaisePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
     }
 }
