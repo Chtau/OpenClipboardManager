@@ -38,7 +38,7 @@
                 <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Development by Christoph Taucher" TextWrapping="Wrap"/>
                 <StackPanel Grid.Row="1" Grid.Column="2">
                     <TextBlock TextWrapping="Wrap" HorizontalAlignment="Right">
-                    <Hyperlink x:Name="websiteLink" NavigateUri="http://www.dlution.com">Source on Github</Hyperlink>
+                    <Hyperlink RequestNavigate="WebsiteLink_RequestNavigate" x:Name="websiteLink" NavigateUri="http://www.dlution.com">Source on Github</Hyperlink>
                     </TextBlock>
                 </StackPanel>
             </Grid>

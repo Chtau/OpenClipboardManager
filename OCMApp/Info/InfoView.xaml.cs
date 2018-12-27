@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OCMApp.Helper;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,22 @@ namespace OCMApp.Info
         public InfoView()
         {
             InitializeComponent();
+        }
+
+        private void WebsiteLink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            try
+            {
+                if (e.Uri.IsFile)
+                {
+                    Folder.GetFolder(e.Uri.PathAndQuery);
+                }
+                System.Diagnostics.Process.Start(e.Uri.ToString());
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Could not open Uri request");
+            }
         }
     }
 }
