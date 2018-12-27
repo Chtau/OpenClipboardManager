@@ -53,6 +53,15 @@ namespace OCMHotKey
             return HotKeyHandler.Instance.UnregisterAll();
         }
 
+        /// <summary>
+        /// Details https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.sendkeys.send?view=netframework-4.7.2
+        /// </summary>
+        /// <param name="keys"></param>
+        public void SendKeys(string keys)
+        {
+            System.Windows.Forms.SendKeys.SendWait(keys);
+        }
+
         #region IDisposable Support
         private bool disposedValue = false;
 
