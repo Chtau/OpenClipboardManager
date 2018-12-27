@@ -27,6 +27,7 @@ namespace OCMApp.Settings
 
         public HotKeyConfigurationViewModel()
         {
+            KeyEnumSelected = (int)OCMHotKey.Enums.Key.None;
             KeyEnum = Helper.ComboBoxBindingModelBuilder.FromEnum(typeof(OCMHotKey.Enums.Key));
             ModifierEnum = Helper.ComboBoxBindingModelBuilder.FromEnum(typeof(Modifier));
             Modifier1EnumSelected = (int)Modifier.None;
