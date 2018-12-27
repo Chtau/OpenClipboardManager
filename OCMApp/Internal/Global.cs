@@ -41,6 +41,7 @@ namespace OCMApp.Internal
         public Settings.Settings Settings { get; private set; } = new Settings.Settings();
         public Localize Localize { get; private set; }
 
+        private OCMHotKey.HotKey clipboardHotKey;
         private bool isInit = false;
         public void Init()
         {
@@ -140,34 +141,44 @@ namespace OCMApp.Internal
         {
             if (Settings.UseWatcher)
             {
+                if (clipboardHotKey != null)
+                    HotKey.Remove(clipboardHotKey.Id);
                 // use the Watcher to intercept the default Clipboard
                 Clip.StartWatcher();
             } else
             {
                 // use a defined Keyboard Shortcut only to retrive the Clipboard
                 Clip.StopWatcher();
+                if (clipboardHotKey != null)
+                    HotKey.Remove(clipboardHotKey.Id);
+                clipboardHotKey = new OCMHotKey.HotKey(Settings.ClipKey, Settings.ClipKeyModifier, HotKeyGetClipboardPressed, "getclipboard");
+                HotKey.Add(clipboardHotKey);
             }
         }
 
+        private void HotKeyGetClipboardPressed(OCMHotKey.HotKey e)
+        {
+            Clip.Query();
+        }
 
         private void HotKey_HotKeyPressed(object sender, OCMHotKey.HotKey e)
         {
-            throw new NotImplementedException();
+            
         }
 
         private void Clip_ClipboardTextChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataText e)
         {
-            throw new NotImplementedException();
+            System.Diagnostics.Debug.Print(e.Value);
         }
 
         private void Clip_ClipboardImageChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataImage e)
         {
-            throw new NotImplementedException();
+            
         }
 
         private void Clip_ClipboardFileChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataFile e)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

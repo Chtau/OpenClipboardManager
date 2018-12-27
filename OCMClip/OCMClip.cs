@@ -15,12 +15,13 @@ namespace OCMClip
         internal static ILogger logger;
         private Configuration configuration;
 
-        public OCMClip(ILogger _logger)
+        public OCMClip(ILogger _logger, bool createSTAThread = true)
         {
             logger = _logger;
             Watcher.Instance.ClipboardFileListRecived += Instance_ClipboardFileListRecived;
             Watcher.Instance.ClipboardImageRecived += Instance_ClipboardImageRecived;
             Watcher.Instance.ClipboardTextRecived += Instance_ClipboardTextRecived;
+            Watcher.Instance.UseOwnThread = createSTAThread;
         }
 
         public void Load(Configuration _configuration)

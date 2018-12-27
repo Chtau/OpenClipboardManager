@@ -16,9 +16,7 @@ namespace OCMClip
 
         private Watcher()
         {
-            var state = System.Threading.Thread.CurrentThread.GetApartmentState();
-            if (state == System.Threading.ApartmentState.STA)
-                useOwnThread = false;
+
         }
 
         public static Watcher Instance
@@ -42,11 +40,11 @@ namespace OCMClip
         public event EventHandler<string> ClipboardTextRecived;
         public event EventHandler<System.Drawing.Image> ClipboardImageRecived;
         public event EventHandler<System.Collections.Specialized.StringCollection> ClipboardFileListRecived;
+        public bool UseOwnThread { get; set; } = true;
 
         private System.Timers.Timer dispatcherTimer;
         private bool isRestarting = false;
         private ConfigurationWatcher configuration;
-        private bool useOwnThread = true;
 
         private void OnStartTimer(int refreshRateMilliseconds, int refreshRateSeconds)
         {
@@ -80,7 +78,8 @@ namespace OCMClip
         private void DispatcherTimer_Elapsed(object sender, EventArgs e)
         {
             isRestarting = true;
-            dispatcherTimer.Enabled = false;
+            if (dispatcherTimer != null)
+                dispatcherTimer.Enabled = false;
             try
             {
                 OnGetClipboardContent();
@@ -91,8 +90,11 @@ namespace OCMClip
             }
             finally
             {
-                dispatcherTimer.Enabled = true;
-                isRestarting = false;
+                if (dispatcherTimer != null)
+                {
+                    dispatcherTimer.Enabled = true;
+                    isRestarting = false;
+                }
             }
         }
 
@@ -117,7 +119,7 @@ namespace OCMClip
 
         private void InvokeSTATThread(Action action)
         {
-            if (useOwnThread)
+            if (UseOwnThread)
             {
                 Thread staThread = new Thread(
                     delegate ()
