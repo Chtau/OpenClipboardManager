@@ -132,6 +132,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Settings\HotKeyConfigurationView.xaml.cs">
+      <DependentUpon>HotKeyConfigurationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\HotKeyConfigurationViewModel.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="OCMClipLogger.cs" />
     <Compile Include="Internal\Global.cs" />
@@ -155,6 +159,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Settings\HotKeyConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Settings\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

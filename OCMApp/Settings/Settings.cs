@@ -25,6 +25,11 @@ namespace OCMApp.Settings
 
         #endregion
 
+        #region OCMHotKey
 
+        public OCMHotKey.Enums.Key ClipKey { get; set; } = OCMHotKey.Enums.Key.C;
+        public OCMHotKey.Enums.KeyModifier ClipKeyModifier { get; set; } = OCMHotKey.Enums.KeyModifier.Ctrl | OCMHotKey.Enums.KeyModifier.Shift;
+
+        #endregion
     }
 }

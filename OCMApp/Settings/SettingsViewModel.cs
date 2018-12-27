@@ -15,6 +15,8 @@ namespace OCMApp.Settings
         public List<KeyValuePair<int, string>> CultureEnum { get; set; }
         public int CultureEnumSelected { get; set; }
 
+        public HotKeyConfigurationViewModel ClipHotKey { get; set; }
+
         public SettingsViewModel()
         {
             Settings = Internal.Global.Instance.Settings;
@@ -23,6 +25,9 @@ namespace OCMApp.Settings
 
             CultureEnumSelected = (int)Settings.Culture;
             CultureEnum = Helper.ComboBoxBindingModelBuilder.FromEnum(typeof(Internal.Localize.Language));
+            ClipHotKey = new HotKeyConfigurationViewModel();
+            ClipHotKey.SetKey(Settings.ClipKey);
+            ClipHotKey.SetModifier(Settings.ClipKeyModifier);
         }
     }
 }

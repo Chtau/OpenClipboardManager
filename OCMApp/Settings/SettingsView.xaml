@@ -72,15 +72,7 @@
                     <Controls:NumericUpDown Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="60" Interval="1" Value="{Binding Settings.ClipWatcherRefreshRateSeconds }"/>
                 </Grid>
                 <Grid Grid.Row="9" Grid.ColumnSpan="2" Visibility="{Binding Settings.UseWatcher,Converter={ StaticResource VisibilityConverter}, ConverterParameter=true }">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="{Binding Source='Hotkey',Converter={ StaticResource LocalizeConverter}}"/>
+                    <local:HotKeyConfigurationView DataContext="{Binding ClipHotKey}"/>
                 </Grid>
                 <Label Grid.Row="10" Grid.Column="0" Content="{Binding Source='Default Image format',Converter={ StaticResource LocalizeConverter}}"/>
                 <ComboBox Grid.Row="10" Grid.Column="1"

@@ -35,6 +35,12 @@ namespace OCMApp.Settings
             _viewModel.Settings.ClipWatcherDefaultImageFormat = (OCMClip.ClipHandler.Entities.Enums.ImageFormatType)_viewModel.ClipWatcherImageFormatTypeEnumSelected;
             _viewModel.Settings.Culture = (Internal.Localize.Language)_viewModel.CultureEnumSelected;
 
+            if (!_viewModel.Settings.UseWatcher)
+            {
+                _viewModel.Settings.ClipKey = _viewModel.ClipHotKey.GetKey();
+                _viewModel.Settings.ClipKeyModifier = _viewModel.ClipHotKey.GetModifier();
+            }
+
             Internal.Global.Instance.SaveSettings(_viewModel.Settings);
         }
     }
