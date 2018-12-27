@@ -126,6 +126,7 @@
     </Compile>
     <Compile Include="Internal\Localize.cs" />
     <Compile Include="Internal\LocalizeConverter.cs" />
+    <Compile Include="Internal\VisibilityConverter.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -57,7 +57,11 @@ namespace OCMApp.Internal
 
                 Localize = new Localize();
                 Clip = new OCMClip.OCMClip(new OCMClipLogger());
+                Clip.ClipboardFileChanged += Clip_ClipboardFileChanged;
+                Clip.ClipboardImageChanged += Clip_ClipboardImageChanged;
+                Clip.ClipboardTextChanged += Clip_ClipboardTextChanged;
                 HotKey = new OCMHotKey.OCMHotKey();
+                HotKey.HotKeyPressed += HotKey_HotKeyPressed;
 
                 OnLoadSettings();
             }
@@ -128,6 +132,42 @@ namespace OCMApp.Internal
                     Settings.ClipWatcherDefaultImageFormat
                     ));
             Localize.SetLanguage();
+
+            OnSetupClip();
+        }
+
+        private void OnSetupClip()
+        {
+            if (Settings.UseWatcher)
+            {
+                // use the Watcher to intercept the default Clipboard
+                Clip.StartWatcher();
+            } else
+            {
+                // use a defined Keyboard Shortcut only to retrive the Clipboard
+                Clip.StopWatcher();
+            }
+        }
+
+
+        private void HotKey_HotKeyPressed(object sender, OCMHotKey.HotKey e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Clip_ClipboardTextChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataText e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Clip_ClipboardImageChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataImage e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Clip_ClipboardFileChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataFile e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

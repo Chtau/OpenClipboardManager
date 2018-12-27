@@ -13,6 +13,8 @@ namespace OCMApp.Settings
         public string DataPath { get; set; } = null;
 
         #region OCMClip
+        public bool UseWatcher { get; set; } = false;
+
         public int ClipWatcherRefreshRateMilliseconds { get; set; } = 50;
         public int ClipWatcherRefreshRateSeconds { get; set; } = 0;
         public bool ClipWatcherActiveText { get; set; } = true;

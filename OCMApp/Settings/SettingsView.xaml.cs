@@ -26,7 +26,7 @@ namespace OCMApp.Settings
         {
             _viewModel = new SettingsViewModel();
             DataContext = _viewModel;
-
+            
             InitializeComponent();
         }
 

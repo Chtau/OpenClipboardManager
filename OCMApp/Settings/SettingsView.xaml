@@ -27,6 +27,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -48,18 +49,41 @@
                     <Label Content="{Binding Source='Clipboard',Converter={ StaticResource LocalizeConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <Separator Margin="0,2,0,10"/>
                 </StackPanel>
-                <Label Grid.Row="4" Grid.Column="0" Content="{Binding Source='Activate Text interceptor',Converter={ StaticResource LocalizeConverter}}"/>
+                <Label Grid.Row="4" Grid.Column="0" Content="{Binding Source='Activate Text',Converter={ StaticResource LocalizeConverter}}"/>
                 <Controls:ToggleSwitch Grid.Row="4" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveText }"/>
-                <Label Grid.Row="5" Grid.Column="0" Content="{Binding Source='Activate Image interceptor',Converter={ StaticResource LocalizeConverter}}"/>
+                <Label Grid.Row="5" Grid.Column="0" Content="{Binding Source='Activate Image',Converter={ StaticResource LocalizeConverter}}"/>
                 <Controls:ToggleSwitch Grid.Row="5" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveImage }"/>
-                <Label Grid.Row="6" Grid.Column="0" Content="{Binding Source='Activate File interceptor',Converter={ StaticResource LocalizeConverter}}"/>
+                <Label Grid.Row="6" Grid.Column="0" Content="{Binding Source='Activate File',Converter={ StaticResource LocalizeConverter}}"/>
                 <Controls:ToggleSwitch Grid.Row="6" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveFile }"/>
-                <Label Grid.Row="7" Grid.Column="0" Content="{Binding Source='Refresh Rate Milliseconds',Converter={ StaticResource LocalizeConverter}}"/>
-                <Controls:NumericUpDown Grid.Row="7" Grid.Column="1" Minimum="0" Maximum="1000" Interval="50" Value="{Binding Settings.ClipWatcherRefreshRateMilliseconds }"/>
-                <Label Grid.Row="8" Grid.Column="0" Content="{Binding Source='Refresh Rate Seconds',Converter={ StaticResource LocalizeConverter}}"/>
-                <Controls:NumericUpDown Grid.Row="8" Grid.Column="1" Minimum="0" Maximum="60" Interval="1" Value="{Binding Settings.ClipWatcherRefreshRateSeconds }"/>
-                <Label Grid.Row="9" Grid.Column="0" Content="{Binding Source='Default Image format',Converter={ StaticResource LocalizeConverter}}"/>
-                <ComboBox Grid.Row="9" Grid.Column="1"
+                <Label Grid.Row="7" Grid.Column="0" Content="{Binding Source='Use Interceptor',Converter={ StaticResource LocalizeConverter}}"/>
+                <Controls:ToggleSwitch Grid.Row="7" Grid.Column="1" IsChecked="{Binding Settings.UseWatcher }"/>
+                <Grid Grid.Row="8" Grid.ColumnSpan="2" Visibility="{Binding Settings.UseWatcher,Converter={ StaticResource VisibilityConverter} }">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="{Binding Source='Refresh Rate Milliseconds',Converter={ StaticResource LocalizeConverter}}"/>
+                    <Controls:NumericUpDown Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="1000" Interval="50" Value="{Binding Settings.ClipWatcherRefreshRateMilliseconds }"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="{Binding Source='Refresh Rate Seconds',Converter={ StaticResource LocalizeConverter}}"/>
+                    <Controls:NumericUpDown Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="60" Interval="1" Value="{Binding Settings.ClipWatcherRefreshRateSeconds }"/>
+                </Grid>
+                <Grid Grid.Row="9" Grid.ColumnSpan="2" Visibility="{Binding Settings.UseWatcher,Converter={ StaticResource VisibilityConverter}, ConverterParameter=true }">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="{Binding Source='Hotkey',Converter={ StaticResource LocalizeConverter}}"/>
+                </Grid>
+                <Label Grid.Row="10" Grid.Column="0" Content="{Binding Source='Default Image format',Converter={ StaticResource LocalizeConverter}}"/>
+                <ComboBox Grid.Row="10" Grid.Column="1"
                   ItemsSource="{Binding Path=ClipWatcherImageFormatTypeEnum}" 
                   DisplayMemberPath="Value" 
                   SelectedValuePath="Key"

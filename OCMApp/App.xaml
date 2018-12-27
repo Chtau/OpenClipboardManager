@@ -18,6 +18,7 @@
 
             </ResourceDictionary.MergedDictionaries>
             <localInternal:LocalizeConverter x:Key="LocalizeConverter" />
+            <localInternal:VisibilityConverter x:Key="VisibilityConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
