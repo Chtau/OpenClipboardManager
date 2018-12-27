@@ -38,6 +38,11 @@ namespace OCMClip
             Watcher.Instance.StartTimer();
         }
 
+        public void StopWatcher()
+        {
+            Watcher.Instance.StopTimer();
+        }
+
         public void Query()
         {
             if (configuration == null)
