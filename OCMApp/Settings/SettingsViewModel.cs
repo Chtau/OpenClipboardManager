@@ -28,6 +28,7 @@ namespace OCMApp.Settings
             ClipHotKey = new HotKeyConfigurationViewModel();
             ClipHotKey.SetKey(Settings.ClipKey);
             ClipHotKey.SetModifier(Settings.ClipKeyModifier);
+            ClipHotKey.Title = "Hotkey copy value";
         }
     }
 }

@@ -24,6 +24,7 @@ namespace OCMApp.Settings
         public List<KeyValuePair<int, string>> ModifierEnum { get; set; }
         public int Modifier1EnumSelected { get; set; }
         public int Modifier2EnumSelected { get; set; }
+        public string Title { get; set; }
 
         public HotKeyConfigurationViewModel()
         {
@@ -32,6 +33,7 @@ namespace OCMApp.Settings
             ModifierEnum = Helper.ComboBoxBindingModelBuilder.FromEnum(typeof(Modifier));
             Modifier1EnumSelected = (int)Modifier.None;
             Modifier2EnumSelected = (int)Modifier.None;
+            Title = "";
         }
 
         public void SetKey(OCMHotKey.Enums.Key key)

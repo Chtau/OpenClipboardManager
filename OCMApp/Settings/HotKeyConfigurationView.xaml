@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OCMApp.Settings"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+             d:DesignHeight="450" d:DesignWidth="800"
+             BorderBrush="Gray" BorderThickness="1">
+    <Grid Margin="5,0,5,5">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -16,20 +18,23 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Source='Key',Converter={ StaticResource LocalizeConverter}}"/>
-        <ComboBox Grid.Row="0" Grid.Column="1"
+        <Label Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="{Binding Title,Converter={ StaticResource LocalizeConverter}}"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="{Binding Source='Key',Converter={ StaticResource LocalizeConverter}}"/>
+        <ComboBox Grid.Row="1" Grid.Column="1"
                   ItemsSource="{Binding Path=KeyEnum}" 
                   DisplayMemberPath="Value" 
                   SelectedValuePath="Key"
-                  SelectedValue="{Binding Path=KeyEnumSelected, Mode=TwoWay}"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="{Binding Source='Modifier 1',Converter={ StaticResource LocalizeConverter}}"/>
-        <ComboBox Grid.Row="1" Grid.Column="1"
+                  SelectedValue="{Binding Path=KeyEnumSelected, Mode=TwoWay}"
+                  Margin="0,0,0,5"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="{Binding Source='Modifier 1',Converter={ StaticResource LocalizeConverter}}"/>
+        <ComboBox Grid.Row="2" Grid.Column="1"
                   ItemsSource="{Binding Path=ModifierEnum}" 
                   DisplayMemberPath="Value" 
                   SelectedValuePath="Key"
-                  SelectedValue="{Binding Path=Modifier1EnumSelected, Mode=TwoWay}"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="{Binding Source='Modifier 2',Converter={ StaticResource LocalizeConverter}}"/>
-        <ComboBox Grid.Row="2" Grid.Column="1"
+                  SelectedValue="{Binding Path=Modifier1EnumSelected, Mode=TwoWay}"
+                  Margin="0,0,0,5"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="{Binding Source='Modifier 2',Converter={ StaticResource LocalizeConverter}}"/>
+        <ComboBox Grid.Row="3" Grid.Column="1"
                   ItemsSource="{Binding Path=ModifierEnum}" 
                   DisplayMemberPath="Value" 
                   SelectedValuePath="Key"

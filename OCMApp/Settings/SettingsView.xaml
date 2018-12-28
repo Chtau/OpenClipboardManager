@@ -42,7 +42,7 @@
                   ItemsSource="{Binding Path=CultureEnum}" 
                   DisplayMemberPath="Value" 
                   SelectedValuePath="Key"
-                  SelectedValue="{Binding Path=CultureEnumSelected, Mode=TwoWay}"/>
+                  SelectedValue="{Binding Path=CultureEnumSelected, Mode=TwoWay}" Margin="0,0,0,5"/>
                 <Label Grid.Row="2" Grid.Column="0" Content="{Binding Source='Autostart',Converter={ StaticResource LocalizeConverter}}"/>
                 <Controls:ToggleSwitch Grid.Row="2" Grid.Column="1" IsChecked="{Binding Settings.AutoStart }"/>
                 <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
@@ -50,13 +50,13 @@
                     <Separator Margin="0,2,0,10"/>
                 </StackPanel>
                 <Label Grid.Row="4" Grid.Column="0" Content="{Binding Source='Activate Text',Converter={ StaticResource LocalizeConverter}}"/>
-                <Controls:ToggleSwitch Grid.Row="4" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveText }"/>
+                <Controls:ToggleSwitch Grid.Row="4" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveText }" Margin="0,0,0,5"/>
                 <Label Grid.Row="5" Grid.Column="0" Content="{Binding Source='Activate Image',Converter={ StaticResource LocalizeConverter}}"/>
-                <Controls:ToggleSwitch Grid.Row="5" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveImage }"/>
+                <Controls:ToggleSwitch Grid.Row="5" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveImage }" Margin="0,0,0,5"/>
                 <Label Grid.Row="6" Grid.Column="0" Content="{Binding Source='Activate File',Converter={ StaticResource LocalizeConverter}}"/>
-                <Controls:ToggleSwitch Grid.Row="6" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveFile }"/>
+                <Controls:ToggleSwitch Grid.Row="6" Grid.Column="1" IsChecked="{Binding Settings.ClipWatcherActiveFile }" Margin="0,0,0,5"/>
                 <Label Grid.Row="7" Grid.Column="0" Content="{Binding Source='Use Interceptor',Converter={ StaticResource LocalizeConverter}}"/>
-                <Controls:ToggleSwitch Grid.Row="7" Grid.Column="1" IsChecked="{Binding Settings.UseWatcher }"/>
+                <Controls:ToggleSwitch Grid.Row="7" Grid.Column="1" IsChecked="{Binding Settings.UseWatcher }" Margin="0,0,0,5"/>
                 <Grid Grid.Row="8" Grid.ColumnSpan="2" Visibility="{Binding Settings.UseWatcher,Converter={ StaticResource VisibilityConverter} }">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -67,11 +67,11 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Content="{Binding Source='Refresh Rate Milliseconds',Converter={ StaticResource LocalizeConverter}}"/>
-                    <Controls:NumericUpDown Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="1000" Interval="50" Value="{Binding Settings.ClipWatcherRefreshRateMilliseconds }"/>
+                    <Controls:NumericUpDown Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="1000" Interval="50" Value="{Binding Settings.ClipWatcherRefreshRateMilliseconds }" Margin="0,0,0,5"/>
                     <Label Grid.Row="1" Grid.Column="0" Content="{Binding Source='Refresh Rate Seconds',Converter={ StaticResource LocalizeConverter}}"/>
-                    <Controls:NumericUpDown Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="60" Interval="1" Value="{Binding Settings.ClipWatcherRefreshRateSeconds }"/>
+                    <Controls:NumericUpDown Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="60" Interval="1" Value="{Binding Settings.ClipWatcherRefreshRateSeconds }" Margin="0,0,0,5"/>
                 </Grid>
-                <Grid Grid.Row="9" Grid.ColumnSpan="2" Visibility="{Binding Settings.UseWatcher,Converter={ StaticResource VisibilityConverter}, ConverterParameter=true }">
+                <Grid Grid.Row="9" Grid.ColumnSpan="2" Visibility="{Binding Settings.UseWatcher,Converter={ StaticResource VisibilityConverter}, ConverterParameter=true }" Margin="0,0,0,5">
                     <local:HotKeyConfigurationView DataContext="{Binding ClipHotKey}"/>
                 </Grid>
                 <Label Grid.Row="10" Grid.Column="0" Content="{Binding Source='Default Image format',Converter={ StaticResource LocalizeConverter}}"/>
