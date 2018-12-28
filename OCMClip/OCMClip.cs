@@ -53,7 +53,7 @@ namespace OCMClip
             Watcher.Instance.GetClipboard();
         }
 
-        public void Post(string value, System.Windows.Forms.TextDataFormat format)
+        public void Post(string value, ClipHandler.Entities.Enums.TextDataFormat format)
         {
             if (value != null)
                 Watcher.Instance.PostClipboard(value, format);

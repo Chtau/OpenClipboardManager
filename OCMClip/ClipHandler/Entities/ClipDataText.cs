@@ -9,6 +9,6 @@ namespace OCMClip.ClipHandler.Entities
     public class ClipDataText : ClipData
     {
         public string Value { get; set; }
-        public System.Windows.Forms.TextDataFormat SourceTextFormat { get; set; }
+        public Enums.TextDataFormat SourceTextFormat { get; set; }
     }
 }

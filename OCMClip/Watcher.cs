@@ -119,11 +119,11 @@ namespace OCMClip
             });
         }
 
-        private void OnPostClipboardContentString(string value, System.Windows.Forms.TextDataFormat format)
+        private void OnPostClipboardContentString(string value, ClipHandler.Entities.Enums.TextDataFormat format)
         {
             if (configuration.ActiveText)
             {
-                System.Windows.Forms.Clipboard.SetText(value, format);
+                System.Windows.Forms.Clipboard.SetText(value, (System.Windows.Forms.TextDataFormat)(int)format);
             }
         }
 
@@ -225,7 +225,7 @@ namespace OCMClip
             }
         }
 
-        public void PostClipboard(string value, System.Windows.Forms.TextDataFormat format)
+        public void PostClipboard(string value, ClipHandler.Entities.Enums.TextDataFormat format)
         {
             try
             {

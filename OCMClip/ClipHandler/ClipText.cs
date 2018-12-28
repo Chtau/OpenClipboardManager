@@ -76,7 +76,7 @@ namespace OCMClip.ClipHandler
                 {
                     Id = Guid.NewGuid(),
                     DateCreated = DateTime.UtcNow,
-                    SourceTextFormat = format,
+                    SourceTextFormat = (ClipHandler.Entities.Enums.TextDataFormat)(int)format,
                     Value = value,
                     ApplicationWindowTitle = nativData.Item1,
                     ProcessId = nativData.Item2.Id,
