@@ -28,6 +28,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -80,6 +81,7 @@
                   DisplayMemberPath="Value" 
                   SelectedValuePath="Key"
                   SelectedValue="{Binding Path=ClipWatcherImageFormatTypeEnumSelected, Mode=TwoWay}"/>
+                <local:HotKeyConfigurationView Grid.Row="11" Grid.ColumnSpan="2" DataContext="{Binding ClipPasteHotKey}"/>
             </Grid>
         </ScrollViewer>
         <StackPanel Grid.Row="2" Margin="0,0,0,10">

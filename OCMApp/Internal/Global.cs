@@ -36,12 +36,16 @@ namespace OCMApp.Internal
         }
         #endregion
 
+        const string HotKey_Event_ClipboardCopy = "getclipboard";
+        const string HotKey_Event_ClipboardPaste = "postclipboard";
+
         public OCMClip.OCMClip Clip { get; private set; }
         public OCMHotKey.OCMHotKey HotKey { get; private set; }
         public Settings.Settings Settings { get; private set; } = new Settings.Settings();
         public Localize Localize { get; private set; }
 
-        private OCMHotKey.HotKey clipboardHotKey;
+        private OCMHotKey.HotKey clipboardHotKeyGet;
+        private OCMHotKey.HotKey clipboardHotKeyPost;
         private bool isInit = false;
         public void Init()
         {
@@ -134,32 +138,47 @@ namespace OCMApp.Internal
                     ));
             Localize.SetLanguage();
 
-            OnSetupClip();
+            OnSetupClipGet();
+            OnSetupClipPost();
         }
 
-        private void OnSetupClip()
+        private void OnSetupClipGet()
         {
             if (Settings.UseWatcher)
             {
-                if (clipboardHotKey != null)
-                    HotKey.Remove(clipboardHotKey.Id);
+                if (clipboardHotKeyGet != null)
+                    HotKey.Remove(clipboardHotKeyGet.Id);
                 // use the Watcher to intercept the default Clipboard
                 Clip.StartWatcher();
             } else
             {
                 // use a defined Keyboard Shortcut only to retrive the Clipboard
                 Clip.StopWatcher();
-                if (clipboardHotKey != null)
-                    HotKey.Remove(clipboardHotKey.Id);
-                clipboardHotKey = new OCMHotKey.HotKey(Settings.ClipKey, Settings.ClipKeyModifier, HotKeyGetClipboardPressed, "getclipboard");
-                HotKey.Add(clipboardHotKey);
+                if (clipboardHotKeyGet != null)
+                    HotKey.Remove(clipboardHotKeyGet.Id);
+                clipboardHotKeyGet = new OCMHotKey.HotKey(Settings.ClipKey, Settings.ClipKeyModifier, HotKeyGetClipboardPressed, HotKey_Event_ClipboardCopy);
+                HotKey.Add(clipboardHotKeyGet);
             }
+        }
+
+        private void OnSetupClipPost()
+        {
+            if (clipboardHotKeyPost != null)
+                HotKey.Remove(clipboardHotKeyPost.Id);
+            clipboardHotKeyPost = new OCMHotKey.HotKey(Settings.ClipPostKey, Settings.ClipPostKeyModifier, HotKeyPostClipboardPressed, HotKey_Event_ClipboardPaste);
+            HotKey.Add(clipboardHotKeyPost);
         }
 
         private void HotKeyGetClipboardPressed(OCMHotKey.HotKey e)
         {
             HotKey.SendKeys("^C");
             Clip.Get();
+        }
+
+        private void HotKeyPostClipboardPressed(OCMHotKey.HotKey e)
+        {
+            Clip.Post("TestPost", OCMClip.ClipHandler.Entities.Enums.TextDataFormat.Text);
+            HotKey.SendKeys("^v");
         }
 
         private void HotKey_HotKeyPressed(object sender, OCMHotKey.HotKey e)

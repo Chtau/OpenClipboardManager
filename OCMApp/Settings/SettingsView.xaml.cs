@@ -40,6 +40,8 @@ namespace OCMApp.Settings
                 _viewModel.Settings.ClipKey = _viewModel.ClipHotKey.GetKey();
                 _viewModel.Settings.ClipKeyModifier = _viewModel.ClipHotKey.GetModifier();
             }
+            _viewModel.Settings.ClipPostKey = _viewModel.ClipPasteHotKey.GetKey();
+            _viewModel.Settings.ClipPostKeyModifier = _viewModel.ClipPasteHotKey.GetModifier();
 
             Internal.Global.Instance.SaveSettings(_viewModel.Settings);
         }

@@ -123,7 +123,11 @@ namespace OCMClip
         {
             if (configuration.ActiveText)
             {
-                System.Windows.Forms.Clipboard.SetText(value, (System.Windows.Forms.TextDataFormat)(int)format);
+                InvokeSTATThread(() =>
+                {
+                    //System.Windows.Forms.Clipboard.SetText(value, System.Windows.Forms.TextDataFormat.Text);
+                    System.Windows.Forms.Clipboard.SetText(value, (System.Windows.Forms.TextDataFormat)(int)format);
+                });
             }
         }
 
@@ -131,7 +135,10 @@ namespace OCMClip
         {
             if (configuration.ActiveImage)
             {
-                System.Windows.Forms.Clipboard.SetImage(value);
+                InvokeSTATThread(() =>
+                {
+                    System.Windows.Forms.Clipboard.SetImage(value);
+                });
             }
         }
 
@@ -139,7 +146,10 @@ namespace OCMClip
         {
             if (configuration.ActiveFileDropList)
             {
-                System.Windows.Forms.Clipboard.SetFileDropList(value);
+                InvokeSTATThread(() =>
+                {
+                    System.Windows.Forms.Clipboard.SetFileDropList(value);
+                });
             }
         }
 

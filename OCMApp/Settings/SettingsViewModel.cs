@@ -16,6 +16,7 @@ namespace OCMApp.Settings
         public int CultureEnumSelected { get; set; }
 
         public HotKeyConfigurationViewModel ClipHotKey { get; set; }
+        public HotKeyConfigurationViewModel ClipPasteHotKey { get; set; }
 
         public SettingsViewModel()
         {
@@ -29,6 +30,11 @@ namespace OCMApp.Settings
             ClipHotKey.SetKey(Settings.ClipKey);
             ClipHotKey.SetModifier(Settings.ClipKeyModifier);
             ClipHotKey.Title = "Hotkey copy value";
+
+            ClipPasteHotKey = new HotKeyConfigurationViewModel();
+            ClipPasteHotKey.SetKey(Settings.ClipPostKey);
+            ClipPasteHotKey.SetModifier(Settings.ClipPostKeyModifier);
+            ClipPasteHotKey.Title = "Hotkey paste value";
         }
     }
 }
