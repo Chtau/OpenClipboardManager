@@ -178,7 +178,8 @@ namespace OCMApp.Internal
         private void HotKeyPostClipboardPressed(OCMHotKey.HotKey e)
         {
             Clip.Post("TestPost", OCMClip.ClipHandler.Entities.Enums.TextDataFormat.Text);
-            HotKey.SendKeys("^v");
+            if (!Settings.OnlySetClipboardOnPaste)
+                HotKey.SendKeys("^v");
         }
 
         private void HotKey_HotKeyPressed(object sender, OCMHotKey.HotKey e)
