@@ -11,5 +11,17 @@ namespace OCMApp.DAL.Models
     {
         public byte[] Value { get; set; }
         public Enums.ImageFormatType FormatType { get; set; }
+
+        public ClipImage()
+        {
+
+        }
+
+        public ClipImage(ClipDataImage entity) : this()
+        {
+            Value = entity.Value;
+            FormatType = entity.FormatType;
+            base.Set(entity);
+        }
     }
 }

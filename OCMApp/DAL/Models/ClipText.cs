@@ -11,5 +11,17 @@ namespace OCMApp.DAL.Models
     {
         public string Value { get; set; }
         public Enums.TextDataFormat SourceTextFormat { get; set; }
+
+        public ClipText()
+        {
+
+        }
+
+        public ClipText(ClipDataText entity) : this()
+        {
+            Value = entity.Value;
+            SourceTextFormat = entity.SourceTextFormat;
+            base.Set(entity);
+        }
     }
 }

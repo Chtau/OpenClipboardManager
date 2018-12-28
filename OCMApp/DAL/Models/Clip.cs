@@ -16,5 +16,15 @@ namespace OCMApp.DAL.Models
         public string ApplicationWindowTitle { get; set; }
         public string ProcessName { get; set; }
         public int ProcessId { get; set; }
+
+        protected void Set(OCMClip.ClipHandler.Entities.ClipData entity)
+        {
+            Id = entity.Id;
+            DateCreated = entity.DateCreated;
+            ApplicationName = entity.ApplicationName;
+            ApplicationWindowTitle = entity.ApplicationWindowTitle;
+            ProcessName = entity.ProcessName;
+            ProcessId = entity.ProcessId;
+        }
     }
 }
