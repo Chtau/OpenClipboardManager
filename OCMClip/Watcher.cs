@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Drawing;
 using System.Linq;
 using System.Security.Permissions;
 using System.Text;
@@ -117,6 +119,30 @@ namespace OCMClip
             });
         }
 
+        private void OnPostClipboardContentString(string value, System.Windows.Forms.TextDataFormat format)
+        {
+            if (configuration.ActiveText)
+            {
+                System.Windows.Forms.Clipboard.SetText(value, format);
+            }
+        }
+
+        private void OnPostClipboardContentImage(Image value)
+        {
+            if (configuration.ActiveImage)
+            {
+                System.Windows.Forms.Clipboard.SetImage(value);
+            }
+        }
+
+        private void OnPostClipboardContentFile(StringCollection value)
+        {
+            if (configuration.ActiveFileDropList)
+            {
+                System.Windows.Forms.Clipboard.SetFileDropList(value);
+            }
+        }
+
         private void InvokeSTATThread(Action action)
         {
             if (UseOwnThread)
@@ -187,11 +213,47 @@ namespace OCMClip
             }
         }
 
-        public void QueryClipboard()
+        public void GetClipboard()
         {
             try
             {
                 OnGetClipboardContent();
+            }
+            catch (Exception ex)
+            {
+                OCMClip.logger.Error(ex);
+            }
+        }
+
+        public void PostClipboard(string value, System.Windows.Forms.TextDataFormat format)
+        {
+            try
+            {
+                OnPostClipboardContentString(value, format);
+            }
+            catch (Exception ex)
+            {
+                OCMClip.logger.Error(ex);
+            }
+        }
+
+        public void PostClipboard(Image value)
+        {
+            try
+            {
+                OnPostClipboardContentImage(value);
+            }
+            catch (Exception ex)
+            {
+                OCMClip.logger.Error(ex);
+            }
+        }
+
+        public void PostClipboard(StringCollection value)
+        {
+            try
+            {
+                OnPostClipboardContentFile(value);
             }
             catch (Exception ex)
             {

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,11 +46,33 @@ namespace OCMClip
             Watcher.Instance.StopTimer();
         }
 
-        public void Query()
+        public void Get()
         {
             if (configuration == null)
                 throw new Exception("Load a configuration before you can query for clipboard content");
-            Watcher.Instance.QueryClipboard();
+            Watcher.Instance.GetClipboard();
+        }
+
+        public void Post(string value, System.Windows.Forms.TextDataFormat format)
+        {
+            if (value != null)
+                Watcher.Instance.PostClipboard(value, format);
+        }
+
+        public void Post(Image value)
+        {
+            if (value != null)
+                Watcher.Instance.PostClipboard(value);
+        }
+
+        public void Post(List<string> value)
+        {
+            if (value != null)
+            {
+                StringCollection col = new StringCollection();
+                col.AddRange(value.ToArray());
+                Watcher.Instance.PostClipboard(col);
+            }
         }
 
         private void Instance_ClipboardTextRecived(object sender, string e)

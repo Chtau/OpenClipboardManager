@@ -159,7 +159,7 @@ namespace OCMApp.Internal
         private void HotKeyGetClipboardPressed(OCMHotKey.HotKey e)
         {
             HotKey.SendKeys("^C");
-            Clip.Query();
+            Clip.Get();
         }
 
         private void HotKey_HotKeyPressed(object sender, OCMHotKey.HotKey e)
