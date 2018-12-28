@@ -43,6 +43,7 @@ namespace OCMApp.Internal
         public OCMHotKey.OCMHotKey HotKey { get; private set; }
         public Settings.Settings Settings { get; private set; } = new Settings.Settings();
         public Localize Localize { get; private set; }
+        public DAL.DBContext DBContext { get; private set; }
 
         private OCMHotKey.HotKey clipboardHotKeyGet;
         private OCMHotKey.HotKey clipboardHotKeyPost;
@@ -69,6 +70,7 @@ namespace OCMApp.Internal
                 HotKey.HotKeyPressed += HotKey_HotKeyPressed;
 
                 OnLoadSettings();
+                DBContext = new DAL.DBContext(System.IO.Path.Combine(Helper.Folder.GetUserFolder(), "ocm.db"));
             }
         }
 
@@ -189,7 +191,22 @@ namespace OCMApp.Internal
 
         private void Clip_ClipboardTextChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataText e)
         {
-            System.Diagnostics.Debug.Print(e.Value);
+            if (DBContext != null)
+            {
+                System.Diagnostics.Debug.Print(e.Value);
+                var entity = new DAL.Models.ClipText
+                {
+                    Id = e.Id,
+                    ApplicationName = e.ApplicationName,
+                    ApplicationWindowTitle = e.ApplicationWindowTitle,
+                    DateCreated = e.DateCreated,
+                    ProcessId = e.ProcessId,
+                    ProcessName = e.ProcessName,
+                    SourceTextFormat = e.SourceTextFormat,
+                    Value = e.Value
+                };
+                DBContext.InsertClipText(entity);
+            }
         }
 
         private void Clip_ClipboardImageChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataImage e)

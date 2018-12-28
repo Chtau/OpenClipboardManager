@@ -135,6 +135,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BaseViewModel.cs" />
+    <Compile Include="DAL\DBContext.cs" />
+    <Compile Include="DAL\Models\Clip.cs" />
+    <Compile Include="DAL\Models\ClipText.cs" />
     <Compile Include="GlobalValues.cs" />
     <Compile Include="Helper\ComboBoxBindingModelBuilder.cs" />
     <Compile Include="Helper\Folder.cs" />

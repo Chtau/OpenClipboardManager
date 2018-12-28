@@ -9,11 +9,11 @@ namespace OCMApp
 {
     public class MainWindowViewModel : BaseViewModel
     {
-        public List<OCMClip.ClipHandler.Entities.ClipDataText> ClipDataTexts { get; set; }
+        public List<DAL.Models.ClipText> ClipDataTexts { get; set; }
 
         public MainWindowViewModel()
         {
-            ClipDataTexts = new List<OCMClip.ClipHandler.Entities.ClipDataText>();
+            ClipDataTexts = Internal.Global.Instance.DBContext.GetClipText().ToList();//new List<DAL.Models.ClipText>();
         }
     }
 }
