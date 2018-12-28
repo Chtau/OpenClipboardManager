@@ -20,6 +20,8 @@ namespace OCMApp.DAL
         private void OnBuildModel()
         {
             DB.CreateTable<Models.ClipText>();
+            DB.CreateTable<Models.ClipImage>();
+            DB.CreateTable<Models.ClipFile>();
         }
 
         public void InsertClipText(Models.ClipText clipText)
