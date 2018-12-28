@@ -71,6 +71,8 @@ namespace OCMApp.Internal
 
                 OnLoadSettings();
                 DBContext = new DAL.DBContext(System.IO.Path.Combine(Helper.Folder.GetUserFolder(), "ocm.db"));
+
+                OnSettingsChange();
             }
         }
 
@@ -83,7 +85,12 @@ namespace OCMApp.Internal
         public bool SaveSettings(Settings.Settings settings)
         {
             Settings = settings;
-            SettingsChange();
+            OnSettingsChange();
+            return OnSaveSettings(settings);
+        }
+
+        private bool OnSaveSettings(Settings.Settings settings)
+        {
             try
             {
                 string file = System.IO.Path.Combine(Helper.Folder.GetUserFolder(), GlobalValues.SettingsFile);
@@ -110,14 +117,13 @@ namespace OCMApp.Internal
                     if (settings != null)
                     {
                         Settings = settings;
-                        SettingsChange();
                         return true;
                     }
                 } else
                 {
                     if (Settings == null)
                         Settings = new Settings.Settings();
-                    SaveSettings(Settings);
+                    OnSaveSettings(Settings);
                 }
             }
             catch (Exception ex)
@@ -127,7 +133,7 @@ namespace OCMApp.Internal
             return false;
         }
 
-        private void SettingsChange()
+        private void OnSettingsChange()
         {
             Clip.Load(new Configuration(
                     new ConfigurationWatcher(Settings.ClipWatcherRefreshRateMilliseconds,
@@ -191,22 +197,19 @@ namespace OCMApp.Internal
 
         private void Clip_ClipboardTextChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataText e)
         {
-            if (DBContext != null)
+            System.Diagnostics.Debug.Print(e.Value);
+            var entity = new DAL.Models.ClipText
             {
-                System.Diagnostics.Debug.Print(e.Value);
-                var entity = new DAL.Models.ClipText
-                {
-                    Id = e.Id,
-                    ApplicationName = e.ApplicationName,
-                    ApplicationWindowTitle = e.ApplicationWindowTitle,
-                    DateCreated = e.DateCreated,
-                    ProcessId = e.ProcessId,
-                    ProcessName = e.ProcessName,
-                    SourceTextFormat = e.SourceTextFormat,
-                    Value = e.Value
-                };
-                DBContext.InsertClipText(entity);
-            }
+                Id = e.Id,
+                ApplicationName = e.ApplicationName,
+                ApplicationWindowTitle = e.ApplicationWindowTitle,
+                DateCreated = e.DateCreated,
+                ProcessId = e.ProcessId,
+                ProcessName = e.ProcessName,
+                SourceTextFormat = e.SourceTextFormat,
+                Value = e.Value
+            };
+            DBContext.InsertClipText(entity);
         }
 
         private void Clip_ClipboardImageChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataImage e)

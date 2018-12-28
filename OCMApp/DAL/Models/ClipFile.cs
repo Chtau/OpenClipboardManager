@@ -8,6 +8,6 @@ namespace OCMApp.DAL.Models
 {
     public class ClipFile : Clip
     {
-        public List<string> Value { get; set; }
+        public string Value { get; set; }
     }
 }
