@@ -30,5 +30,18 @@ namespace OCMApp.DAL.Models
             }
             base.Set(entity);
         }
+
+        public List<string> GetListValue()
+        {
+            List<string> retVal = new List<string>();
+            if (!string.IsNullOrWhiteSpace(Value))
+            {
+                foreach (var item in Value.Split(';'))
+                {
+                    retVal.Add(item.Trim());
+                }
+            }
+            return retVal;
+        }
     }
 }
