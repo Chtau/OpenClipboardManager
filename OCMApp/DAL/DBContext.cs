@@ -9,29 +9,39 @@ namespace OCMApp.DAL
 {
     public class DBContext
     {
-        internal SQLiteConnection DB = null;
+        internal SQLiteAsyncConnection DB = null;
 
         public DBContext(string path)
         {
-            DB = new SQLiteConnection(path);
-            OnBuildModel();
+            DB = new SQLiteAsyncConnection(path);
+            Task.Run(OnBuildModel).Wait();
         }
 
-        private void OnBuildModel()
+        private async Task OnBuildModel()
         {
-            DB.CreateTable<Models.ClipText>();
-            DB.CreateTable<Models.ClipImage>();
-            DB.CreateTable<Models.ClipFile>();
+            await DB.CreateTableAsync<Models.ClipText>();
+            await DB.CreateTableAsync<Models.ClipImage>();
+            await DB.CreateTableAsync<Models.ClipFile>();
         }
 
         public void InsertClipText(Models.ClipText clipText)
         {
-            DB.Insert(clipText);
+            DB.InsertAsync(clipText);
         }
 
-        public IQueryable<Models.ClipText> GetClipText()
+        public Task<List<Models.ClipText>> GetClipText()
         {
-            return DB.Table<Models.ClipText>().AsQueryable();
+            return DB.Table<Models.ClipText>().ToListAsync();
+        }
+
+        public Task<List<Models.ClipImage>> GetClipImage()
+        {
+            return DB.Table<Models.ClipImage>().ToListAsync();
+        }
+
+        public Task<List<Models.ClipFile>> GetClipFile()
+        {
+            return DB.Table<Models.ClipFile>().ToListAsync();
         }
     }
 }

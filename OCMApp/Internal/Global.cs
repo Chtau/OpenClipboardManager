@@ -71,7 +71,7 @@ namespace OCMApp.Internal
 
                 OnLoadSettings();
                 DBContext = new DAL.DBContext(System.IO.Path.Combine(Helper.Folder.GetUserFolder(), "ocm.db"));
-
+                
                 OnSettingsChange();
             }
         }
