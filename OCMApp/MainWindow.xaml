@@ -60,10 +60,10 @@
                               SelectionUnit="FullRow"
                               AutoGenerateColumns="false"
                               Margin="5"
-                              HeadersVisibility="All"
+                              HeadersVisibility="All" IsReadOnly="True" RowHeight="1" HorizontalGridLinesBrush="#FF555555" VerticalGridLinesBrush="#FF505050" IsTextSearchEnabled="True" GridLinesVisibility="Horizontal"
                               >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Value}" Header="{Binding Source='Content',Converter={ StaticResource LocalizeConverter}}" />
+                            <DataGridTextColumn Width="350" Binding="{Binding Value}" Header="{Binding Source='Content',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding DateCreated}" Header="{Binding Source='Created',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding ApplicationName}" Header="{Binding Source='Application',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding ApplicationWindowTitle}" Header="{Binding Source='Window',Converter={ StaticResource LocalizeConverter}}" />
@@ -83,7 +83,7 @@
                               SelectionUnit="FullRow"
                               AutoGenerateColumns="false"
                               Margin="5"
-                              HeadersVisibility="All"
+                              HeadersVisibility="All" IsReadOnly="True" RowHeight="1" HorizontalGridLinesBrush="#FF555555" VerticalGridLinesBrush="#FF505050" IsTextSearchEnabled="True" GridLinesVisibility="Horizontal"
                               >
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Value}" Header="{Binding Source='Content',Converter={ StaticResource LocalizeConverter}}" />
@@ -106,10 +106,10 @@
                               SelectionUnit="FullRow"
                               AutoGenerateColumns="false"
                               Margin="5"
-                              HeadersVisibility="All"
+                              HeadersVisibility="All" IsReadOnly="True" RowHeight="1" HorizontalGridLinesBrush="#FF555555" VerticalGridLinesBrush="#FF505050" IsTextSearchEnabled="True" GridLinesVisibility="Horizontal"
                               >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Value}" Header="{Binding Source='Content',Converter={ StaticResource LocalizeConverter}}" />
+                            <DataGridTextColumn Width="350" Binding="{Binding Value}" Header="{Binding Source='Content',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding DateCreated}" Header="{Binding Source='Created',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding ApplicationName}" Header="{Binding Source='Application',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding ApplicationWindowTitle}" Header="{Binding Source='Window',Converter={ StaticResource LocalizeConverter}}" />
@@ -129,10 +129,10 @@
                               SelectionUnit="FullRow"
                               AutoGenerateColumns="false"
                               Margin="5"
-                              HeadersVisibility="All"
+                              HeadersVisibility="All" IsReadOnly="True" RowHeight="1" HorizontalGridLinesBrush="#FF555555" VerticalGridLinesBrush="#FF505050" IsTextSearchEnabled="True" GridLinesVisibility="Horizontal"
                               >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Application}" Header="{Binding Source='Application',Converter={ StaticResource LocalizeConverter}}" />
+                            <DataGridTextColumn Width="350" Binding="{Binding Application}" Header="{Binding Source='Application',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding Total}" Header="{Binding Source='Total',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding Text}" Header="{Binding Source='Text',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding Image}" Header="{Binding Source='Image',Converter={ StaticResource LocalizeConverter}}" />
