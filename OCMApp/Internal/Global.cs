@@ -135,13 +135,22 @@ namespace OCMApp.Internal
 
         private void OnSettingsChange()
         {
+            var clipDefaults = Task.Run(DBContext.GetLastValues).GetAwaiter().GetResult();
+            string defaultText = clipDefaults.Item1?.Value;
+            System.Drawing.Image defaultImage = null;
+            if (clipDefaults.Item2?.Value != null)
+                defaultImage = OCMClip.ClipHandler.ConvertImage.ByteArrayToImage(clipDefaults.Item2.Value);
+            List<string> defaultFile = clipDefaults.Item3?.GetListValue();
+            
             Clip.Load(new Configuration(
                     new ConfigurationWatcher(Settings.ClipWatcherRefreshRateMilliseconds,
                         Settings.ClipWatcherRefreshRateSeconds,
                         Settings.ClipWatcherActiveText,
                         Settings.ClipWatcherActiveImage,
                         Settings.ClipWatcherActiveFile),
-                    null, null, null,
+                    defaultText,
+                    defaultImage,
+                    defaultFile,
                     Settings.ClipWatcherDefaultImageFormat
                     ));
             Localize.SetLanguage();

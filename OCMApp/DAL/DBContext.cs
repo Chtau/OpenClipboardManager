@@ -50,5 +50,13 @@ namespace OCMApp.DAL
                 + " UNION SELECT ApplicationName as Application, SUM(1) as Total, 0 as Text, SUM(1) as Image, 0 as File FROM ClipImage GROUP BY ApplicationName"
                 + " UNION SELECT ApplicationName as Application, SUM(1) as Total, 0 as Text, 0 as Image, SUM(1) as File FROM ClipFile GROUP BY ApplicationName");
         }
+
+        public async Task<Tuple<Models.ClipText, Models.ClipImage, Models.ClipFile>> GetLastValues()
+        {
+            var text = await DB.Table<Models.ClipText>().OrderByDescending(x => x.DateCreated).FirstOrDefaultAsync();
+            var image = await DB.Table<Models.ClipImage>().OrderByDescending(x => x.DateCreated).FirstOrDefaultAsync();
+            var file = await DB.Table<Models.ClipFile>().OrderByDescending(x => x.DateCreated).FirstOrDefaultAsync();
+            return new Tuple<Models.ClipText, Models.ClipImage, Models.ClipFile>(text, image, file);
+        }
     }
 }

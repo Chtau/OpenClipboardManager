@@ -10,7 +10,7 @@ using OCMClip.ClipHandler.Entities;
 
 namespace OCMClip.ClipHandler
 {
-    internal static class ConvertImage
+    public static class ConvertImage
     {
         public static byte[] ImageToByteArray(System.Drawing.Image imageIn, Enums.ImageFormatType formatType)
         {
@@ -67,7 +67,7 @@ namespace OCMClip.ClipHandler
             }
         }
 
-        public static ImageFormat GetImageFormat(Enums.ImageFormatType format)
+        internal static ImageFormat GetImageFormat(Enums.ImageFormatType format)
         {
             switch (format)
             {
