@@ -41,17 +41,17 @@ namespace OCMApp.DAL
 
         public Task<List<Models.ClipText>> GetClipText()
         {
-            return DB.Table<Models.ClipText>().ToListAsync();
+            return DB.Table<Models.ClipText>().OrderByDescending(x => x.DateCreated).ToListAsync();
         }
 
         public Task<List<Models.ClipImage>> GetClipImage()
         {
-            return DB.Table<Models.ClipImage>().ToListAsync();
+            return DB.Table<Models.ClipImage>().OrderByDescending(x => x.DateCreated).ToListAsync();
         }
 
         public Task<List<Models.ClipFile>> GetClipFile()
         {
-            return DB.Table<Models.ClipFile>().ToListAsync();
+            return DB.Table<Models.ClipFile>().OrderByDescending(x => x.DateCreated).ToListAsync();
         }
 
         public Task<List<Models.Summary>> GetSummary()
