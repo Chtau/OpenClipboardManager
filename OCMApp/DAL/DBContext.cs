@@ -43,5 +43,12 @@ namespace OCMApp.DAL
         {
             return DB.Table<Models.ClipFile>().ToListAsync();
         }
+
+        public Task<List<Models.Summary>> GetSummary()
+        {
+            return DB.QueryAsync<Models.Summary>("SELECT ApplicationName as Application, SUM(1) as Total, SUM(1) as Text, 0 as Image, 0 as File FROM ClipText GROUP BY ApplicationName"
+                + " UNION SELECT ApplicationName as Application, SUM(1) as Total, 0 as Text, SUM(1) as Image, 0 as File FROM ClipImage GROUP BY ApplicationName"
+                + " UNION SELECT ApplicationName as Application, SUM(1) as Total, 0 as Text, 0 as Image, SUM(1) as File FROM ClipFile GROUP BY ApplicationName");
+        }
     }
 }

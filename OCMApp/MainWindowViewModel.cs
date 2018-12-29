@@ -45,6 +45,17 @@ namespace OCMApp
             }
         }
 
+        private ObservableCollection<DAL.Models.Summary> summary;
+        public ObservableCollection<DAL.Models.Summary> Summary
+        {
+            get { return summary; }
+            set
+            {
+                summary = value;
+                RaisePropertyChanged("Summary");
+            }
+        }
+
         public MainWindowViewModel()
         {
             RefreshCommand.Execute(null);
@@ -70,6 +81,7 @@ namespace OCMApp
             ClipDataTexts = new ObservableCollection<DAL.Models.ClipText>(await Internal.Global.Instance.DBContext.GetClipText());
             ClipDataImages = new ObservableCollection<DAL.Models.ClipImage>(await Internal.Global.Instance.DBContext.GetClipImage());
             ClipDataFiles = new ObservableCollection<DAL.Models.ClipFile>(await Internal.Global.Instance.DBContext.GetClipFile());
+            Summary = new ObservableCollection<DAL.Models.Summary>(await Global.Instance.DBContext.GetSummary());
         }
     }
 }

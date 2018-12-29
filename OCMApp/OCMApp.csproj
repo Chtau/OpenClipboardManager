@@ -140,6 +140,7 @@
     <Compile Include="DAL\Models\ClipFile.cs" />
     <Compile Include="DAL\Models\ClipImage.cs" />
     <Compile Include="DAL\Models\ClipText.cs" />
+    <Compile Include="DAL\Models\Summary.cs" />
     <Compile Include="GlobalValues.cs" />
     <Compile Include="Helper\ComboBoxBindingModelBuilder.cs" />
     <Compile Include="Helper\Folder.cs" />

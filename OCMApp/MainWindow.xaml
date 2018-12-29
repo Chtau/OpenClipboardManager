@@ -118,7 +118,28 @@
                 </Grid>
             </TabItem>
             <TabItem Header="{Binding Source='Summary',Converter={ StaticResource LocalizeConverter}}">
-
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid Grid.Row="1" 
+                              ItemsSource="{Binding Path=Summary, Mode=TwoWay}"
+                              RowHeaderWidth="0"
+                              SelectionUnit="FullRow"
+                              AutoGenerateColumns="false"
+                              Margin="5"
+                              HeadersVisibility="All"
+                              >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Application}" Header="{Binding Source='Application',Converter={ StaticResource LocalizeConverter}}" />
+                            <DataGridTextColumn Binding="{Binding Total}" Header="{Binding Source='Total',Converter={ StaticResource LocalizeConverter}}" />
+                            <DataGridTextColumn Binding="{Binding Text}" Header="{Binding Source='Text',Converter={ StaticResource LocalizeConverter}}" />
+                            <DataGridTextColumn Binding="{Binding Image}" Header="{Binding Source='Image',Converter={ StaticResource LocalizeConverter}}" />
+                            <DataGridTextColumn Binding="{Binding File}" Header="{Binding Source='File',Converter={ StaticResource LocalizeConverter}}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </TabItem>
         </Controls:MetroAnimatedSingleRowTabControl>
         <StatusBar Grid.Row="2">
