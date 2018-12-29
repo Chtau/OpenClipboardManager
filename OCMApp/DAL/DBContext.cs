@@ -29,6 +29,16 @@ namespace OCMApp.DAL
             DB.InsertAsync(clipText);
         }
 
+        public void InsertClipImage(Models.ClipImage clip)
+        {
+            DB.InsertAsync(clip);
+        }
+
+        public void InsertClipFile(Models.ClipFile clip)
+        {
+            DB.InsertAsync(clip);
+        }
+
         public Task<List<Models.ClipText>> GetClipText()
         {
             return DB.Table<Models.ClipText>().ToListAsync();
@@ -46,9 +56,11 @@ namespace OCMApp.DAL
 
         public Task<List<Models.Summary>> GetSummary()
         {
-            return DB.QueryAsync<Models.Summary>("SELECT ApplicationName as Application, SUM(1) as Total, SUM(1) as Text, 0 as Image, 0 as File FROM ClipText GROUP BY ApplicationName"
+            return DB.QueryAsync<Models.Summary>("SELECT Application, SUM(Total) as Total, SUM(Text) as Text, SUM(Image) as Image, SUM(File) as File FROM ( " +
+                "SELECT ApplicationName as Application, SUM(1) as Total, SUM(1) as Text, 0 as Image, 0 as File FROM ClipText GROUP BY ApplicationName"
                 + " UNION SELECT ApplicationName as Application, SUM(1) as Total, 0 as Text, SUM(1) as Image, 0 as File FROM ClipImage GROUP BY ApplicationName"
-                + " UNION SELECT ApplicationName as Application, SUM(1) as Total, 0 as Text, 0 as Image, SUM(1) as File FROM ClipFile GROUP BY ApplicationName");
+                + " UNION SELECT ApplicationName as Application, SUM(1) as Total, 0 as Text, 0 as Image, SUM(1) as File FROM ClipFile GROUP BY ApplicationName"
+                + " ) GROUP BY Application");
         }
 
         public async Task<Tuple<Models.ClipText, Models.ClipImage, Models.ClipFile>> GetLastValues()

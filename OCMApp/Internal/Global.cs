@@ -206,18 +206,38 @@ namespace OCMApp.Internal
 
         private void Clip_ClipboardTextChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataText e)
         {
-            System.Diagnostics.Debug.Print(e.Value);
-            DBContext.InsertClipText(new DAL.Models.ClipText(e));
+            try
+            {
+                System.Diagnostics.Debug.Print(e.Value);
+                DBContext.InsertClipText(new DAL.Models.ClipText(e));
+            } catch (Exception ex)
+            {
+                Log.Error(ex, "Clipboard text value save to DB");
+            }
         }
 
         private void Clip_ClipboardImageChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataImage e)
         {
-            
+            try
+            {
+                DBContext.InsertClipImage(new DAL.Models.ClipImage(e));
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Clipboard image value save to DB");
+            }
         }
 
         private void Clip_ClipboardFileChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataFile e)
         {
-            
+            try
+            {
+                DBContext.InsertClipFile(new DAL.Models.ClipFile(e));
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Clipboard files value save to DB");
+            }
         }
     }
 }
