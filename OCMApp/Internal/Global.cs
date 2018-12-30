@@ -136,88 +136,119 @@ namespace OCMApp.Internal
 
         private void OnSettingsChange()
         {
-            LastClip = Task.Run(DBContext.GetLastValues).GetAwaiter().GetResult();
-            string defaultText = LastClip.ClipText?.Value;
-            System.Drawing.Image defaultImage = null;
-            if (LastClip.ClipImage?.Value != null)
-                defaultImage = OCMClip.ClipHandler.ConvertImage.ByteArrayToImage(LastClip.ClipImage.Value);
-            List<string> defaultFile = LastClip.ClipFile?.GetListValue();
-            
-            Clip.Load(new Configuration(
-                    new ConfigurationWatcher(Settings.ClipWatcherRefreshRateMilliseconds,
-                        Settings.ClipWatcherRefreshRateSeconds,
-                        Settings.ClipWatcherActiveText,
-                        Settings.ClipWatcherActiveImage,
-                        Settings.ClipWatcherActiveFile),
-                    defaultText,
-                    defaultImage,
-                    defaultFile,
-                    Settings.ClipWatcherDefaultImageFormat
-                    ));
-            Localize.SetLanguage();
+            try
+            {
+                LastClip = Task.Run(DBContext.GetLastValues).GetAwaiter().GetResult();
+                string defaultText = LastClip.ClipText?.Value;
+                System.Drawing.Image defaultImage = null;
+                if (LastClip.ClipImage?.Value != null)
+                    defaultImage = OCMClip.ClipHandler.ConvertImage.ByteArrayToImage(LastClip.ClipImage.Value);
+                List<string> defaultFile = LastClip.ClipFile?.GetListValue();
 
-            OnSetupClipGet();
-            OnSetupClipPost();
+                Clip.Load(new Configuration(
+                        new ConfigurationWatcher(Settings.ClipWatcherRefreshRateMilliseconds,
+                            Settings.ClipWatcherRefreshRateSeconds,
+                            Settings.ClipWatcherActiveText,
+                            Settings.ClipWatcherActiveImage,
+                            Settings.ClipWatcherActiveFile),
+                        defaultText,
+                        defaultImage,
+                        defaultFile,
+                        Settings.ClipWatcherDefaultImageFormat
+                        ));
+                Localize.SetLanguage();
+
+                OnSetupClipGet();
+                OnSetupClipPost();
+            } catch (Exception ex)
+            {
+                Log.Error(ex, "Change Application Settings");
+            }
         }
 
         private void OnSetupClipGet()
         {
-            if (Settings.UseWatcher)
+            try
             {
-                if (clipboardHotKeyGet != null)
-                    HotKey.Remove(clipboardHotKeyGet.Id);
-                // use the Watcher to intercept the default Clipboard
-                Clip.StartWatcher();
-            } else
+                if (Settings.UseWatcher)
+                {
+                    if (clipboardHotKeyGet != null)
+                        HotKey.Remove(clipboardHotKeyGet.Id);
+                    // use the Watcher to intercept the default Clipboard
+                    Clip.StartWatcher();
+                }
+                else
+                {
+                    // use a defined Keyboard Shortcut only to retrive the Clipboard
+                    Clip.StopWatcher();
+                    if (clipboardHotKeyGet != null)
+                        HotKey.Remove(clipboardHotKeyGet.Id);
+                    clipboardHotKeyGet = new OCMHotKey.HotKey(Settings.ClipKey, Settings.ClipKeyModifier, HotKeyGetClipboardPressed, HotKey_Event_ClipboardCopy);
+                    HotKey.Add(clipboardHotKeyGet);
+                }
+            } catch (Exception ex)
             {
-                // use a defined Keyboard Shortcut only to retrive the Clipboard
-                Clip.StopWatcher();
-                if (clipboardHotKeyGet != null)
-                    HotKey.Remove(clipboardHotKeyGet.Id);
-                clipboardHotKeyGet = new OCMHotKey.HotKey(Settings.ClipKey, Settings.ClipKeyModifier, HotKeyGetClipboardPressed, HotKey_Event_ClipboardCopy);
-                HotKey.Add(clipboardHotKeyGet);
+                Log.Error(ex, "Setup Clip Hotkey/Watcher");
             }
         }
 
         private void OnSetupClipPost()
         {
-            if (clipboardHotKeyPost != null)
-                HotKey.Remove(clipboardHotKeyPost.Id);
-            clipboardHotKeyPost = new OCMHotKey.HotKey(Settings.ClipPostKey, Settings.ClipPostKeyModifier, HotKeyPostClipboardPressed, HotKey_Event_ClipboardPaste);
-            HotKey.Add(clipboardHotKeyPost);
+            try
+            {
+                if (clipboardHotKeyPost != null)
+                    HotKey.Remove(clipboardHotKeyPost.Id);
+                clipboardHotKeyPost = new OCMHotKey.HotKey(Settings.ClipPostKey, Settings.ClipPostKeyModifier, HotKeyPostClipboardPressed, HotKey_Event_ClipboardPaste);
+                HotKey.Add(clipboardHotKeyPost);
+            } catch (Exception ex)
+            {
+                Log.Error(ex, "Setup Hotkey Post last Clipboard");
+            }
         }
 
         private void HotKeyGetClipboardPressed(OCMHotKey.HotKey e)
         {
-            HotKey.SendKeys("^C");
-            Clip.Get();
+            try
+            {
+                HotKey.SendKeys("^C");
+                Clip.Get();
+            } catch (Exception ex)
+            {
+                Log.Error(ex, "Get current Clipboard data");
+            }
         }
 
         private void HotKeyPostClipboardPressed(OCMHotKey.HotKey e)
         {
-            if (LastClip != null)
+            try
             {
-                bool hasPostValue = false;
-                if (LastClip.ClipFile != null && LastClip.ClipFile.DateCreated > LastClip.ClipImage?.DateCreated && LastClip.ClipFile.DateCreated > LastClip.ClipText?.DateCreated)
+                if (LastClip != null)
                 {
-                    Clip.Post(LastClip.ClipFile.GetListValue());
-                    hasPostValue = true;
+                    bool hasPostValue = false;
+                    if (LastClip.ClipFile != null && LastClip.ClipFile.DateCreated > LastClip.ClipImage?.DateCreated && LastClip.ClipFile.DateCreated > LastClip.ClipText?.DateCreated)
+                    {
+                        Clip.Post(LastClip.ClipFile.GetListValue());
+                        hasPostValue = true;
+                    }
+                    else if (LastClip.ClipImage != null && LastClip.ClipImage.DateCreated > LastClip.ClipText?.DateCreated && LastClip.ClipImage.DateCreated > LastClip.ClipFile?.DateCreated)
+                    {
+                        Clip.Post(OCMClip.ClipHandler.ConvertImage.ByteArrayToImage(LastClip.ClipImage.Value));
+                        hasPostValue = true;
+                    }
+                    else if (LastClip.ClipText != null)
+                    {
+                        Clip.Post(LastClip.ClipText.Value, OCMClip.ClipHandler.Entities.Enums.TextDataFormat.Text);
+                        hasPostValue = true;
+                    }
+                    if (hasPostValue)
+                    {
+                        if (!Settings.OnlySetClipboardOnPaste)
+                            HotKey.SendKeys("^v");
+                    }
                 }
-                else if (LastClip.ClipImage != null && LastClip.ClipImage.DateCreated > LastClip.ClipText?.DateCreated && LastClip.ClipImage.DateCreated > LastClip.ClipFile?.DateCreated)
-                {
-                    Clip.Post(OCMClip.ClipHandler.ConvertImage.ByteArrayToImage(LastClip.ClipImage.Value));
-                    hasPostValue = true;
-                }
-                else if (LastClip.ClipText != null)
-                {
-                    Clip.Post(LastClip.ClipText.Value, OCMClip.ClipHandler.Entities.Enums.TextDataFormat.Text);
-                    hasPostValue = true;
-                }
-                if (hasPostValue)
-                {
-                    if (!Settings.OnlySetClipboardOnPaste)
-                        HotKey.SendKeys("^v");
-                }
+            } catch (Exception ex)
+            {
+                Log.Error(ex, "Post last Clipboard content");
             }
         }
 
