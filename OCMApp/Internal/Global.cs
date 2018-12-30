@@ -40,7 +40,7 @@ namespace OCMApp.Internal
         const string HotKey_Event_ClipboardPaste = "postclipboard";
         const string Log_File = "log.txt";
         const string DB_File = "ocm.db";
-        const string Clipboard_Get_Send_Key = "^C";
+        const string Clipboard_Get_Send_Key = "^c";
         const string Clipboard_Post_Send_Key = "^v";
 
         public OCMClip.OCMClip Clip { get; private set; }

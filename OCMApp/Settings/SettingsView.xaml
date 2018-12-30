@@ -30,6 +30,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -48,7 +49,7 @@
                 <Label Grid.Row="2" Grid.Column="0" Content="{Binding Source='Autostart',Converter={ StaticResource LocalizeConverter}}"/>
                 <Controls:ToggleSwitch Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Settings.AutoStart }"/>
                 <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
-                    <Label Content="{Binding Source='Clipboard',Converter={ StaticResource LocalizeConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Label Content="{Binding Source='Copy Clipboard',Converter={ StaticResource LocalizeConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <Separator Margin="0,2,0,10"/>
                 </StackPanel>
                 <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Content="{Binding Source='Activate Text',Converter={ StaticResource LocalizeConverter}}" Margin="0,0,0,5"/>
@@ -82,9 +83,13 @@
                   DisplayMemberPath="Value" 
                   SelectedValuePath="Key"
                   SelectedValue="{Binding Path=ClipWatcherImageFormatTypeEnumSelected, Mode=TwoWay}"/>
-                <Label Grid.Row="11" Grid.Column="0" VerticalAlignment="Center" Content="{Binding Source='Only set Clipboard on Paste',Converter={ StaticResource LocalizeConverter}}" Margin="0,0,0,5"/>
-                <Controls:ToggleSwitch Grid.Row="11" Grid.Column="1" IsChecked="{Binding Settings.OnlySetClipboardOnPaste }" Margin="0,0,0,5"/>
-                <local:HotKeyConfigurationView Grid.Row="12" Grid.ColumnSpan="2" DataContext="{Binding ClipPasteHotKey}"/>
+                <StackPanel Grid.Row="11" Grid.ColumnSpan="2">
+                    <Label Content="{Binding Source='Paste Clipboard',Converter={ StaticResource LocalizeConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Separator Margin="0,2,0,10"/>
+                </StackPanel>
+                <Label Grid.Row="12" Grid.Column="0" VerticalAlignment="Center" Content="{Binding Source='Only set Clipboard on Paste',Converter={ StaticResource LocalizeConverter}}" Margin="0,0,0,5"/>
+                <Controls:ToggleSwitch Grid.Row="12" Grid.Column="1" IsChecked="{Binding Settings.OnlySetClipboardOnPaste }" Margin="0,0,0,5"/>
+                <local:HotKeyConfigurationView Grid.Row="13" Grid.ColumnSpan="2" DataContext="{Binding ClipPasteHotKey}"/>
             </Grid>
         </ScrollViewer>
         <StackPanel Grid.Row="2" Margin="0,0,0,10">
