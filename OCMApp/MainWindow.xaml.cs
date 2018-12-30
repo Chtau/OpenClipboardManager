@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,40 +69,55 @@ namespace OCMApp
 
         private void DeleteItem_Click(object sender, RoutedEventArgs e)
         {
-            if (e.Source is Button button && button.DataContext != null)
+            try
             {
-                if (button.DataContext is DAL.Models.ClipText textEntity)
+                if (e.Source is Button button && button.DataContext != null)
                 {
-                    Task.Run(() => Internal.Global.Instance.DBContext.DeleteClipText(textEntity)).Wait();
-                    _viewModel.RefreshCommand.Execute(null);
+                    if (button.DataContext is DAL.Models.ClipText textEntity)
+                    {
+                        Task.Run(() => Internal.Global.Instance.DBContext.DeleteClipText(textEntity)).Wait();
+                        _viewModel.RefreshCommand.Execute(null);
+                    }
+                    else if (button.DataContext is DAL.Models.ClipImage imageEntity)
+                    {
+                        Task.Run(() => Internal.Global.Instance.DBContext.DeleteClipImage(imageEntity)).Wait();
+                        _viewModel.RefreshCommand.Execute(null);
+                    }
+                    else if (button.DataContext is DAL.Models.ClipFile fileEntity)
+                    {
+                        Task.Run(() => Internal.Global.Instance.DBContext.DeleteClipFile(fileEntity)).Wait();
+                        _viewModel.RefreshCommand.Execute(null);
+                    }
                 }
-                else if (button.DataContext is DAL.Models.ClipImage imageEntity)
-                {
-                    Task.Run(() => Internal.Global.Instance.DBContext.DeleteClipImage(imageEntity)).Wait();
-                    _viewModel.RefreshCommand.Execute(null);
-                }
-                else if (button.DataContext is DAL.Models.ClipFile fileEntity)
-                {
-                    Task.Run(() => Internal.Global.Instance.DBContext.DeleteClipFile(fileEntity)).Wait();
-                    _viewModel.RefreshCommand.Execute(null);
-                }
+            } catch (Exception ex)
+            {
+                Log.Error(ex, "Delete DataGrid Item");
             }
         }
 
         private void CopyItem_Click(object sender, RoutedEventArgs e)
         {
-            if (e.Source is Button button && button.DataContext != null)
+            try
             {
-                if (button.DataContext is DAL.Models.ClipText textEntity)
+                if (e.Source is Button button && button.DataContext != null)
                 {
-                    Internal.Global.Instance.Clip.Post(textEntity.Value, OCMClip.ClipHandler.Entities.Enums.TextDataFormat.Text);
-                } else if (button.DataContext is DAL.Models.ClipImage imageEntity)
-                {
-                    Internal.Global.Instance.Clip.Post(OCMClip.ClipHandler.ConvertImage.ByteArrayToImage(imageEntity.Value));
-                } else if (button.DataContext is DAL.Models.ClipFile fileEntity)
-                {
-                    Internal.Global.Instance.Clip.Post(fileEntity.GetListValue());
+                    if (button.DataContext is DAL.Models.ClipText textEntity)
+                    {
+                        Internal.Global.Instance.Clip.Post(textEntity.Value, OCMClip.ClipHandler.Entities.Enums.TextDataFormat.Text);
+                    }
+                    else if (button.DataContext is DAL.Models.ClipImage imageEntity)
+                    {
+                        Internal.Global.Instance.Clip.Post(OCMClip.ClipHandler.ConvertImage.ByteArrayToImage(imageEntity.Value));
+                    }
+                    else if (button.DataContext is DAL.Models.ClipFile fileEntity)
+                    {
+                        Internal.Global.Instance.Clip.Post(fileEntity.GetListValue());
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Post DataGrid Item to Clipboard");
             }
         }
     }
