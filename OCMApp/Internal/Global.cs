@@ -44,7 +44,8 @@ namespace OCMApp.Internal
         public Settings.Settings Settings { get; private set; } = new Settings.Settings();
         public Localize Localize { get; private set; }
         public DAL.DBContext DBContext { get; private set; }
-
+        public DAL.Models.LastClip LastClip { get; private set; }
+        
         private OCMHotKey.HotKey clipboardHotKeyGet;
         private OCMHotKey.HotKey clipboardHotKeyPost;
         private bool isInit = false;
@@ -135,12 +136,12 @@ namespace OCMApp.Internal
 
         private void OnSettingsChange()
         {
-            var clipDefaults = Task.Run(DBContext.GetLastValues).GetAwaiter().GetResult();
-            string defaultText = clipDefaults.Item1?.Value;
+            LastClip = Task.Run(DBContext.GetLastValues).GetAwaiter().GetResult();
+            string defaultText = LastClip.ClipText?.Value;
             System.Drawing.Image defaultImage = null;
-            if (clipDefaults.Item2?.Value != null)
-                defaultImage = OCMClip.ClipHandler.ConvertImage.ByteArrayToImage(clipDefaults.Item2.Value);
-            List<string> defaultFile = clipDefaults.Item3?.GetListValue();
+            if (LastClip.ClipImage?.Value != null)
+                defaultImage = OCMClip.ClipHandler.ConvertImage.ByteArrayToImage(LastClip.ClipImage.Value);
+            List<string> defaultFile = LastClip.ClipFile?.GetListValue();
             
             Clip.Load(new Configuration(
                     new ConfigurationWatcher(Settings.ClipWatcherRefreshRateMilliseconds,
@@ -194,9 +195,30 @@ namespace OCMApp.Internal
 
         private void HotKeyPostClipboardPressed(OCMHotKey.HotKey e)
         {
-            Clip.Post("TestPost", OCMClip.ClipHandler.Entities.Enums.TextDataFormat.Text);
-            if (!Settings.OnlySetClipboardOnPaste)
-                HotKey.SendKeys("^v");
+            if (LastClip != null)
+            {
+                bool hasPostValue = false;
+                if (LastClip.ClipFile != null && LastClip.ClipFile.DateCreated > LastClip.ClipImage?.DateCreated && LastClip.ClipFile.DateCreated > LastClip.ClipText?.DateCreated)
+                {
+                    Clip.Post(LastClip.ClipFile.GetListValue());
+                    hasPostValue = true;
+                }
+                else if (LastClip.ClipImage != null && LastClip.ClipImage.DateCreated > LastClip.ClipText?.DateCreated && LastClip.ClipImage.DateCreated > LastClip.ClipFile?.DateCreated)
+                {
+                    Clip.Post(OCMClip.ClipHandler.ConvertImage.ByteArrayToImage(LastClip.ClipImage.Value));
+                    hasPostValue = true;
+                }
+                else if (LastClip.ClipText != null)
+                {
+                    Clip.Post(LastClip.ClipText.Value, OCMClip.ClipHandler.Entities.Enums.TextDataFormat.Text);
+                    hasPostValue = true;
+                }
+                if (hasPostValue)
+                {
+                    if (!Settings.OnlySetClipboardOnPaste)
+                        HotKey.SendKeys("^v");
+                }
+            }
         }
 
         private void HotKey_HotKeyPressed(object sender, OCMHotKey.HotKey e)
@@ -208,8 +230,9 @@ namespace OCMApp.Internal
         {
             try
             {
-                System.Diagnostics.Debug.Print(e.Value);
-                DBContext.InsertClipText(new DAL.Models.ClipText(e));
+                var entity = new DAL.Models.ClipText(e);
+                LastClip.ClipText = entity;
+                DBContext.InsertClipText(entity);
             } catch (Exception ex)
             {
                 Log.Error(ex, "Clipboard text value save to DB");
@@ -220,6 +243,8 @@ namespace OCMApp.Internal
         {
             try
             {
+                var entity = new DAL.Models.ClipImage(e);
+                LastClip.ClipImage = entity;
                 DBContext.InsertClipImage(new DAL.Models.ClipImage(e));
             }
             catch (Exception ex)
@@ -232,6 +257,8 @@ namespace OCMApp.Internal
         {
             try
             {
+                var entity = new DAL.Models.ClipFile(e);
+                LastClip.ClipFile = entity;
                 DBContext.InsertClipFile(new DAL.Models.ClipFile(e));
             }
             catch (Exception ex)

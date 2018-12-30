@@ -63,12 +63,12 @@ namespace OCMApp.DAL
                 + " ) GROUP BY Application");
         }
 
-        public async Task<Tuple<Models.ClipText, Models.ClipImage, Models.ClipFile>> GetLastValues()
+        public async Task<Models.LastClip> GetLastValues()
         {
             var text = await DB.Table<Models.ClipText>().OrderByDescending(x => x.DateCreated).FirstOrDefaultAsync();
             var image = await DB.Table<Models.ClipImage>().OrderByDescending(x => x.DateCreated).FirstOrDefaultAsync();
             var file = await DB.Table<Models.ClipFile>().OrderByDescending(x => x.DateCreated).FirstOrDefaultAsync();
-            return new Tuple<Models.ClipText, Models.ClipImage, Models.ClipFile>(text, image, file);
+            return new Models.LastClip(text, image, file);
         }
     }
 }
