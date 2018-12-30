@@ -39,6 +39,21 @@ namespace OCMApp.DAL
             DB.InsertAsync(clip);
         }
 
+        public async Task DeleteClipText(Models.ClipText clipText)
+        {
+            await DB.DeleteAsync(clipText);
+        }
+
+        public async Task DeleteClipImage(Models.ClipImage clip)
+        {
+            await DB.DeleteAsync(clip);
+        }
+
+        public async Task DeleteClipFile(Models.ClipFile clip)
+        {
+            await DB.DeleteAsync(clip);
+        }
+
         public Task<List<Models.ClipText>> GetClipText()
         {
             return DB.Table<Models.ClipText>().OrderByDescending(x => x.DateCreated).ToListAsync();

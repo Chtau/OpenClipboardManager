@@ -10,7 +10,7 @@
                       xmlns:info="clr-namespace:OCMApp.Info"
                       mc:Ignorable="d"
         RightWindowCommandsOverlayBehavior="Never"
-        Title="{Binding Source='MainWindow',Converter={ StaticResource LocalizeConverter}}" Height="450" Width="800" WindowButtonCommandsOverlayBehavior="Never">
+        Title="{Binding Source='Open Clipboard Manager',Converter={ StaticResource LocalizeConverter}}" Height="450" Width="800" WindowButtonCommandsOverlayBehavior="Never">
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Button x:Name="Settings" Click="Settings_Click">
@@ -48,7 +48,7 @@
                       Command="{Binding RefreshCommand}"/>
         </Menu>
         <Controls:MetroAnimatedSingleRowTabControl x:Name="MainTabControl" Grid.Row="1">
-            <TabItem Header="{Binding Source='Text',Converter={ StaticResource LocalizeConverter}}">
+            <TabItem Header="{Binding Source='Text',Converter={ StaticResource LocalizeConverter}}" x:Name="TabText">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -61,8 +61,27 @@
                               AutoGenerateColumns="false"
                               Margin="5"
                               HeadersVisibility="All" IsReadOnly="True" RowHeight="1" HorizontalGridLinesBrush="#FF555555" VerticalGridLinesBrush="#FF505050" IsTextSearchEnabled="True" GridLinesVisibility="Horizontal"
+                              FrozenColumnCount="1"
                               >
                         <DataGrid.Columns>
+                            <DataGridTemplateColumn MaxWidth="75">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button x:Name="DeleteItem" Click="DeleteItem_Click" Height="10" MaxHeight="1" Margin="0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <iconPacks:PackIconModern Width="16" Height="10" Kind="Delete" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button x:Name="CopyItem" Click="CopyItem_Click" Height="10" MaxHeight="1" Margin="0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <iconPacks:PackIconModern Width="16" Height="10" Kind="PageCopy" />
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Width="350" Binding="{Binding Value}" Header="{Binding Source='Content',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding DateCreated}" Header="{Binding Source='Created',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding ApplicationName}" Header="{Binding Source='Application',Converter={ StaticResource LocalizeConverter}}" />
@@ -71,7 +90,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="{Binding Source='Image',Converter={ StaticResource LocalizeConverter}}">
+            <TabItem Header="{Binding Source='Image',Converter={ StaticResource LocalizeConverter}}" x:Name="TabImage">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -84,9 +103,34 @@
                               AutoGenerateColumns="false"
                               Margin="5"
                               HeadersVisibility="All" IsReadOnly="True" RowHeight="1" HorizontalGridLinesBrush="#FF555555" VerticalGridLinesBrush="#FF505050" IsTextSearchEnabled="True" GridLinesVisibility="Horizontal"
+                              FrozenColumnCount="1"
                               >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Value}" Header="{Binding Source='Content',Converter={ StaticResource LocalizeConverter}}" />
+                            <DataGridTemplateColumn MaxWidth="75">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button x:Name="DeleteItem" Click="DeleteItem_Click" Height="10" MaxHeight="1" Margin="0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <iconPacks:PackIconModern Width="16" Height="10" Kind="Delete" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button x:Name="CopyItem" Click="CopyItem_Click" Height="10" MaxHeight="1" Margin="0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <iconPacks:PackIconModern Width="16" Height="10" Kind="PageCopy" />
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="{Binding Source='Image',Converter={ StaticResource LocalizeConverter}}" Width="75">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Value}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Binding="{Binding DateCreated}" Header="{Binding Source='Created',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding ApplicationName}" Header="{Binding Source='Application',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding ApplicationWindowTitle}" Header="{Binding Source='Window',Converter={ StaticResource LocalizeConverter}}" />
@@ -94,7 +138,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="{Binding Source='File',Converter={ StaticResource LocalizeConverter}}">
+            <TabItem Header="{Binding Source='File',Converter={ StaticResource LocalizeConverter}}" x:Name="TabFile">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -107,8 +151,27 @@
                               AutoGenerateColumns="false"
                               Margin="5"
                               HeadersVisibility="All" IsReadOnly="True" RowHeight="1" HorizontalGridLinesBrush="#FF555555" VerticalGridLinesBrush="#FF505050" IsTextSearchEnabled="True" GridLinesVisibility="Horizontal"
+                              FrozenColumnCount="1"
                               >
                         <DataGrid.Columns>
+                            <DataGridTemplateColumn MaxWidth="75">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button x:Name="DeleteItem" Click="DeleteItem_Click" Height="10" MaxHeight="1" Margin="0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <iconPacks:PackIconModern Width="16" Height="10" Kind="Delete" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button x:Name="CopyItem" Click="CopyItem_Click" Height="10" MaxHeight="1" Margin="0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <iconPacks:PackIconModern Width="16" Height="10" Kind="PageCopy" />
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Width="350" Binding="{Binding Value}" Header="{Binding Source='Content',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding DateCreated}" Header="{Binding Source='Created',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding ApplicationName}" Header="{Binding Source='Application',Converter={ StaticResource LocalizeConverter}}" />
@@ -117,7 +180,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="{Binding Source='Summary',Converter={ StaticResource LocalizeConverter}}">
+            <TabItem Header="{Binding Source='Summary',Converter={ StaticResource LocalizeConverter}}" x:Name="TabSummary">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -145,8 +208,9 @@
         <StatusBar Grid.Row="2">
             <StatusBarItem Content="{Binding Source='Open Clipboard Manager',Converter={ StaticResource LocalizeConverter}}"/>
             <Separator Style="{StaticResource MetroStatusBarSeparator}" />
-            <StatusBarItem Content="{Binding Source='Selected Tab:',Converter={ StaticResource LocalizeConverter}}"/>
             <StatusBarItem Content="{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}" />
+            <StatusBarItem Content="{Binding ActiveTabRows, Mode=OneWay}" />
+            <StatusBarItem Margin="-5,0,0,0" Content="{Binding Source='Items',Converter={ StaticResource LocalizeConverter}}"/>
         </StatusBar>
     </Grid>
 </Controls:MetroWindow>

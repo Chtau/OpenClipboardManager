@@ -56,6 +56,17 @@ namespace OCMApp
             }
         }
 
+        private int activeTabRows = 0;
+        public int ActiveTabRows
+        {
+            get { return activeTabRows; }
+            set
+            {
+                activeTabRows = value;
+                RaisePropertyChanged("ActiveTabRows");
+            }
+        }
+
         public MainWindowViewModel()
         {
             RefreshCommand.Execute(null);
