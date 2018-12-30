@@ -134,6 +134,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationError\ApplicationErrorWindow.xaml.cs">
+      <DependentUpon>ApplicationErrorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="DAL\DBContext.cs" />
     <Compile Include="DAL\Models\Clip.cs" />
@@ -168,6 +171,10 @@
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\SettingsViewModel.cs" />
+    <Page Include="ApplicationError\ApplicationErrorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Info\InfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

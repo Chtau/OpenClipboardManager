@@ -45,35 +45,44 @@ namespace OCMApp.Internal
         public Localize Localize { get; private set; }
         public DAL.DBContext DBContext { get; private set; }
         public DAL.Models.LastClip LastClip { get; private set; }
+        public bool InitError { get; private set; } = false;
         
         private OCMHotKey.HotKey clipboardHotKeyGet;
         private OCMHotKey.HotKey clipboardHotKeyPost;
         private bool isInit = false;
+
         public void Init()
         {
             if (!isInit)
             {
-                isInit = true;
-                
-                Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.File(System.IO.Path.Combine(Helper.Folder.GetUserFolder(), "log.txt"),
-                    rollingInterval: RollingInterval.Day,
-                    rollOnFileSizeLimit: true)
-                .CreateLogger();
+                try
+                {
+                    isInit = true;
 
-                Localize = new Localize();
-                Clip = new OCMClip.OCMClip(new OCMClipLogger());
-                Clip.ClipboardFileChanged += Clip_ClipboardFileChanged;
-                Clip.ClipboardImageChanged += Clip_ClipboardImageChanged;
-                Clip.ClipboardTextChanged += Clip_ClipboardTextChanged;
-                HotKey = new OCMHotKey.OCMHotKey();
-                HotKey.HotKeyPressed += HotKey_HotKeyPressed;
+                    Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Information()
+                    .WriteTo.File(System.IO.Path.Combine(Helper.Folder.GetUserFolder(), "log.txt"),
+                        rollingInterval: RollingInterval.Day,
+                        rollOnFileSizeLimit: true)
+                    .CreateLogger();
 
-                OnLoadSettings();
-                DBContext = new DAL.DBContext(System.IO.Path.Combine(Helper.Folder.GetUserFolder(), "ocm.db"));
-                
-                OnSettingsChange();
+                    Localize = new Localize();
+                    Clip = new OCMClip.OCMClip(new OCMClipLogger());
+                    Clip.ClipboardFileChanged += Clip_ClipboardFileChanged;
+                    Clip.ClipboardImageChanged += Clip_ClipboardImageChanged;
+                    Clip.ClipboardTextChanged += Clip_ClipboardTextChanged;
+                    HotKey = new OCMHotKey.OCMHotKey();
+                    HotKey.HotKeyPressed += HotKey_HotKeyPressed;
+
+                    OnLoadSettings();
+                    DBContext = new DAL.DBContext(System.IO.Path.Combine(Helper.Folder.GetUserFolder(), "ocm.db"));
+
+                    OnSettingsChange();
+                } catch (Exception ex)
+                {
+                    Log.Error(ex, "Critical Application Error (restart needed)");
+                    InitError = true;
+                }
             }
         }
 
