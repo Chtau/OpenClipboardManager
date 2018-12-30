@@ -38,6 +38,10 @@ namespace OCMApp.Internal
 
         const string HotKey_Event_ClipboardCopy = "getclipboard";
         const string HotKey_Event_ClipboardPaste = "postclipboard";
+        const string Log_File = "log.txt";
+        const string DB_File = "ocm.db";
+        const string Clipboard_Get_Send_Key = "^C";
+        const string Clipboard_Post_Send_Key = "^v";
 
         public OCMClip.OCMClip Clip { get; private set; }
         public OCMHotKey.OCMHotKey HotKey { get; private set; }
@@ -61,7 +65,7 @@ namespace OCMApp.Internal
 
                     Log.Logger = new LoggerConfiguration()
                     .MinimumLevel.Information()
-                    .WriteTo.File(System.IO.Path.Combine(Helper.Folder.GetUserFolder(), "log.txt"),
+                    .WriteTo.File(System.IO.Path.Combine(Helper.Folder.GetUserFolder(), Log_File),
                         rollingInterval: RollingInterval.Day,
                         rollOnFileSizeLimit: true)
                     .CreateLogger();
@@ -75,7 +79,7 @@ namespace OCMApp.Internal
                     HotKey.HotKeyPressed += HotKey_HotKeyPressed;
 
                     OnLoadSettings();
-                    DBContext = new DAL.DBContext(System.IO.Path.Combine(Helper.Folder.GetUserFolder(), "ocm.db"));
+                    DBContext = new DAL.DBContext(System.IO.Path.Combine(Helper.Folder.GetUserFolder(), DB_File));
 
                     OnSettingsChange();
                 } catch (Exception ex)
@@ -219,7 +223,7 @@ namespace OCMApp.Internal
         {
             try
             {
-                HotKey.SendKeys("^C");
+                HotKey.SendKeys(Clipboard_Get_Send_Key);
                 Clip.Get();
             } catch (Exception ex)
             {
@@ -252,7 +256,7 @@ namespace OCMApp.Internal
                     if (hasPostValue)
                     {
                         if (!Settings.OnlySetClipboardOnPaste)
-                            HotKey.SendKeys("^v");
+                            HotKey.SendKeys(Clipboard_Post_Send_Key);
                     }
                 }
             } catch (Exception ex)
