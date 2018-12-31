@@ -41,6 +41,16 @@
                     <Hyperlink RequestNavigate="WebsiteLink_RequestNavigate" x:Name="websiteLink" NavigateUri="http://www.dlution.com">Source on Github</Hyperlink>
                     </TextBlock>
                 </StackPanel>
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="0,10,0,10">
+                    <Button x:Name="userFolder" Style="{StaticResource AccentedSquareButtonStyle}"
+                    Click="UserFolder_Click"
+                    Width="160">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconModern VerticalAlignment="Center" Kind="FolderOpen" />
+                            <Label Content="{Binding Source='Open Data Folder',Converter={ StaticResource LocalizeConverter}}"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
             </Grid>
         </ScrollViewer>
         <Separator Grid.Row="2"/>

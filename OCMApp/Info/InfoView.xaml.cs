@@ -42,5 +42,17 @@ namespace OCMApp.Info
                 Log.Error(ex, "Could not open Uri request");
             }
         }
+
+        private void UserFolder_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(Helper.Folder.GetUserFolder());
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Can't open log file");
+            }
+        }
     }
 }
