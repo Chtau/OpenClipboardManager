@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,17 @@ namespace OCMApp.ApplicationError
         public ApplicationErrorWindow()
         {
             InitializeComponent();
+        }
+
+        private void LogFile_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(Helper.Folder.GetUserFolder());
+            } catch (Exception ex)
+            {
+                Log.Error(ex, "Can't open log file");
+            }
         }
     }
 }

@@ -55,6 +55,14 @@ namespace OCMApp.Internal
         private OCMHotKey.HotKey clipboardHotKeyPost;
         private bool isInit = false;
 
+        public string LogFile
+        {
+            get
+            {
+                return System.IO.Path.Combine(Helper.Folder.GetUserFolder(), Log_File);
+            }
+        }
+
         public void Init()
         {
             if (!isInit)
@@ -65,7 +73,7 @@ namespace OCMApp.Internal
 
                     Log.Logger = new LoggerConfiguration()
                     .MinimumLevel.Information()
-                    .WriteTo.File(System.IO.Path.Combine(Helper.Folder.GetUserFolder(), Log_File),
+                    .WriteTo.File(LogFile,
                         rollingInterval: RollingInterval.Day,
                         rollOnFileSizeLimit: true)
                     .CreateLogger();

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:OCMApp.ApplicationError"
         mc:Ignorable="d"
         Title="OCM Error" Height="200" Width="350">
@@ -11,10 +12,21 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" FontSize="26" FontWeight="Bold" Content="Critical Error"/>
-        <TextBlock Grid.Row="1" TextWrapping="WrapWithOverflow" IsEnabled="False" FontSize="20" Padding="5">
+        <TextBlock Grid.Row="1" TextWrapping="WrapWithOverflow" IsEnabled="False" FontSize="16" Padding="5">
             OCM could not load all data, try to restart the Application as Administrator.
         </TextBlock>
+        <StackPanel Grid.Row="2" Margin="0,0,0,10">
+            <Button x:Name="logFile" Style="{StaticResource AccentedSquareButtonStyle}"
+                    Click="LogFile_Click"
+                    Width="120">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconModern VerticalAlignment="Center" Kind="App" />
+                    <Label Content="{Binding Source='Open Log Files',Converter={ StaticResource LocalizeConverter}}"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
     </Grid>
 </Controls:MetroWindow>
