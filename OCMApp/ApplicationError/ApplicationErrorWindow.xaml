@@ -6,13 +6,15 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:OCMApp.ApplicationError"
         mc:Ignorable="d"
-        Title="ApplicationErrorWindow" Height="200" Width="350">
+        Title="OCM Error" Height="200" Width="350">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Content="{Binding Source='Critical Error',Converter={ StaticResource LocalizeConverter}}"/>
-        <Label Grid.Row="1" Content="{Binding Source='Please restart the Application as Administrator',Converter={ StaticResource LocalizeConverter}}"/>
+        <Label Grid.Row="0" FontSize="26" FontWeight="Bold" Content="Critical Error"/>
+        <TextBlock Grid.Row="1" TextWrapping="WrapWithOverflow" IsEnabled="False" FontSize="20" Padding="5">
+            OCM could not load all data, try to restart the Application as Administrator.
+        </TextBlock>
     </Grid>
 </Controls:MetroWindow>

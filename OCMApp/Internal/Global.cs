@@ -70,6 +70,8 @@ namespace OCMApp.Internal
                         rollOnFileSizeLimit: true)
                     .CreateLogger();
 
+                    throw new Exception();
+
                     Localize = new Localize();
                     Clip = new OCMClip.OCMClip(new OCMClipLogger());
                     Clip.ClipboardFileChanged += Clip_ClipboardFileChanged;

@@ -12,7 +12,10 @@ namespace OCMApp.Internal
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Global.Instance.Localize.GetText(value?.ToString());
+            if (Global.Instance.Localize != null)
+                return Global.Instance.Localize.GetText(value?.ToString());
+            else
+                return value?.ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
