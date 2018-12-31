@@ -3,9 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:OCMApp"
              xmlns:localInternal="clr-namespace:OCMApp.Internal"
-             StartupUri="MainWindow.xaml">
+             ShutdownMode="OnExplicitShutdown"
+             >
+    <!--StartupUri="MainWindow.xaml"-->
     <Application.Resources>
         <ResourceDictionary>
+            <localInternal:LocalizeConverter x:Key="LocalizeConverter" />
+            <localInternal:VisibilityConverter x:Key="VisibilityConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
@@ -15,10 +19,9 @@
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-
+                <!-- NotifyIcon -->
+                <ResourceDictionary Source="NotifyIconResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <localInternal:LocalizeConverter x:Key="LocalizeConverter" />
-            <localInternal:VisibilityConverter x:Key="VisibilityConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

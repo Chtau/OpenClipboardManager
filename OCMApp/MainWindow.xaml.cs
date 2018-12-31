@@ -40,19 +40,19 @@ namespace OCMApp
             {
                 if (tab.Name == "TabText")
                 {
-                    _viewModel.ActiveTabRows = _viewModel.ClipDataTexts.Count;
+                    _viewModel.ActiveTab = MainWindowViewModel.Tabs.Text;
                 }
                 else if (tab.Name == "TabImage")
                 {
-                    _viewModel.ActiveTabRows = _viewModel.ClipDataImages.Count;
+                    _viewModel.ActiveTab = MainWindowViewModel.Tabs.Image;
                 }
                 else if (tab.Name == "TabFile")
                 {
-                    _viewModel.ActiveTabRows = _viewModel.ClipDataFiles.Count;
+                    _viewModel.ActiveTab = MainWindowViewModel.Tabs.File;
                 }
                 else if (tab.Name == "TabSummary")
                 {
-                    _viewModel.ActiveTabRows = _viewModel.Summary.Count;
+                    _viewModel.ActiveTab = MainWindowViewModel.Tabs.Summary;
                 }
             }
         }

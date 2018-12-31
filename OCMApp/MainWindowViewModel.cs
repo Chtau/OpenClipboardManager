@@ -12,6 +12,14 @@ namespace OCMApp
 {
     public class MainWindowViewModel : BaseViewModel
     {
+        public enum Tabs
+        {
+            Text,
+            Image,
+            File,
+            Summary
+        }
+
         private ObservableCollection<DAL.Models.ClipText> clipDataTexts;
         public ObservableCollection<DAL.Models.ClipText> ClipDataTexts
         {
@@ -67,6 +75,17 @@ namespace OCMApp
             }
         }
 
+        private Tabs activeTab = Tabs.Text;
+        public Tabs ActiveTab
+        {
+            get { return activeTab; }
+            set
+            {
+                activeTab = value;
+                RaisePropertyChanged("ActiveTab");
+            }
+        }
+
         public MainWindowViewModel()
         {
             RefreshCommand.Execute(null);
@@ -93,6 +112,22 @@ namespace OCMApp
             ClipDataImages = new ObservableCollection<DAL.Models.ClipImage>(await Internal.Global.Instance.DBContext.GetClipImage());
             ClipDataFiles = new ObservableCollection<DAL.Models.ClipFile>(await Internal.Global.Instance.DBContext.GetClipFile());
             Summary = new ObservableCollection<DAL.Models.Summary>(await Global.Instance.DBContext.GetSummary());
+            switch (ActiveTab)
+            {
+                case Tabs.Text:
+                    ActiveTabRows = ClipDataTexts.Count;
+                    break;
+                case Tabs.Image:
+                    ActiveTabRows = ClipDataImages.Count;
+                    break;
+                case Tabs.File:
+                    ActiveTabRows = ClipDataFiles.Count;
+                    break;
+                case Tabs.Summary:
+                    ActiveTabRows = Summary.Count;
+                    break;
+            }
+
         }
     }
 }
