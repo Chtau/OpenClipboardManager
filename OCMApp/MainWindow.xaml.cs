@@ -103,15 +103,15 @@ namespace OCMApp
                 {
                     if (button.DataContext is DAL.Models.ClipText textEntity)
                     {
-                        Internal.Global.Instance.Clip.Post(textEntity.Value, OCMClip.ClipHandler.Entities.Enums.TextDataFormat.Text);
+                        Internal.Global.Instance.PostAndGet(textEntity);
                     }
                     else if (button.DataContext is DAL.Models.ClipImage imageEntity)
                     {
-                        Internal.Global.Instance.Clip.Post(OCMClip.ClipHandler.ConvertImage.ByteArrayToImage(imageEntity.Value));
+                        Internal.Global.Instance.PostAndGet(imageEntity);
                     }
                     else if (button.DataContext is DAL.Models.ClipFile fileEntity)
                     {
-                        Internal.Global.Instance.Clip.Post(fileEntity.GetListValue());
+                        Internal.Global.Instance.PostAndGet(fileEntity);
                     }
                 }
             }

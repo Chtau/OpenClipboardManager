@@ -96,6 +96,7 @@ namespace OCMApp.Internal
             Log.CloseAndFlush();
         }
 
+        #region Settings
         public bool SaveSettings(Settings.Settings settings)
         {
             Settings = settings;
@@ -216,6 +217,45 @@ namespace OCMApp.Internal
             } catch (Exception ex)
             {
                 Log.Error(ex, "Setup Hotkey Post last Clipboard");
+            }
+        }
+        #endregion
+
+        public void PostAndGet(DAL.Models.ClipText textEntity)
+        {
+            try
+            {
+                Clip.Post(textEntity.Value, OCMClip.ClipHandler.Entities.Enums.TextDataFormat.Text);
+                Clip.Get();
+            } catch (Exception ex)
+            {
+                Log.Error(ex, "Post and Get Text Clipboard");
+            }
+        }
+
+        public void PostAndGet(DAL.Models.ClipImage imageEntity)
+        {
+            try
+            {
+                Clip.Post(OCMClip.ClipHandler.ConvertImage.ByteArrayToImage(imageEntity.Value));
+                Clip.Get();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Post and Get Image Clipboard");
+            }
+        }
+
+        public void PostAndGet(DAL.Models.ClipFile fileEntity)
+        {
+            try
+            {
+                Clip.Post(fileEntity.GetListValue());
+                Clip.Get();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Post and Get File Clipboard");
             }
         }
 
