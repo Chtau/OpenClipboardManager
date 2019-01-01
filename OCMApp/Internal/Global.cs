@@ -50,6 +50,7 @@ namespace OCMApp.Internal
         public DAL.DBContext DBContext { get; private set; }
         public DAL.Models.LastClip LastClip { get; private set; }
         public bool InitError { get; private set; } = false;
+        public bool FirstStart { get; private set; } = false;
         
         private OCMHotKey.HotKey clipboardHotKeyGet;
         private OCMHotKey.HotKey clipboardHotKeyPost;
@@ -146,6 +147,7 @@ namespace OCMApp.Internal
                 {
                     if (Settings == null)
                         Settings = new Settings.Settings();
+                    FirstStart = true;
                     OnSaveSettings(Settings);
                 }
             }

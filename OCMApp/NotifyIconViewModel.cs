@@ -77,5 +77,13 @@ namespace OCMApp
         {
             System.Windows.Application.Current.Shutdown();
         }
+
+        public NotifyIconViewModel()
+        {
+            if (Internal.Global.Instance.FirstStart)
+            {
+                ShowWindowCommand.Execute(null);
+            }
+        }
     }
 }
