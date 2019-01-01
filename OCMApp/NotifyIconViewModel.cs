@@ -75,6 +75,9 @@ namespace OCMApp
 
         private void ExitApplication()
         {
+#if DEBUG
+            Internal.Global.Instance.Localize.GetMissingLocalization();
+#endif
             System.Windows.Application.Current.Shutdown();
         }
 

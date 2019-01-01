@@ -71,7 +71,7 @@ namespace OCMApp.Internal
             {
                 infos += "No missing Localization";
             }
-            Log.Debug(infos);
+            System.Diagnostics.Debug.Print(infos);
         }
 
         public bool SetLanguage()

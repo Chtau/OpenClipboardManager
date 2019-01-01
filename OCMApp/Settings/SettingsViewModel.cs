@@ -25,7 +25,7 @@ namespace OCMApp.Settings
             ClipWatcherImageFormatTypeEnum = Helper.ComboBoxBindingModelBuilder.FromEnum(typeof(OCMClip.ClipHandler.Entities.Enums.ImageFormatType));
 
             CultureEnumSelected = (int)Settings.Culture;
-            CultureEnum = Helper.ComboBoxBindingModelBuilder.FromEnum(typeof(Internal.Localize.Language));
+            CultureEnum = Helper.ComboBoxBindingModelBuilder.FromEnum(typeof(Internal.Localize.Language), false);
             ClipHotKey = new HotKeyConfigurationViewModel();
             ClipHotKey.SetKey(Settings.ClipKey);
             ClipHotKey.SetModifier(Settings.ClipKeyModifier);

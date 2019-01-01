@@ -8,7 +8,7 @@ namespace OCMApp.Helper
 {
     public static class ComboBoxBindingModelBuilder
     {
-        public static List<KeyValuePair<int, string>> FromEnum(Type @enum)
+        public static List<KeyValuePair<int, string>> FromEnum(Type @enum, bool translate = true)
         {
             List<KeyValuePair<int, string>> returnValue = new List<KeyValuePair<int, string>>();
             var values = Enum.GetValues(@enum);
@@ -18,7 +18,7 @@ namespace OCMApp.Helper
                 returnValue.Add(
                     new KeyValuePair<int, string>(
                         eValue, 
-                        Internal.Global.Instance.Localize.GetText(Enum.GetName(@enum, eValue))
+                        translate ? Internal.Global.Instance.Localize.GetText(Enum.GetName(@enum, eValue)) : Enum.GetName(@enum, eValue)
                     )
                 );
             }
