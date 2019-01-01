@@ -44,8 +44,8 @@ namespace OCMApp.Internal
                             MissingLocalization.Add(keyValue);
                         tmpValue = "[" + keyValue + "]";
 #endif
-                    }
-                    keyValue = tmpValue;
+                    } else
+                        keyValue = tmpValue;
                 }
                 catch (Exception ex)
                 {
