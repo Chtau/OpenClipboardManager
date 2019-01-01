@@ -182,6 +182,7 @@ namespace OCMApp.Internal
 
                 OnSetupClipGet();
                 OnSetupClipPost();
+                OnSetupAutostart();
             } catch (Exception ex)
             {
                 Log.Error(ex, "Change Application Settings");
@@ -226,6 +227,14 @@ namespace OCMApp.Internal
             {
                 Log.Error(ex, "Setup Hotkey Post last Clipboard");
             }
+        }
+
+        private void OnSetupAutostart()
+        {
+            if (Settings.AutoStart)
+                Autostart.InstallMeOnStartUp();
+            else
+                Autostart.RemoveMeOnStartUp();
         }
         #endregion
 

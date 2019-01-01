@@ -154,6 +154,7 @@
     <Compile Include="Info\InfoView.xaml.cs">
       <DependentUpon>InfoView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Internal\Autostart.cs" />
     <Compile Include="Internal\Localize.cs" />
     <Compile Include="Internal\LocalizeConverter.cs" />
     <Compile Include="Internal\RelayCommand.cs" />
