@@ -28,7 +28,7 @@ namespace OCMApp.Settings
 
         #region OCMHotKey
 
-        public OCMHotKey.Enums.Key ClipKey { get; set; } = OCMHotKey.Enums.Key.B;
+        public OCMHotKey.Enums.Key ClipKey { get; set; } = OCMHotKey.Enums.Key.Y;
         public OCMHotKey.Enums.KeyModifier ClipKeyModifier { get; set; } = OCMHotKey.Enums.KeyModifier.Ctrl;
 
         public OCMHotKey.Enums.Key ClipPostKey { get; set; } = OCMHotKey.Enums.Key.K;

@@ -82,6 +82,7 @@ namespace OCMApp
             set
             {
                 activeTab = value;
+                OnChangeTabRows();
                 RaisePropertyChanged("ActiveTab");
             }
         }
@@ -112,22 +113,30 @@ namespace OCMApp
             ClipDataImages = new ObservableCollection<DAL.Models.ClipImage>(await Internal.Global.Instance.DBContext.GetClipImage());
             ClipDataFiles = new ObservableCollection<DAL.Models.ClipFile>(await Internal.Global.Instance.DBContext.GetClipFile());
             Summary = new ObservableCollection<DAL.Models.Summary>(await Global.Instance.DBContext.GetSummary());
+            OnChangeTabRows();
+        }
+
+        private void OnChangeTabRows()
+        {
             switch (ActiveTab)
             {
                 case Tabs.Text:
-                    ActiveTabRows = ClipDataTexts.Count;
+                    if (ClipDataTexts != null)
+                        ActiveTabRows = ClipDataTexts.Count;
                     break;
                 case Tabs.Image:
-                    ActiveTabRows = ClipDataImages.Count;
+                    if (ClipDataImages != null)
+                        ActiveTabRows = ClipDataImages.Count;
                     break;
                 case Tabs.File:
-                    ActiveTabRows = ClipDataFiles.Count;
+                    if (ClipDataFiles != null)
+                        ActiveTabRows = ClipDataFiles.Count;
                     break;
                 case Tabs.Summary:
-                    ActiveTabRows = Summary.Count;
+                    if (Summary != null)
+                        ActiveTabRows = Summary.Count;
                     break;
             }
-
         }
     }
 }
