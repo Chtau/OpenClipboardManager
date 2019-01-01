@@ -10,6 +10,7 @@
                       xmlns:info="clr-namespace:OCMApp.Info"
                       mc:Ignorable="d"
         RightWindowCommandsOverlayBehavior="Never"
+                      Icon="/OCMApp;component/clipmanager_logo_1_128.ico"
         Title="{Binding Source='Open Clipboard Manager',Converter={ StaticResource LocalizeConverter}}" Height="450" Width="800" WindowButtonCommandsOverlayBehavior="Never">
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
