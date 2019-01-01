@@ -151,6 +151,7 @@
     <Compile Include="GlobalValues.cs" />
     <Compile Include="Helper\ComboBoxBindingModelBuilder.cs" />
     <Compile Include="Helper\Folder.cs" />
+    <Compile Include="Helper\WindowCheck.cs" />
     <Compile Include="Info\InfoView.xaml.cs">
       <DependentUpon>InfoView.xaml</DependentUpon>
     </Compile>

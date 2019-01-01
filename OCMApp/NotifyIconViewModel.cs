@@ -57,12 +57,20 @@ namespace OCMApp
 
         private void ShowMainWindow()
         {
-            if (MainWindow.Visibility == System.Windows.Visibility.Visible)
+            if (Helper.WindowCheck.IsWindowOpen<MainWindow>())
             {
+                MainWindow.Close();
                 MainWindow = null;
             }
-            MainWindow.Show();
-            MainWindow.Activate();
+            else
+            {
+                if (MainWindow.Visibility == System.Windows.Visibility.Visible)
+                {
+                    MainWindow = null;
+                }
+                MainWindow.Show();
+                MainWindow.Activate();
+            }
         }
 
         private void ExitApplication()
