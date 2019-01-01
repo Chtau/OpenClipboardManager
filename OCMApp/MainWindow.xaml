@@ -11,7 +11,7 @@
                       mc:Ignorable="d"
         RightWindowCommandsOverlayBehavior="Never"
                       Icon="/OCMApp;component/clipmanager_logo_1_128.ico"
-        Title="{Binding Source='Open Clipboard Manager',Converter={ StaticResource LocalizeConverter}}" Height="450" Width="800" WindowButtonCommandsOverlayBehavior="Never">
+        Title="Open Clipboard Manager" Height="450" Width="800" WindowButtonCommandsOverlayBehavior="Never">
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Button x:Name="Settings" Click="Settings_Click">
@@ -207,11 +207,11 @@
             </TabItem>
         </Controls:MetroAnimatedSingleRowTabControl>
         <StatusBar Grid.Row="2">
-            <StatusBarItem Content="{Binding Source='Open Clipboard Manager',Converter={ StaticResource LocalizeConverter}}"/>
+            <StatusBarItem Content="Open Clipboard Manager"/>
             <Separator Style="{StaticResource MetroStatusBarSeparator}" />
             <StatusBarItem Content="{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}" />
             <StatusBarItem Content="{Binding ActiveTabRows, Mode=OneWay}" />
-            <StatusBarItem Margin="-5,0,0,0" Content="{Binding Source='Items',Converter={ StaticResource LocalizeConverter}}"/>
+            <StatusBarItem Margin="0,0,0,0" Content="{Binding Source='Items',Converter={ StaticResource LocalizeConverter}}"/>
         </StatusBar>
     </Grid>
 </Controls:MetroWindow>

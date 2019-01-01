@@ -183,9 +183,6 @@
   <data name="Open" xml:space="preserve">
     <value>Öffnen</value>
   </data>
-  <data name="Open Clipboard Manager" xml:space="preserve">
-    <value>Open Clipboard Manager</value>
-  </data>
   <data name="Open Data Folder" xml:space="preserve">
     <value>Öffne Datei Ordner</value>
   </data>

@@ -22,7 +22,7 @@
     <!-- the application's NotifyIcon - started from App.xaml.cs. Declares its own view model. -->
     <tb:TaskbarIcon x:Key="NotifyIcon"
                     IconSource="clipmanager_logo_1_128.ico"
-                    ToolTipText="{Binding Source='Open Clipboard Manager',Converter={ StaticResource LocalizeConverter}}"
+                    ToolTipText="Open Clipboard Manager"
                     DoubleClickCommand="{Binding ShowWindowCommand}"
                     ContextMenu="{StaticResource SysTrayMenu}">
         <tb:TaskbarIcon.DataContext>
