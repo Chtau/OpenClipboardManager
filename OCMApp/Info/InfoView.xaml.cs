@@ -3,6 +3,7 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,6 +26,15 @@ namespace OCMApp.Info
         public InfoView()
         {
             InitializeComponent();
+
+            Version.Text = GetVersion();
+        }
+
+        private string GetVersion()
+        {
+            return Assembly.GetEntryAssembly().GetName().Version.Major + "." +
+                Assembly.GetEntryAssembly().GetName().Version.MajorRevision + "." +
+                Assembly.GetEntryAssembly().GetName().Version.Minor;
         }
 
         private void WebsiteLink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)

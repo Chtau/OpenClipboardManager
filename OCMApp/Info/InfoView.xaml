@@ -31,14 +31,14 @@
                 <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock Text="Open Clipboard Manager Version " TextWrapping="Wrap"/>
-                        <TextBlock Text="1.0.0.0" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="Version" Text="1.0.0.0" TextWrapping="Wrap"/>
                     </StackPanel>
                     <Separator/>
                 </StackPanel>
                 <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Development by Christoph Taucher" TextWrapping="Wrap"/>
                 <StackPanel Grid.Row="1" Grid.Column="2">
                     <TextBlock TextWrapping="Wrap" HorizontalAlignment="Right">
-                    <Hyperlink RequestNavigate="WebsiteLink_RequestNavigate" x:Name="websiteLink" NavigateUri="http://www.dlution.com">Source on Github</Hyperlink>
+                    <Hyperlink RequestNavigate="WebsiteLink_RequestNavigate" x:Name="websiteLink" NavigateUri="https://github.com/Chtau/OpenClipboardManager">Source on Github</Hyperlink>
                     </TextBlock>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="0,10,0,10">
