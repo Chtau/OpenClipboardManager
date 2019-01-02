@@ -41,5 +41,21 @@ namespace OCMApp.Helper
             }
             return folder;
         }
+
+        public static bool IsValidFolder(string folder)
+        {
+            try
+            {
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

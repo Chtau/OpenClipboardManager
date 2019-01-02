@@ -17,7 +17,18 @@ namespace OCMApp
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            Internal.Global.Instance.Init();
+            string appUserFolder = null;
+            if (e.Args.Length > 0)
+            {
+                foreach (var item in e.Args)
+                {
+                    if (item.ToLower().StartsWith("appfolder="))
+                    {
+                        appUserFolder = item.ToLower().Replace("appfolder=", "");
+                    }
+                }
+            }
+            Internal.Global.Instance.Init(appUserFolder);
             if (Internal.Global.Instance.InitError)
             {
                 StartupUri = new Uri("/OCMApp;component/ApplicationError/ApplicationErrorWindow.xaml", UriKind.Relative);

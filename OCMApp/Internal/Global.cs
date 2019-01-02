@@ -58,21 +58,40 @@ namespace OCMApp.Internal
         private OCMHotKey.HotKey favoritesWindowHotKey;
         private bool isInit = false;
 
+        private string appUserFolder = null;
+        public string AppUserFolder
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(appUserFolder))
+                    return appUserFolder;
+                else
+                    return Helper.Folder.GetUserFolder();
+            }
+        }
+
         public string LogFile
         {
             get
             {
-                return System.IO.Path.Combine(Helper.Folder.GetUserFolder(), Log_File);
+                return System.IO.Path.Combine(AppUserFolder, Log_File);
             }
         }
 
-        public void Init()
+        public void Init(string appUserFolder = null)
         {
             if (!isInit)
             {
                 try
                 {
                     isInit = true;
+                    if (!string.IsNullOrWhiteSpace(appUserFolder))
+                    {
+                        if (Helper.Folder.IsValidFolder(appUserFolder))
+                            this.appUserFolder = appUserFolder;
+                        else
+                            this.appUserFolder = null;
+                    }
 
                     Log.Logger = new LoggerConfiguration()
                     .MinimumLevel.Information()
@@ -90,7 +109,7 @@ namespace OCMApp.Internal
                     HotKey.HotKeyPressed += HotKey_HotKeyPressed;
 
                     OnLoadSettings();
-                    DBContext = new DAL.DBContext(System.IO.Path.Combine(Helper.Folder.GetUserFolder(), DB_File));
+                    DBContext = new DAL.DBContext(System.IO.Path.Combine(AppUserFolder, DB_File));
 
                     OnSettingsChange();
                 } catch (Exception ex)
@@ -119,7 +138,7 @@ namespace OCMApp.Internal
         {
             try
             {
-                string file = System.IO.Path.Combine(Helper.Folder.GetUserFolder(), GlobalValues.SettingsFile);
+                string file = System.IO.Path.Combine(Internal.Global.Instance.AppUserFolder, GlobalValues.SettingsFile);
                 var content = Newtonsoft.Json.JsonConvert.SerializeObject(Settings);
                 System.IO.File.WriteAllText(file, content);
             }
@@ -135,7 +154,7 @@ namespace OCMApp.Internal
         {
             try
             {
-                string file = System.IO.Path.Combine(Helper.Folder.GetUserFolder(), GlobalValues.SettingsFile);
+                string file = System.IO.Path.Combine(Internal.Global.Instance.AppUserFolder, GlobalValues.SettingsFile);
                 if (System.IO.File.Exists(file))
                 {
                     string content = System.IO.File.ReadAllText(file);

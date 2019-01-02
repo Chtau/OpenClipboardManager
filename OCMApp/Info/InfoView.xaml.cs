@@ -57,7 +57,7 @@ namespace OCMApp.Info
         {
             try
             {
-                System.Diagnostics.Process.Start(Helper.Folder.GetUserFolder());
+                System.Diagnostics.Process.Start(Internal.Global.Instance.AppUserFolder);
             }
             catch (Exception ex)
             {

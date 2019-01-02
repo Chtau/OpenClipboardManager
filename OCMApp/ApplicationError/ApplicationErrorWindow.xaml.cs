@@ -30,7 +30,7 @@ namespace OCMApp.ApplicationError
         {
             try
             {
-                System.Diagnostics.Process.Start(Helper.Folder.GetUserFolder());
+                System.Diagnostics.Process.Start(Internal.Global.Instance.AppUserFolder);
             } catch (Exception ex)
             {
                 Log.Error(ex, "Can't open log file");
