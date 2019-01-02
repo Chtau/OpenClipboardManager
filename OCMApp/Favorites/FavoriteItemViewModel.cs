@@ -13,6 +13,41 @@ namespace OCMApp.Favorites
         public DAL.Models.FavoriteContentImage FavoriteContentImage { get; private set; }
         public DAL.Models.FavoriteContentFile FavoriteContentFile { get; private set; }
 
+        public bool IsTextContent
+        {
+            get
+            {
+                if (Favorite != null)
+                {
+                    if (Favorite.Type == DAL.Models.Favorite.ContentType.File || Favorite.Type == DAL.Models.Favorite.ContentType.Text)
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        public string TextContent
+        {
+            get
+            {
+                if (FavoriteContentText != null)
+                    return FavoriteContentText.Content;
+                else if (FavoriteContentFile != null)
+                    return FavoriteContentText.Content;
+                return null;
+            }
+        }
+
+        public byte[] ImageContent
+        {
+            get
+            {
+                if (FavoriteContentImage != null)
+                    return FavoriteContentImage.Content;
+                return null;
+            }
+        }
+
         public FavoriteItemViewModel(DAL.Models.Favorite favorite, DAL.Models.FavoriteContentText favoriteContentText)
         {
             Favorite = favorite;

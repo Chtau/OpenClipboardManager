@@ -31,7 +31,8 @@
             </Button>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Horizontal">
-            <TextBox IsReadOnly="True" Text="Test asdasd asdad asdasd sadas" Width="100" TextWrapping="NoWrap"/>
+            <TextBox Visibility="{Binding IsTextContent,Converter={ StaticResource VisibilityConverter} }" IsReadOnly="True" Text="{Binding TextContent}" Width="100" TextWrapping="NoWrap"/>
+            <Image Visibility="{Binding IsTextContent,Converter={ StaticResource VisibilityConverter}, ConverterParameter=true }" Source="{Binding ImageContent}" Width="100"/>
         </StackPanel>
     </Grid>
 </UserControl>
