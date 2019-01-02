@@ -14,7 +14,7 @@ namespace OCMApp.Helper
         public static string GetUserFolder()
         {
             string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            folder = Path.Combine(folder, GlobalValues.CompanyName, GlobalValues.AppName);
+            folder = Path.Combine(folder, GlobalValues.AppName);
             return GetFolder(folder);
         }
 

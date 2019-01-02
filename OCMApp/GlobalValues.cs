@@ -8,7 +8,6 @@ namespace OCMApp
 {
     public class GlobalValues
     {
-        public const string CompanyName = "dlution";
         public const string AppName = "OpenClipboardManager";
         public const string SettingsFile = "settings.json";
     }
