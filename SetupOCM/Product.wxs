@@ -5,46 +5,72 @@
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate />
-    
+
     <Feature Id="ProductFeature" Title="Open Clipboard Manager" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
       <ComponentRef Id="ApplicationShortcut"/>
+      <ComponentRef Id="ApplicationShortcutDesktop"/>
 		</Feature>
+
+    <UI>
+      <UIRef Id="WixUI_InstallDir" />
+      <Publish Dialog="ExitDialog"
+          Control="Finish"
+          Event="DoAction"
+          Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+    </UI>
+    
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Open Clipboard Manager" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1"/>
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+    
+    <Property Id="WixShellExecTarget" Value="[INSTALLFOLDER]OCMApp.exe" />
+    <CustomAction Id="LaunchApplication"
+        BinaryKey="WixCA"
+        DllEntry="WixShellExec"
+        Impersonate="yes" />
 	</Product>
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
 				<Directory Id="INSTALLFOLDER" Name="Open Clipboard Manager" />
+        <Directory Id="DesktopFolder" SourceName="Desktop" />
 			</Directory>
       <Directory Id="ProgramMenuFolder">
         <Directory Id="ApplicationProgramsFolder" Name="Open Clipboard Manager"/>
       </Directory>
 		</Directory>
 	</Fragment>
-
-	<!--<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<Component Id="ProductComponent">
-        <File Source="$(var.OCMApp.TargetPath)"/>
-			</Component>
-		</ComponentGroup>
-	</Fragment>-->
   
   <Fragment>
     <Icon Id="Shortcut.ico" SourceFile="clipmanager_logo_1_128.ico" />
   </Fragment>
   
   <Fragment>
-    <Component Id="ApplicationShortcut" Guid="9c9a11d1-734a-4a8a-b2a1-96fbd3c749b6" Directory="ApplicationProgramsFolder">
+    <Component Id="ApplicationShortcut" Guid="6D9F101C-BA26-4006-8D9A-AB46B74A8BA4" Directory="ApplicationProgramsFolder">
       <Shortcut Id="ApplicationStartMenuShortcut"
            Name="Open Clipboard Manager"
          Description="Open Source Clipboard Manager for Windows"
           Target="[INSTALLFOLDER]OCMApp.exe"
                 WorkingDirectory="INSTALLFOLDER"
                 Icon="Shortcut.ico"/>
-      <RemoveFolder Id="INSTALLFOLDER" On="uninstall"/>
-      <RegistryValue Root="HKCU" Key="Software\Microsoft\OpenClipboardManager" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      <RemoveFolder Id="ApplicationShortcut" On="uninstall"/>
+      <RegistryValue Root="HKCU" Key="Software\OpenClipboardManager" Name="startmenushortcut" Type="integer" Value="1" KeyPath="yes"/>
+    </Component>
+  </Fragment>
+
+  <Fragment>
+    <Component Id="ApplicationShortcutDesktop" Guid="7F61A4DB-7D37-4131-A86B-D7F8303728B5" Directory="DesktopFolder">
+      <Shortcut Id="ApplicationDesktopShortcut"
+           Name="Open Clipboard Manager"
+         Description="Open Source Clipboard Manager for Windows"
+          Target="[INSTALLFOLDER]OCMApp.exe"
+                WorkingDirectory="INSTALLFOLDER"
+                Icon="Shortcut.ico"/>
+      <RemoveFolder Id="DesktopFolder" On="uninstall"/>
+      <RegistryValue Root="HKCU" Key="Software\OpenClipboardManager" Name="desktopshortcut" Type="integer" Value="1" KeyPath="yes"/>
     </Component>
   </Fragment>
 </Wix>
