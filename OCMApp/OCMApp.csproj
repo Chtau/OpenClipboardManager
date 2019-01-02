@@ -161,8 +161,16 @@
     <Compile Include="DAL\Models\ClipFile.cs" />
     <Compile Include="DAL\Models\ClipImage.cs" />
     <Compile Include="DAL\Models\ClipText.cs" />
+    <Compile Include="DAL\Models\Favorite.cs" />
+    <Compile Include="DAL\Models\FavoriteContentFile.cs" />
+    <Compile Include="DAL\Models\FavoriteContentImage.cs" />
+    <Compile Include="DAL\Models\FavoriteContentText.cs" />
     <Compile Include="DAL\Models\LastClip.cs" />
     <Compile Include="DAL\Models\Summary.cs" />
+    <Compile Include="Favorites\FavoriteItem.xaml.cs">
+      <DependentUpon>FavoriteItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Favorites\FavoriteItemViewModel.cs" />
     <Compile Include="Favorites\FavoritesWindow.xaml.cs">
       <DependentUpon>FavoritesWindow.xaml</DependentUpon>
     </Compile>
@@ -196,6 +204,10 @@
     </Compile>
     <Compile Include="Settings\SettingsViewModel.cs" />
     <Page Include="ApplicationError\ApplicationErrorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Favorites\FavoriteItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

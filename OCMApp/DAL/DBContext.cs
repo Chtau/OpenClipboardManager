@@ -22,6 +22,10 @@ namespace OCMApp.DAL
             await DB.CreateTableAsync<Models.ClipText>();
             await DB.CreateTableAsync<Models.ClipImage>();
             await DB.CreateTableAsync<Models.ClipFile>();
+            await DB.CreateTableAsync<Models.Favorite>();
+            await DB.CreateTableAsync<Models.FavoriteContentText>();
+            await DB.CreateTableAsync<Models.FavoriteContentImage>();
+            await DB.CreateTableAsync<Models.FavoriteContentFile>();
         }
 
         public void InsertClipText(Models.ClipText clipText)

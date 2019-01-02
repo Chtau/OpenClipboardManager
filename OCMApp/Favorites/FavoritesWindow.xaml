@@ -8,12 +8,21 @@
         xmlns:local="clr-namespace:OCMApp.Favorites"
         mc:Ignorable="d"
         Topmost="True"
-        Title="Favorites" Height="200" Width="200">
+        Title="{Binding Source='Favorites',Converter={ StaticResource LocalizeConverter}}" Height="200" Width="200">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <local:FavoriteItem />
+                <local:FavoriteItem />
+                <local:FavoriteItem />
+                <local:FavoriteItem />
+                <local:FavoriteItem />
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Controls:MetroWindow>
