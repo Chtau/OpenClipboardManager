@@ -38,6 +38,7 @@ namespace OCMApp.Internal
 
         const string HotKey_Event_ClipboardCopy = "getclipboard";
         const string HotKey_Event_ClipboardPaste = "postclipboard";
+        const string HotKey_Event_FavoritesWindow = "favoriteswindow";
         const string Log_File = "log.txt";
         const string DB_File = "ocm.db";
         const string Clipboard_Get_Send_Key = "^c";
@@ -54,6 +55,7 @@ namespace OCMApp.Internal
         
         private OCMHotKey.HotKey clipboardHotKeyGet;
         private OCMHotKey.HotKey clipboardHotKeyPost;
+        private OCMHotKey.HotKey favoritesWindowHotKey;
         private bool isInit = false;
 
         public string LogFile
@@ -185,6 +187,7 @@ namespace OCMApp.Internal
                 OnSetupClipGet();
                 OnSetupClipPost();
                 OnSetupAutostart();
+                OnSetupFavorites();
             } catch (Exception ex)
             {
                 Log.Error(ex, "Change Application Settings");
@@ -238,8 +241,24 @@ namespace OCMApp.Internal
             else
                 Autostart.RemoveMeOnStartUp();
         }
+
+        private void OnSetupFavorites()
+        {
+            try
+            {
+                if (favoritesWindowHotKey != null)
+                    HotKey.Remove(favoritesWindowHotKey.Id);
+                favoritesWindowHotKey = new OCMHotKey.HotKey(Settings.FavoritesWindowKey, Settings.FavoritesWindowModifier, HotKeyFavoritesWindowPressed, HotKey_Event_FavoritesWindow);
+                HotKey.Add(favoritesWindowHotKey);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Setup Hotkey Favorites Window");
+            }
+        }
         #endregion
 
+        #region Clipboard
         public void PostAndGet(DAL.Models.ClipText textEntity)
         {
             try
@@ -278,6 +297,50 @@ namespace OCMApp.Internal
             }
         }
 
+        private void Clip_ClipboardTextChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataText e)
+        {
+            try
+            {
+                var entity = new DAL.Models.ClipText(e);
+                LastClip.ClipText = entity;
+                DBContext.InsertClipText(entity);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Clipboard text value save to DB");
+            }
+        }
+
+        private void Clip_ClipboardImageChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataImage e)
+        {
+            try
+            {
+                var entity = new DAL.Models.ClipImage(e);
+                LastClip.ClipImage = entity;
+                DBContext.InsertClipImage(new DAL.Models.ClipImage(e));
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Clipboard image value save to DB");
+            }
+        }
+
+        private void Clip_ClipboardFileChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataFile e)
+        {
+            try
+            {
+                var entity = new DAL.Models.ClipFile(e);
+                LastClip.ClipFile = entity;
+                DBContext.InsertClipFile(new DAL.Models.ClipFile(e));
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Clipboard files value save to DB");
+            }
+        }
+        #endregion
+
+        #region HotKey
         private void HotKeyGetClipboardPressed(OCMHotKey.HotKey e)
         {
             try
@@ -324,49 +387,54 @@ namespace OCMApp.Internal
             }
         }
 
+        private void HotKeyFavoritesWindowPressed(OCMHotKey.HotKey e)
+        {
+            try
+            {
+                ShowFavoritesWindow();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "show/Hide Favorites Window");
+            }
+        }
+
         private void HotKey_HotKeyPressed(object sender, OCMHotKey.HotKey e)
         {
             
         }
+        #endregion
 
-        private void Clip_ClipboardTextChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataText e)
+        private Favorites.FavoritesWindow _favoritesWindow;
+        private Favorites.FavoritesWindow FavoritesWindow
         {
-            try
+            get
             {
-                var entity = new DAL.Models.ClipText(e);
-                LastClip.ClipText = entity;
-                DBContext.InsertClipText(entity);
-            } catch (Exception ex)
+                if (_favoritesWindow == null)
+                    _favoritesWindow = new Favorites.FavoritesWindow();
+                return _favoritesWindow;
+            }
+            set
             {
-                Log.Error(ex, "Clipboard text value save to DB");
+                _favoritesWindow = value;
             }
         }
 
-        private void Clip_ClipboardImageChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataImage e)
+        public void ShowFavoritesWindow()
         {
-            try
+            if (Helper.WindowCheck.IsWindowOpen<Favorites.FavoritesWindow>())
             {
-                var entity = new DAL.Models.ClipImage(e);
-                LastClip.ClipImage = entity;
-                DBContext.InsertClipImage(new DAL.Models.ClipImage(e));
+                FavoritesWindow.Close();
+                FavoritesWindow = null;
             }
-            catch (Exception ex)
+            else
             {
-                Log.Error(ex, "Clipboard image value save to DB");
-            }
-        }
-
-        private void Clip_ClipboardFileChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataFile e)
-        {
-            try
-            {
-                var entity = new DAL.Models.ClipFile(e);
-                LastClip.ClipFile = entity;
-                DBContext.InsertClipFile(new DAL.Models.ClipFile(e));
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Clipboard files value save to DB");
+                if (FavoritesWindow.Visibility == System.Windows.Visibility.Visible)
+                {
+                    FavoritesWindow = null;
+                }
+                FavoritesWindow.Show();
+                FavoritesWindow.Activate();
             }
         }
     }

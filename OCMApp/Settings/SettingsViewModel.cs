@@ -17,6 +17,7 @@ namespace OCMApp.Settings
 
         public HotKeyConfigurationViewModel ClipHotKey { get; set; }
         public HotKeyConfigurationViewModel ClipPasteHotKey { get; set; }
+        public HotKeyConfigurationViewModel FavoritesWindowHotKey { get; set; }
 
         public SettingsViewModel()
         {
@@ -35,6 +36,11 @@ namespace OCMApp.Settings
             ClipPasteHotKey.SetKey(Settings.ClipPostKey);
             ClipPasteHotKey.SetModifier(Settings.ClipPostKeyModifier);
             ClipPasteHotKey.Title = "Hotkey paste value";
+
+            FavoritesWindowHotKey = new HotKeyConfigurationViewModel();
+            FavoritesWindowHotKey.SetKey(Settings.FavoritesWindowKey);
+            FavoritesWindowHotKey.SetModifier(Settings.FavoritesWindowModifier);
+            FavoritesWindowHotKey.Title = "Hotkey Favorites Window";
         }
     }
 }
