@@ -17,7 +17,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="1">
-            <StackPanel>
+            <StackPanel x:Name="FavoritesWrapper">
                 <local:FavoriteItem />
                 <local:FavoriteItem />
                 <local:FavoriteItem />

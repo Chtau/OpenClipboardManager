@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Serilog;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace OCMApp.DAL
             await DB.CreateTableAsync<Models.FavoriteContentFile>();
         }
 
+        #region Clip insert
         public void InsertClipText(Models.ClipText clipText)
         {
             DB.InsertAsync(clipText);
@@ -42,7 +44,9 @@ namespace OCMApp.DAL
         {
             DB.InsertAsync(clip);
         }
+        #endregion
 
+        #region Clip delete
         public async Task DeleteClipText(Models.ClipText clipText)
         {
             await DB.DeleteAsync(clipText);
@@ -57,7 +61,9 @@ namespace OCMApp.DAL
         {
             await DB.DeleteAsync(clip);
         }
+        #endregion
 
+        #region Clip get
         public Task<List<Models.ClipText>> GetClipText()
         {
             return DB.Table<Models.ClipText>().OrderByDescending(x => x.DateCreated).ToListAsync();
@@ -72,6 +78,7 @@ namespace OCMApp.DAL
         {
             return DB.Table<Models.ClipFile>().OrderByDescending(x => x.DateCreated).ToListAsync();
         }
+        #endregion
 
         public Task<List<Models.Summary>> GetSummary()
         {
@@ -89,5 +96,119 @@ namespace OCMApp.DAL
             var file = await DB.Table<Models.ClipFile>().OrderByDescending(x => x.DateCreated).FirstOrDefaultAsync();
             return new Models.LastClip(text, image, file);
         }
+
+        #region Favorites
+        public async Task<List<Favorites.FavoriteItemViewModel>> Favorites()
+        {
+            var retVal = new List<Favorites.FavoriteItemViewModel>();
+            var fav = await DB.Table<DAL.Models.Favorite>().ToListAsync();
+            foreach (DAL.Models.Favorite item in fav)
+            {
+                if (item.Type == Models.Favorite.ContentType.Text)
+                {
+                    retVal.Add(new OCMApp.Favorites.FavoriteItemViewModel(item, await DB.Table<Models.FavoriteContentText>().FirstOrDefaultAsync(x => x.Id == item.FavoriteContentId)));
+                } else if (item.Type == Models.Favorite.ContentType.Image)
+                {
+                    retVal.Add(new OCMApp.Favorites.FavoriteItemViewModel(item, await DB.Table<Models.FavoriteContentImage>().FirstOrDefaultAsync(x => x.Id == item.FavoriteContentId)));
+                } else if (item.Type == Models.Favorite.ContentType.File)
+                {
+                    retVal.Add(new OCMApp.Favorites.FavoriteItemViewModel(item, await DB.Table<Models.FavoriteContentFile>().FirstOrDefaultAsync(x => x.Id == item.FavoriteContentId)));
+                }
+            }
+            return retVal;
+        }
+
+        public async Task<bool> InsertFavorite(Models.ClipText clipText)
+        {
+            try
+            {
+                if (clipText != null)
+                {
+                    var itemContent = new Models.FavoriteContentText(clipText.Value);
+                    await DB.InsertAsync(itemContent);
+                    var item = new Models.Favorite
+                    {
+                        Type = Models.Favorite.ContentType.Text,
+                        FavoriteContentId = itemContent.Id,
+                    };
+                    return true;
+                }
+            } catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to insert new Text Favorite");
+            }
+            return false;
+        }
+
+        public async Task<bool> InsertFavorite(Models.ClipImage clipImage)
+        {
+            try
+            {
+                if (clipImage != null)
+                {
+                    var itemContent = new Models.FavoriteContentImage(clipImage.Value, clipImage.FormatType);
+                    await DB.InsertAsync(itemContent);
+                    var item = new Models.Favorite
+                    {
+                        Type = Models.Favorite.ContentType.Text,
+                        FavoriteContentId = itemContent.Id,
+                    };
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to insert new Image Favorite");
+            }
+            return false;
+        }
+
+        public async Task<bool> InsertFavorite(Models.ClipFile clipFile)
+        {
+            try
+            {
+                if (clipFile != null)
+                {
+                    var itemContent = new Models.FavoriteContentFile(clipFile.GetListValue());
+                    await DB.InsertAsync(itemContent);
+                    var item = new Models.Favorite
+                    {
+                        Type = Models.Favorite.ContentType.Text,
+                        FavoriteContentId = itemContent.Id,
+                    };
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to insert new File Favorite");
+            }
+            return false;
+        }
+
+        public async Task<bool> UpdateFavorite(Favorites.FavoriteItemViewModel favorite)
+        {
+            try
+            {
+                if (favorite != null)
+                {
+                    if (favorite.Favorite.Type == Models.Favorite.ContentType.Text)
+                        await DB.UpdateAsync(favorite.FavoriteContentText);
+                    else if (favorite.Favorite.Type == Models.Favorite.ContentType.Image)
+                        await DB.UpdateAsync(favorite.FavoriteContentImage);
+                    else if (favorite.Favorite.Type == Models.Favorite.ContentType.File)
+                        await DB.UpdateAsync(favorite.FavoriteContentFile);
+                    await DB.UpdateAsync(favorite.Favorite);
+                    
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to update Favorite view model");
+            }
+            return false;
+        }
+        #endregion
     }
 }

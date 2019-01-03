@@ -25,5 +25,10 @@ namespace OCMApp.Favorites
         {
             InitializeComponent();
         }
+
+        private void OnRefresh()
+        {
+
+        }
     }
 }
