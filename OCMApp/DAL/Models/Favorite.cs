@@ -23,5 +23,10 @@ namespace OCMApp.DAL.Models
         public int Modifier2 { get; set; }
         public Guid FavoriteContentId { get; set; }
         public ContentType Type { get; set; }
+
+        public Favorite()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 }

@@ -24,11 +24,22 @@ namespace OCMApp.Favorites
         public FavoritesWindow()
         {
             InitializeComponent();
+            OnRefresh();
         }
 
         private void OnRefresh()
         {
-
+            var result = Task.Run(Internal.Global.Instance.DBContext.Favorites).GetAwaiter().GetResult();
+            FavoritesWrapper.Children.Clear();
+            foreach (FavoriteItemViewModel item in result)
+            {
+                FavoritesWrapper.Children.Add(
+                new FavoriteItem
+                {
+                    DataContext = item
+                }
+                );
+            }
         }
     }
 }

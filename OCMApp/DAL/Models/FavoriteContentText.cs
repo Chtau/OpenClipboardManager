@@ -15,7 +15,7 @@ namespace OCMApp.DAL.Models
 
         public FavoriteContentText()
         {
-
+            Id = Guid.NewGuid();
         }
 
         public FavoriteContentText(string content) : this()

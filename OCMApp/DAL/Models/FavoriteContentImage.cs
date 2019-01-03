@@ -17,7 +17,7 @@ namespace OCMApp.DAL.Models
 
         public FavoriteContentImage()
         {
-
+            Id = Guid.NewGuid();
         }
 
         public FavoriteContentImage(byte[] content, Enums.ImageFormatType formatType) : this()

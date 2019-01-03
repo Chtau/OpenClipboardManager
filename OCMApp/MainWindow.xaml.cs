@@ -120,5 +120,39 @@ namespace OCMApp
                 Log.Error(ex, "Post DataGrid Item to Clipboard");
             }
         }
+
+        private void AddFavorite_Click(object sender, RoutedEventArgs e)
+        {
+            switch (_viewModel.ActiveTab)
+            {
+                case MainWindowViewModel.Tabs.Text:
+                    if (TextGrid.SelectedItem is DAL.Models.ClipText clipText)
+                    {
+                        Task.Run(async () =>
+                        {
+                            await Internal.Global.Instance.DBContext.InsertFavorite(clipText);
+                        });
+                    }
+                    break;
+                case MainWindowViewModel.Tabs.Image:
+                    if (ImageGrid.SelectedItem is DAL.Models.ClipImage clipImage)
+                    {
+                        Task.Run(async () =>
+                        {
+                            await Internal.Global.Instance.DBContext.InsertFavorite(clipImage);
+                        });
+                    }
+                    break;
+                case MainWindowViewModel.Tabs.File:
+                    if (FileGrid.SelectedItem is DAL.Models.ClipFile clipFile)
+                    {
+                        Task.Run(async () =>
+                        {
+                            await Internal.Global.Instance.DBContext.InsertFavorite(clipFile);
+                        });
+                    }
+                    break;
+            }
+        }
     }
 }

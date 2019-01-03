@@ -106,7 +106,7 @@ namespace OCMApp
                 return _refreshCommand;
             }
         }
-
+        
         private async Task OnRefresh()
         {
             ClipDataTexts = new ObservableCollection<DAL.Models.ClipText>(await Internal.Global.Instance.DBContext.GetClipText());

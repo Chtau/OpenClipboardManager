@@ -131,6 +131,7 @@ namespace OCMApp.DAL
                         Type = Models.Favorite.ContentType.Text,
                         FavoriteContentId = itemContent.Id,
                     };
+                    await DB.InsertAsync(item);
                     return true;
                 }
             } catch (Exception ex)
