@@ -28,5 +28,31 @@ namespace OCMApp.DAL.Models
         {
             Id = Guid.NewGuid();
         }
+
+        public OCMHotKey.Enums.Key GetKey()
+        {
+            return (OCMHotKey.Enums.Key)Key;
+        }
+
+        public OCMHotKey.Enums.KeyModifier GetModifier()
+        {
+            OCMHotKey.Enums.KeyModifier keyModifier = OCMHotKey.Enums.KeyModifier.None;
+            bool hasMod1 = false;
+            if (Enum.TryParse(Modifier1.ToString(), out OCMHotKey.Enums.KeyModifier modi1))
+            {
+                hasMod1 = true;
+                keyModifier = modi1;
+            }
+            if (Enum.TryParse(Modifier2.ToString(), out OCMHotKey.Enums.KeyModifier modi2))
+            {
+                if (hasMod1)
+                {
+                    keyModifier = modi1 | modi2;
+                }
+                else
+                    keyModifier = modi2;
+            }
+            return keyModifier;
+        }
     }
 }

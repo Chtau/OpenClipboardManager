@@ -39,6 +39,7 @@ namespace OCMApp.Internal
         const string HotKey_Event_ClipboardCopy = "getclipboard";
         const string HotKey_Event_ClipboardPaste = "postclipboard";
         const string HotKey_Event_FavoritesWindow = "favoriteswindow";
+        const string HotKey_Event_FavoritesItem_Prefix = "favorite_";
         const string Log_File = "log.txt";
         const string DB_File = "ocm.db";
         const string Clipboard_Get_Send_Key = "^c";
@@ -112,6 +113,7 @@ namespace OCMApp.Internal
                     DBContext = new DAL.DBContext(System.IO.Path.Combine(AppUserFolder, DB_File));
 
                     OnSettingsChange();
+                    RefreshFavorites();
                 } catch (Exception ex)
                 {
                     Log.Error(ex, "Critical Application Error (restart needed)");
@@ -275,6 +277,42 @@ namespace OCMApp.Internal
                 Log.Error(ex, "Setup Hotkey Favorites Window");
             }
         }
+
+        private void OnSetupHotKeysFavoritesItem(List<Favorites.FavoriteItemViewModel> favoriteItems)
+        {
+            try
+            {
+                if (favoriteItems != null)
+                {
+                    foreach (Favorites.FavoriteItemViewModel item in favoriteItems)
+                    {
+                        HotKey.Add(new OCMHotKey.HotKey(item.Favorite.GetKey(), item.Favorite.GetModifier(), null, HotKey_Event_FavoritesItem_Prefix + item.Favorite.Id));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Setup Hotkeys for Favorites Items");
+            }
+        }
+
+        private void OnRemoveHotKeysFavoritesItem(List<Favorites.FavoriteItemViewModel> favoriteItems)
+        {
+            try
+            {
+                if (favoriteItems != null)
+                {
+                    foreach (Favorites.FavoriteItemViewModel item in favoriteItems)
+                    {
+                        HotKey.Remove(HotKey_Event_FavoritesItem_Prefix + item.Favorite.Id);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Remove Hotkeys for Favorites Items");
+            }
+        }
         #endregion
 
         #region Clipboard
@@ -436,7 +474,35 @@ namespace OCMApp.Internal
 
         private void HotKey_HotKeyPressed(object sender, OCMHotKey.HotKey e)
         {
-            
+            try
+            {
+                if (e.UniqueName.ToLower().StartsWith(HotKey_Event_FavoritesItem_Prefix.ToLower()))
+                {
+                    Guid favId = new Guid(e.UniqueName.ToLower().Replace(HotKey_Event_FavoritesItem_Prefix.ToLower(), ""));
+                    if (FavoriteItems.Any(x => x.Favorite.Id == favId))
+                    {
+                        var item = FavoriteItems.First(x => x.Favorite.Id == favId);
+                        switch (item.Favorite.Type)
+                        {
+                            case DAL.Models.Favorite.ContentType.Text:
+                                PostAndGet(item.FavoriteContentText.Content);
+                                break;
+                            case DAL.Models.Favorite.ContentType.Image:
+                                PostAndGet(item.FavoriteContentImage.Content);
+                                break;
+                            case DAL.Models.Favorite.ContentType.File:
+                                PostAndGet(item.FavoriteContentFile.GetListValue());
+                                break;
+                        }
+                        if (!Settings.OnlySetClipboardOnPaste)
+                            HotKey.SendKeys(Clipboard_Post_Send_Key);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Hotkey pressed event");
+            }
         }
         #endregion
 
@@ -486,7 +552,10 @@ namespace OCMApp.Internal
 
         private List<Favorites.FavoriteItemViewModel> OnFavoritesRefresh()
         {
-            return Task.Run(DBContext.Favorites).GetAwaiter().GetResult();
+            OnRemoveHotKeysFavoritesItem(_favoriteItems);
+            var newFav = Task.Run(DBContext.Favorites).GetAwaiter().GetResult();
+            OnSetupHotKeysFavoritesItem(newFav);
+            return newFav;
         }
 
         public void RefreshFavorites()
