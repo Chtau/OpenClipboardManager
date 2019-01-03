@@ -154,5 +154,10 @@ namespace OCMApp
                     break;
             }
         }
+
+        private void Favorites_Click(object sender, RoutedEventArgs e)
+        {
+            Internal.Global.Instance.ShowFavoritesWindow();
+        }
     }
 }

@@ -14,6 +14,12 @@
         Title="Open Clipboard Manager" Height="450" Width="800" WindowButtonCommandsOverlayBehavior="Never">
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
+            <Button x:Name="Favorites" Click="Favorites_Click">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconModern Width="16" Height="16" Kind="AppFavorite" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="{Binding Source='Favorites',Converter={ StaticResource LocalizeConverter}}" />
+                </StackPanel>
+            </Button>
             <Button x:Name="Settings" Click="Settings_Click">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconModern Width="16" Height="16" Kind="Settings" />
