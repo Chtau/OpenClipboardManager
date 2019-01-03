@@ -23,21 +23,51 @@ namespace OCMApp.Favorites
         public FavoriteItem()
         {
             InitializeComponent();
+            
         }
 
-        private void HotKeyItem_Click(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            if (DataContext is FavoriteItemViewModel model)
+            {
+                ContentWrapper.Children.Clear();
+                if (model.IsTextContent)
+                {
+                    var txt = new TextBox
+                    {
+                        IsReadOnly = true,
+                        Width = 100,
+                        TextWrapping = TextWrapping.NoWrap,
+                    };
+                    ContentWrapper.Children.Add(txt);
 
-        }
+                    Binding myBinding = new Binding
+                    {
+                        Source = model,
+                        Path = new PropertyPath("TextContent"),
+                        Mode = BindingMode.OneWay,
+                        UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                    };
+                    BindingOperations.SetBinding(txt, TextBox.TextProperty, myBinding);
+                }
+                else
+                {
+                    var img = new Image
+                    {
+                        Width = 100,
+                    };
+                    ContentWrapper.Children.Add(img);
 
-        private void DeleteItem_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CopyItem_Click(object sender, RoutedEventArgs e)
-        {
-
+                    Binding myBinding = new Binding
+                    {
+                        Source = model,
+                        Path = new PropertyPath("ImageContent"),
+                        Mode = BindingMode.OneWay,
+                        UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                    };
+                    BindingOperations.SetBinding(img, Image.SourceProperty, myBinding);
+                }
+            }
         }
     }
 }
