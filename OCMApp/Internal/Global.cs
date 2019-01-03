@@ -278,42 +278,58 @@ namespace OCMApp.Internal
         #endregion
 
         #region Clipboard
-        public void PostAndGet(DAL.Models.ClipText textEntity)
+        public void PostAndGet(string value)
         {
             try
             {
-                Clip.Post(textEntity.Value, OCMClip.ClipHandler.Entities.Enums.TextDataFormat.Text);
+                Clip.Post(value, OCMClip.ClipHandler.Entities.Enums.TextDataFormat.Text);
                 Clip.Get();
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Log.Error(ex, "Post and Get Text Clipboard");
             }
         }
 
-        public void PostAndGet(DAL.Models.ClipImage imageEntity)
+        public void PostAndGet(byte[] value)
         {
             try
             {
-                Clip.Post(OCMClip.ClipHandler.ConvertImage.ByteArrayToImage(imageEntity.Value));
+                Clip.Post(OCMClip.ClipHandler.ConvertImage.ByteArrayToImage(value));
                 Clip.Get();
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Post and Get Image Clipboard");
+                Log.Error(ex, "Post and Get Byte Array Clipboard");
             }
+        }
+
+        public void PostAndGet(List<string> value)
+        {
+            try
+            {
+                Clip.Post(value);
+                Clip.Get();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Post and Get File list Clipboard");
+            }
+        }
+
+        public void PostAndGet(DAL.Models.ClipText textEntity)
+        {
+            PostAndGet(textEntity.Value);
+        }
+
+        public void PostAndGet(DAL.Models.ClipImage imageEntity)
+        {
+            PostAndGet(imageEntity.Value);
         }
 
         public void PostAndGet(DAL.Models.ClipFile fileEntity)
         {
-            try
-            {
-                Clip.Post(fileEntity.GetListValue());
-                Clip.Get();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Post and Get File Clipboard");
-            }
+            PostAndGet(fileEntity.GetListValue());
         }
 
         private void Clip_ClipboardTextChanged(object sender, OCMClip.ClipHandler.Entities.ClipDataText e)
@@ -476,6 +492,8 @@ namespace OCMApp.Internal
         public void RefreshFavorites()
         {
             _favoriteItems = OnFavoritesRefresh();
+            if (FavoritesWindow != null)
+                FavoritesWindow.Refresh();
         }
     }
 }

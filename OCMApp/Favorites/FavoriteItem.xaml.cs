@@ -36,7 +36,7 @@ namespace OCMApp.Favorites
                     var txt = new TextBox
                     {
                         IsReadOnly = true,
-                        Width = 100,
+                        Width = 150,
                         TextWrapping = TextWrapping.NoWrap,
                     };
                     ContentWrapper.Children.Add(txt);
@@ -54,7 +54,7 @@ namespace OCMApp.Favorites
                 {
                     var img = new Image
                     {
-                        Width = 100,
+                        Width = 150,
                     };
                     ContentWrapper.Children.Add(img);
 

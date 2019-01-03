@@ -29,17 +29,25 @@ namespace OCMApp.Favorites
 
         private void OnRefresh()
         {
-            var result = Internal.Global.Instance.FavoriteItems;
-            FavoritesWrapper.Children.Clear();
-            foreach (FavoriteItemViewModel item in result)
+            this.Dispatcher.Invoke(() =>
             {
-                FavoritesWrapper.Children.Add(
-                new FavoriteItem
+                var result = Internal.Global.Instance.FavoriteItems;
+                FavoritesWrapper.Children.Clear();
+                foreach (FavoriteItemViewModel item in result)
                 {
-                    DataContext = item
+                    FavoritesWrapper.Children.Add(
+                    new FavoriteItem
+                    {
+                        DataContext = item
+                    }
+                    );
                 }
-                );
-            }
+            });
+        }
+
+        public void Refresh()
+        {
+            OnRefresh();
         }
     }
 }

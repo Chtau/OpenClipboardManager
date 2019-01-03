@@ -48,7 +48,7 @@ namespace OCMApp.Favorites
                 if (FavoriteContentText != null)
                     return FavoriteContentText.Content;
                 else if (FavoriteContentFile != null)
-                    return FavoriteContentText.Content;
+                    return FavoriteContentFile.Content;
                 return null;
             }
         }
@@ -101,9 +101,9 @@ namespace OCMApp.Favorites
                 {
                     _deleteCommand = new RelayCommand(
                         p => true,
-                        p =>
+                        async p =>
                         {
-                            
+                            await Internal.Global.Instance.DBContext.DeleteFavorite(this);
                         });
                 }
                 return _deleteCommand;
@@ -121,7 +121,18 @@ namespace OCMApp.Favorites
                         p => true,
                         p =>
                         {
-
+                            switch (Favorite.Type)
+                            {
+                                case DAL.Models.Favorite.ContentType.Text:
+                                    Internal.Global.Instance.PostAndGet(FavoriteContentText.Content);
+                                    break;
+                                case DAL.Models.Favorite.ContentType.Image:
+                                    Internal.Global.Instance.PostAndGet(FavoriteContentImage.Content);
+                                    break;
+                                case DAL.Models.Favorite.ContentType.File:
+                                    Internal.Global.Instance.PostAndGet(FavoriteContentFile.GetListValue());
+                                    break;
+                            }
                         });
                 }
                 return _copyCommand;
@@ -137,9 +148,9 @@ namespace OCMApp.Favorites
                 {
                     _saveCommand = new RelayCommand(
                         p => true,
-                        p =>
+                        async p =>
                         {
-
+                            await Internal.Global.Instance.DBContext.UpdateFavorite(this);
                         });
                 }
                 return _saveCommand;

@@ -152,9 +152,10 @@ namespace OCMApp.DAL
                     await DB.InsertAsync(itemContent);
                     var item = new Models.Favorite
                     {
-                        Type = Models.Favorite.ContentType.Text,
+                        Type = Models.Favorite.ContentType.Image,
                         FavoriteContentId = itemContent.Id,
                     };
+                    await DB.InsertAsync(item);
                     Internal.Global.Instance.RefreshFavorites();
                     return true;
                 }
@@ -176,9 +177,10 @@ namespace OCMApp.DAL
                     await DB.InsertAsync(itemContent);
                     var item = new Models.Favorite
                     {
-                        Type = Models.Favorite.ContentType.Text,
+                        Type = Models.Favorite.ContentType.File,
                         FavoriteContentId = itemContent.Id,
                     };
+                    await DB.InsertAsync(item);
                     Internal.Global.Instance.RefreshFavorites();
                     return true;
                 }
@@ -211,6 +213,31 @@ namespace OCMApp.DAL
             catch (Exception ex)
             {
                 Log.Error(ex, "Failed to update Favorite view model");
+            }
+            return false;
+        }
+
+        public async Task<bool> DeleteFavorite(Favorites.FavoriteItemViewModel favorite)
+        {
+            try
+            {
+                if (favorite != null)
+                {
+                    if (favorite.Favorite.Type == Models.Favorite.ContentType.Text)
+                        await DB.DeleteAsync(favorite.FavoriteContentText);
+                    else if (favorite.Favorite.Type == Models.Favorite.ContentType.Image)
+                        await DB.DeleteAsync(favorite.FavoriteContentImage);
+                    else if (favorite.Favorite.Type == Models.Favorite.ContentType.File)
+                        await DB.DeleteAsync(favorite.FavoriteContentFile);
+                    await DB.DeleteAsync(favorite.Favorite);
+
+                    Internal.Global.Instance.RefreshFavorites();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to delete Favorite view model");
             }
             return false;
         }

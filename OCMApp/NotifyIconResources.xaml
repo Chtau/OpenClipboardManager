@@ -11,6 +11,11 @@
                 <iconPacks:PackIconModern Width="16" Height="16" Kind="App" />
             </MenuItem.Icon>
         </MenuItem>
+        <MenuItem Header="{Binding Source='Favorites',Converter={ StaticResource LocalizeConverter}}" Command="{Binding ShowFavoriteWindowCommand}">
+            <MenuItem.Icon>
+                <iconPacks:PackIconModern Width="16" Height="16" Kind="AppFavorite" />
+            </MenuItem.Icon>
+        </MenuItem>
         <!--<Separator Padding="0"/>-->
         <MenuItem Header="{Binding Source='Exit',Converter={ StaticResource LocalizeConverter}}" Command="{Binding ExitApplicationCommand}">
             <MenuItem.Icon>

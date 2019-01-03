@@ -25,6 +25,21 @@ namespace OCMApp
             }
         }
 
+        private ICommand _showFavoriteWindowCommand;
+        public ICommand ShowFavoriteWindowCommand
+        {
+            get
+            {
+                if (_showFavoriteWindowCommand == null)
+                {
+                    _showFavoriteWindowCommand = new RelayCommand(
+                        p => true,
+                        p => Internal.Global.Instance.ShowFavoritesWindow());
+                }
+                return _showFavoriteWindowCommand;
+            }
+        }
+
         private ICommand _exitApplicationCommand;
         public ICommand ExitApplicationCommand
         {

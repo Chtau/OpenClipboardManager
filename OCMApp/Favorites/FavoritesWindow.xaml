@@ -8,7 +8,8 @@
         xmlns:local="clr-namespace:OCMApp.Favorites"
         mc:Ignorable="d"
         Topmost="True"
-        Title="{Binding Source='Favorites',Converter={ StaticResource LocalizeConverter}}" Height="200" Width="200">
+        MaxWidth="250"
+        Title="{Binding Source='Favorites',Converter={ StaticResource LocalizeConverter}}" Height="250" Width="250">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
