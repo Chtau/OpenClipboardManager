@@ -150,6 +150,9 @@ namespace OCMApp.Favorites
                         p => true,
                         async p =>
                         {
+                            Favorite.Key = HotKey.KeyEnumSelected;
+                            Favorite.Modifier1 = HotKey.Modifier1EnumSelected;
+                            Favorite.Modifier2 = HotKey.Modifier2EnumSelected;
                             await Internal.Global.Instance.DBContext.UpdateFavorite(this);
                         });
                 }
