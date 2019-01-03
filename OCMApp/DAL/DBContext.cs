@@ -132,6 +132,7 @@ namespace OCMApp.DAL
                         FavoriteContentId = itemContent.Id,
                     };
                     await DB.InsertAsync(item);
+                    Internal.Global.Instance.RefreshFavorites();
                     return true;
                 }
             } catch (Exception ex)
@@ -154,6 +155,7 @@ namespace OCMApp.DAL
                         Type = Models.Favorite.ContentType.Text,
                         FavoriteContentId = itemContent.Id,
                     };
+                    Internal.Global.Instance.RefreshFavorites();
                     return true;
                 }
             }
@@ -177,6 +179,7 @@ namespace OCMApp.DAL
                         Type = Models.Favorite.ContentType.Text,
                         FavoriteContentId = itemContent.Id,
                     };
+                    Internal.Global.Instance.RefreshFavorites();
                     return true;
                 }
             }
@@ -200,7 +203,8 @@ namespace OCMApp.DAL
                     else if (favorite.Favorite.Type == Models.Favorite.ContentType.File)
                         await DB.UpdateAsync(favorite.FavoriteContentFile);
                     await DB.UpdateAsync(favorite.Favorite);
-                    
+
+                    Internal.Global.Instance.RefreshFavorites();
                     return true;
                 }
             }

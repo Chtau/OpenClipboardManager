@@ -29,7 +29,7 @@ namespace OCMApp.Favorites
 
         private void OnRefresh()
         {
-            var result = Task.Run(Internal.Global.Instance.DBContext.Favorites).GetAwaiter().GetResult();
+            var result = Internal.Global.Instance.FavoriteItems;
             FavoritesWrapper.Children.Clear();
             foreach (FavoriteItemViewModel item in result)
             {

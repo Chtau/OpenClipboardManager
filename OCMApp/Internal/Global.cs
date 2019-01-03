@@ -456,5 +456,26 @@ namespace OCMApp.Internal
                 FavoritesWindow.Activate();
             }
         }
+
+        private List<Favorites.FavoriteItemViewModel> _favoriteItems;
+        public List<Favorites.FavoriteItemViewModel> FavoriteItems
+        {
+            get
+            {
+                if (_favoriteItems == null)
+                    _favoriteItems = OnFavoritesRefresh();
+                return _favoriteItems;
+            }
+        }
+
+        private List<Favorites.FavoriteItemViewModel> OnFavoritesRefresh()
+        {
+            return Task.Run(DBContext.Favorites).GetAwaiter().GetResult();
+        }
+
+        public void RefreshFavorites()
+        {
+            _favoriteItems = OnFavoritesRefresh();
+        }
     }
 }
