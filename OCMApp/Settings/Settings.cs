@@ -13,6 +13,8 @@ namespace OCMApp.Settings
         public string DataPath { get; set; } = null;
         public bool OnlySetClipboardOnPaste { get; set; } = false;
         public bool FavoriteWindowStateRemember { get; set; } = false;
+        public Internal.Theme.Accent Accent { get; set; } = Internal.Theme.Accent.Teal;
+        public Internal.Theme.ThemeColor ThemeColor { get; set; } = Internal.Theme.ThemeColor.BaseLight;
 
         #region OCMClip
         public bool UseWatcher { get; set; } = false;

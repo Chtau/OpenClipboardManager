@@ -1,10 +1,12 @@
-﻿using OCMClip;
+﻿using MahApps.Metro;
+using OCMClip;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace OCMApp.Internal
 {
@@ -211,6 +213,7 @@ namespace OCMApp.Internal
                 OnSetupClipPost();
                 OnSetupAutostart();
                 OnSetupFavorites();
+                OnSetupTheme();
                 if (FavoriteWindowState == null)
                     FavoriteWindowState = new Settings.WindowState();
                 if (Settings.FavoriteWindowStateRemember)
@@ -220,6 +223,20 @@ namespace OCMApp.Internal
             } catch (Exception ex)
             {
                 Log.Error(ex, "Change Application Settings");
+            }
+        }
+
+        private void OnSetupTheme()
+        {
+            try
+            {
+                ThemeManager.ChangeAppStyle(Application.Current,
+                                    ThemeManager.GetAccent(Enum.GetName(typeof(Internal.Theme.Accent), Settings.Accent)),
+                                    ThemeManager.GetAppTheme(Enum.GetName(typeof(Internal.Theme.ThemeColor), Settings.ThemeColor)));
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Setup Application Theme");
             }
         }
 

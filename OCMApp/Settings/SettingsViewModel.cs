@@ -15,6 +15,12 @@ namespace OCMApp.Settings
         public List<KeyValuePair<int, string>> CultureEnum { get; set; }
         public int CultureEnumSelected { get; set; }
 
+        public List<KeyValuePair<int, string>> AccentEnum { get; set; }
+        public int AccentEnumSelected { get; set; }
+
+        public List<KeyValuePair<int, string>> ThemeColorEnum { get; set; }
+        public int ThemeColorEnumSelected { get; set; }
+
         public HotKeyConfigurationViewModel ClipHotKey { get; set; }
         public HotKeyConfigurationViewModel ClipPasteHotKey { get; set; }
         public HotKeyConfigurationViewModel FavoritesWindowHotKey { get; set; }
@@ -41,6 +47,12 @@ namespace OCMApp.Settings
             FavoritesWindowHotKey.SetKey(Settings.FavoritesWindowKey);
             FavoritesWindowHotKey.SetModifier(Settings.FavoritesWindowModifier);
             FavoritesWindowHotKey.Title = "Hotkey Favorites Window";
+
+            AccentEnumSelected = (int)Settings.Accent;
+            AccentEnum = Helper.ComboBoxBindingModelBuilder.FromEnum(typeof(Internal.Theme.Accent));
+
+            ThemeColorEnumSelected = (int)Settings.ThemeColor;
+            ThemeColorEnum = Helper.ComboBoxBindingModelBuilder.FromEnum(typeof(Internal.Theme.ThemeColor));
         }
     }
 }

@@ -43,6 +43,7 @@ namespace OCMApp.Internal
                         if (!MissingLocalization.Contains(keyValue))
                             MissingLocalization.Add(keyValue);
                         tmpValue = "[" + keyValue + "]";
+                        keyValue = tmpValue;
 #endif
                     } else
                         keyValue = tmpValue;

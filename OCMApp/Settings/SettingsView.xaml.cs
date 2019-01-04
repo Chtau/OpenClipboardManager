@@ -34,6 +34,8 @@ namespace OCMApp.Settings
         {
             _viewModel.Settings.ClipWatcherDefaultImageFormat = (OCMClip.ClipHandler.Entities.Enums.ImageFormatType)_viewModel.ClipWatcherImageFormatTypeEnumSelected;
             _viewModel.Settings.Culture = (Internal.Localize.Language)_viewModel.CultureEnumSelected;
+            _viewModel.Settings.Accent = (Internal.Theme.Accent)_viewModel.AccentEnumSelected;
+            _viewModel.Settings.ThemeColor = (Internal.Theme.ThemeColor)_viewModel.ThemeColorEnumSelected;
 
             if (!_viewModel.Settings.UseWatcher)
             {
