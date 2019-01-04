@@ -6,6 +6,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:OCMApp.Favorites"
+        Icon="/OCMApp;component/clipmanager_logo_1_128.ico"
         mc:Ignorable="d"
         Topmost="True"
         MaxWidth="250"
