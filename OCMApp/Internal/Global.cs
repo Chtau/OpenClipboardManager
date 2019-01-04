@@ -217,7 +217,6 @@ namespace OCMApp.Internal
                     FavoriteWindowState.CurrentState = OCMApp.Settings.WindowState.State.Remember;
                 else
                     FavoriteWindowState.CurrentState = OCMApp.Settings.WindowState.State.WindowsDefault;
-                SaveFavoriteWindowState();
             } catch (Exception ex)
             {
                 Log.Error(ex, "Change Application Settings");
