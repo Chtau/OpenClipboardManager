@@ -10,5 +10,6 @@ namespace OCMApp
     {
         public const string AppName = "OpenClipboardManager";
         public const string SettingsFile = "settings.json";
+        public const string WindowStateFavoriteFile = "windowstatefavorite.json";
     }
 }

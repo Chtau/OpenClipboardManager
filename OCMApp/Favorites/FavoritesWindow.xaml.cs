@@ -2,6 +2,7 @@
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,31 @@ namespace OCMApp.Favorites
         public FavoritesWindow()
         {
             InitializeComponent();
+            OnLoadState();
             OnRefresh();
+        }
+
+        private void OnLoadState()
+        {
+            if (Internal.Global.Instance.FavoriteWindowState != null
+                && Internal.Global.Instance.FavoriteWindowState.HasRememberState())
+            {
+                this.WindowStartupLocation = WindowStartupLocation.Manual;
+                this.Top = Internal.Global.Instance.FavoriteWindowState.Top.Value;
+                this.Left = Internal.Global.Instance.FavoriteWindowState.Left.Value;
+                this.Height = Internal.Global.Instance.FavoriteWindowState.Height.Value;
+            }
+        }
+
+        private void OnSaveState()
+        {
+            if (Internal.Global.Instance.FavoriteWindowState != null)
+            {
+                Internal.Global.Instance.FavoriteWindowState.Top = this.Top;
+                Internal.Global.Instance.FavoriteWindowState.Left = this.Left;
+                Internal.Global.Instance.FavoriteWindowState.Height = this.Height;
+                Internal.Global.Instance.SaveFavoriteWindowState();
+            }
         }
 
         private void OnRefresh()
@@ -48,6 +73,12 @@ namespace OCMApp.Favorites
         public void Refresh()
         {
             OnRefresh();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            OnSaveState();
+            base.OnClosing(e);
         }
     }
 }

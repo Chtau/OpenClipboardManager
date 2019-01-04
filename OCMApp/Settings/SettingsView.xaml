@@ -33,6 +33,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -97,6 +98,8 @@
                     <Separator Margin="0,2,0,10"/>
                 </StackPanel>
                 <local:HotKeyConfigurationView Grid.Row="15" Grid.ColumnSpan="2" DataContext="{Binding FavoritesWindowHotKey}"/>
+                <Label Grid.Row="16" Grid.Column="0" VerticalAlignment="Center" Content="{Binding Source='Remember Position',Converter={ StaticResource LocalizeConverter}}" Margin="0,0,0,5"/>
+                <Controls:ToggleSwitch Grid.Row="16" Grid.Column="1" IsChecked="{Binding Settings.FavoriteWindowStateRemember }" Margin="0,0,0,5"/>
             </Grid>
         </ScrollViewer>
         <StackPanel Grid.Row="2" Margin="0,0,0,10">

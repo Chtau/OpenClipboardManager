@@ -12,6 +12,7 @@ namespace OCMApp.Settings
         public bool AutoStart { get; set; } = false;
         public string DataPath { get; set; } = null;
         public bool OnlySetClipboardOnPaste { get; set; } = false;
+        public bool FavoriteWindowStateRemember { get; set; } = false;
 
         #region OCMClip
         public bool UseWatcher { get; set; } = false;

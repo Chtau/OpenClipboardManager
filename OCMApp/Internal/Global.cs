@@ -53,7 +53,8 @@ namespace OCMApp.Internal
         public DAL.Models.LastClip LastClip { get; private set; }
         public bool InitError { get; private set; } = false;
         public bool FirstStart { get; private set; } = false;
-        
+        public Settings.WindowState FavoriteWindowState { get; private set; } = new Settings.WindowState();
+
         private OCMHotKey.HotKey clipboardHotKeyGet;
         private OCMHotKey.HotKey clipboardHotKeyPost;
         private OCMHotKey.HotKey favoritesWindowHotKey;
@@ -114,6 +115,7 @@ namespace OCMApp.Internal
 
                     OnSettingsChange();
                     RefreshFavorites();
+                    LoadFavoriteWindowState();
                 } catch (Exception ex)
                 {
                     Log.Error(ex, "Critical Application Error (restart needed)");
@@ -209,6 +211,13 @@ namespace OCMApp.Internal
                 OnSetupClipPost();
                 OnSetupAutostart();
                 OnSetupFavorites();
+                if (FavoriteWindowState == null)
+                    FavoriteWindowState = new Settings.WindowState();
+                if (Settings.FavoriteWindowStateRemember)
+                    FavoriteWindowState.CurrentState = OCMApp.Settings.WindowState.State.Remember;
+                else
+                    FavoriteWindowState.CurrentState = OCMApp.Settings.WindowState.State.WindowsDefault;
+                SaveFavoriteWindowState();
             } catch (Exception ex)
             {
                 Log.Error(ex, "Change Application Settings");
@@ -314,6 +323,43 @@ namespace OCMApp.Internal
             }
         }
         #endregion
+
+        public void SaveFavoriteWindowState()
+        {
+            try
+            {
+                string file = System.IO.Path.Combine(AppUserFolder, GlobalValues.WindowStateFavoriteFile);
+                var content = Newtonsoft.Json.JsonConvert.SerializeObject(FavoriteWindowState);
+                System.IO.File.WriteAllText(file, content);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to save Favorite Window state to file");
+            }
+        }
+
+        public bool LoadFavoriteWindowState()
+        {
+            try
+            {
+                string file = System.IO.Path.Combine(AppUserFolder, GlobalValues.WindowStateFavoriteFile);
+                if (System.IO.File.Exists(file))
+                {
+                    string content = System.IO.File.ReadAllText(file);
+                    var state = Newtonsoft.Json.JsonConvert.DeserializeObject<Settings.WindowState>(content);
+                    if (state != null)
+                    {
+                        FavoriteWindowState = state;
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to load Favorite Window state to file");
+            }
+            return false;
+        }
 
         #region Clipboard
         public void PostAndGet(string value)
