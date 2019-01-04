@@ -117,14 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activate File" xml:space="preserve">
+  <data name="Accent_Color" xml:space="preserve">
+    <value>Akzentfarbe</value>
+  </data>
+  <data name="Activate_File" xml:space="preserve">
     <value>Datei aktivieren</value>
   </data>
-  <data name="Activate Image" xml:space="preserve">
+  <data name="Activate_Image" xml:space="preserve">
     <value>Bild aktivieren</value>
   </data>
-  <data name="Activate Text" xml:space="preserve">
+  <data name="Activate_Text" xml:space="preserve">
     <value>Text aktivieren</value>
+  </data>
+  <data name="Add_Favorite" xml:space="preserve">
+    <value>Favorit hinzufügen</value>
+  </data>
+  <data name="Amber" xml:space="preserve">
+    <value>Bernstein</value>
   </data>
   <data name="Application" xml:space="preserve">
     <value>Anwendung</value>
@@ -132,32 +141,71 @@
   <data name="Autostart" xml:space="preserve">
     <value>Autostart</value>
   </data>
+  <data name="BaseDark" xml:space="preserve">
+    <value>Dunkel</value>
+  </data>
+  <data name="BaseLight" xml:space="preserve">
+    <value>Hell</value>
+  </data>
+  <data name="Blue" xml:space="preserve">
+    <value>Blau</value>
+  </data>
+  <data name="Brown" xml:space="preserve">
+    <value>Braun</value>
+  </data>
+  <data name="Cobalt" xml:space="preserve">
+    <value>Kobalt</value>
+  </data>
   <data name="Content" xml:space="preserve">
     <value>Inhalt</value>
   </data>
-  <data name="Copy Clipboard" xml:space="preserve">
+  <data name="Copy_Clipboard" xml:space="preserve">
     <value>Zwischenablage Kopieren</value>
   </data>
   <data name="Created" xml:space="preserve">
     <value>Erstellt</value>
   </data>
-  <data name="Default Image format" xml:space="preserve">
+  <data name="Crimson" xml:space="preserve">
+    <value>Crimson</value>
+  </data>
+  <data name="Cyan" xml:space="preserve">
+    <value>Cyan</value>
+  </data>
+  <data name="Default_Image_format" xml:space="preserve">
     <value>Standard Bild format</value>
+  </data>
+  <data name="Emerald" xml:space="preserve">
+    <value>Smaragd</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>Beenden</value>
   </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>Favoriten</value>
+  </data>
   <data name="File" xml:space="preserve">
     <value>Datei</value>
   </data>
-  <data name="Hotkey copy value" xml:space="preserve">
+  <data name="Green" xml:space="preserve">
+    <value>Grün</value>
+  </data>
+  <data name="Hotkey" xml:space="preserve">
+    <value>Tastenkürzel</value>
+  </data>
+  <data name="Hotkey_copy_value" xml:space="preserve">
     <value>Tastenkürzel Wert kopieren</value>
   </data>
-  <data name="Hotkey paste value" xml:space="preserve">
+  <data name="Hotkey_Favorites_Window" xml:space="preserve">
+    <value>Favoriten Fenster Tastenkürzel</value>
+  </data>
+  <data name="Hotkey_paste_value" xml:space="preserve">
     <value>Tastenkürzel Wert einfügen</value>
   </data>
   <data name="Image" xml:space="preserve">
     <value>Bild</value>
+  </data>
+  <data name="Indigo" xml:space="preserve">
+    <value>Indigo</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Info</value>
@@ -171,32 +219,59 @@
   <data name="Language" xml:space="preserve">
     <value>Sprache</value>
   </data>
-  <data name="Modifier 1" xml:space="preserve">
+  <data name="Lime" xml:space="preserve">
+    <value>Limette</value>
+  </data>
+  <data name="Magenta" xml:space="preserve">
+    <value>Magenta</value>
+  </data>
+  <data name="Mauve" xml:space="preserve">
+    <value>Mauve</value>
+  </data>
+  <data name="Modifier_1" xml:space="preserve">
     <value>Modifier 1</value>
   </data>
-  <data name="Modifier 2" xml:space="preserve">
+  <data name="Modifier_2" xml:space="preserve">
     <value>Modifier 2</value>
   </data>
-  <data name="Only set Clipboard on Paste" xml:space="preserve">
+  <data name="Olive" xml:space="preserve">
+    <value>Olive</value>
+  </data>
+  <data name="Only_set_Clipboard_on_Paste" xml:space="preserve">
     <value>Nur in die Zwischenablage einfügen</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Öffnen</value>
   </data>
-  <data name="Open Data Folder" xml:space="preserve">
+  <data name="Open_Data_Folder" xml:space="preserve">
     <value>Öffne Datei Ordner</value>
   </data>
-  <data name="Paste Clipboard" xml:space="preserve">
+  <data name="Orange" xml:space="preserve">
+    <value>Orange</value>
+  </data>
+  <data name="Paste_Clipboard" xml:space="preserve">
     <value>Zwischenablage einfügen</value>
+  </data>
+  <data name="Pink" xml:space="preserve">
+    <value>Rosa</value>
+  </data>
+  <data name="Purple" xml:space="preserve">
+    <value>Lila</value>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>Rot</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Aktualisieren</value>
   </data>
-  <data name="Refresh Rate Milliseconds" xml:space="preserve">
+  <data name="Refresh_Rate_Milliseconds" xml:space="preserve">
     <value>Aktualisierungsrate Millisekunden</value>
   </data>
-  <data name="Refresh Rate Seconds" xml:space="preserve">
+  <data name="Refresh_Rate_Seconds" xml:space="preserve">
     <value>Aktualisierungsrate Sekunden</value>
+  </data>
+  <data name="Remember_Position" xml:space="preserve">
+    <value>Position merken</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Speichern</value>
@@ -204,19 +279,40 @@
   <data name="Settings" xml:space="preserve">
     <value>Einstellungen</value>
   </data>
+  <data name="Sienna" xml:space="preserve">
+    <value>Ockergelb</value>
+  </data>
+  <data name="Steel" xml:space="preserve">
+    <value>Stahl</value>
+  </data>
   <data name="Summary" xml:space="preserve">
     <value>Zusammenfassung</value>
+  </data>
+  <data name="Taupe" xml:space="preserve">
+    <value>Taupe</value>
+  </data>
+  <data name="Teal" xml:space="preserve">
+    <value>Teal</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value>Text</value>
   </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Thema</value>
+  </data>
   <data name="Total" xml:space="preserve">
     <value>Gesamt</value>
   </data>
-  <data name="Use Interceptor" xml:space="preserve">
+  <data name="Use_Interceptor" xml:space="preserve">
     <value>Überwachung verwenden</value>
+  </data>
+  <data name="Violet" xml:space="preserve">
+    <value>Violett</value>
   </data>
   <data name="Window" xml:space="preserve">
     <value>Fenster</value>
+  </data>
+  <data name="Yellow" xml:space="preserve">
+    <value>Gelb</value>
   </data>
 </root>

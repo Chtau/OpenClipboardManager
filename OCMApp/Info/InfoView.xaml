@@ -47,7 +47,7 @@
                     Width="160">
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconModern VerticalAlignment="Center" Kind="FolderOpen" />
-                            <Label Content="{Binding Source='Open Data Folder',Converter={ StaticResource LocalizeConverter}}"/>
+                            <Label Content="{Binding Source='Open_Data_Folder',Converter={ StaticResource LocalizeConverter}}"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
