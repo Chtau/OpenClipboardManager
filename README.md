@@ -2,6 +2,7 @@
 
 Open Clipboard Manager (short OCM) is an open source Clipboard Manager/History Application for Windows.
 
+![Main](https://raw.githubusercontent.com/Chtau/OpenClipboardManager/master/docs/ocm_text.png)
 
 ## Features
 
@@ -14,3 +15,9 @@ Open Clipboard Manager (short OCM) is an open source Clipboard Manager/History A
   * Autostart
   * English/German
   
+
+
+
+![Favorites](https://raw.githubusercontent.com/Chtau/OpenClipboardManager/master/docs/ocm_favorites.png)
+
+![Settings](https://raw.githubusercontent.com/Chtau/OpenClipboardManager/master/docs/ocm_settings.png)
