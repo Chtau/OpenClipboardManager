@@ -104,17 +104,23 @@ namespace OCMClip
         {
             InvokeSTATThread(() =>
             {
-                if (configuration.ActiveText && System.Windows.Forms.Clipboard.ContainsText())
+                try
                 {
-                    ClipboardTextRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetText());
-                }
-                else if (configuration.ActiveImage && System.Windows.Forms.Clipboard.ContainsImage())
+                    if (configuration.ActiveText && System.Windows.Forms.Clipboard.ContainsText())
+                    {
+                        ClipboardTextRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetText());
+                    }
+                    else if (configuration.ActiveImage && System.Windows.Forms.Clipboard.ContainsImage())
+                    {
+                        ClipboardImageRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetImage());
+                    }
+                    else if (configuration.ActiveFileDropList && System.Windows.Forms.Clipboard.ContainsFileDropList())
+                    {
+                        ClipboardFileListRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetFileDropList());
+                    }
+                } catch (Exception ex)
                 {
-                    ClipboardImageRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetImage());
-                }
-                else if (configuration.ActiveFileDropList && System.Windows.Forms.Clipboard.ContainsFileDropList())
-                {
-                    ClipboardFileListRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetFileDropList());
+                    OCMClip.logger.Error(ex);
                 }
             });
         }
@@ -125,8 +131,14 @@ namespace OCMClip
             {
                 InvokeSTATThread(() =>
                 {
-                    //System.Windows.Forms.Clipboard.SetText(value, System.Windows.Forms.TextDataFormat.Text);
-                    System.Windows.Forms.Clipboard.SetText(value, (System.Windows.Forms.TextDataFormat)(int)format);
+                    try
+                    {
+                        System.Windows.Forms.Clipboard.SetText(value, (System.Windows.Forms.TextDataFormat)(int)format);
+                    }
+                    catch (Exception ex)
+                    {
+                        OCMClip.logger.Error(ex);
+                    }
                 });
             }
         }
@@ -137,7 +149,14 @@ namespace OCMClip
             {
                 InvokeSTATThread(() =>
                 {
-                    System.Windows.Forms.Clipboard.SetImage(value);
+                    try
+                    {
+                        System.Windows.Forms.Clipboard.SetImage(value);
+                    }
+                    catch (Exception ex)
+                    {
+                        OCMClip.logger.Error(ex);
+                    }
                 });
             }
         }
@@ -148,7 +167,14 @@ namespace OCMClip
             {
                 InvokeSTATThread(() =>
                 {
-                    System.Windows.Forms.Clipboard.SetFileDropList(value);
+                    try
+                    {
+                        System.Windows.Forms.Clipboard.SetFileDropList(value);
+                    }
+                    catch (Exception ex)
+                    {
+                        OCMClip.logger.Error(ex);
+                    }
                 });
             }
         }

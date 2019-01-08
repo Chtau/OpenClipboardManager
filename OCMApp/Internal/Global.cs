@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro;
+using Microsoft.Win32;
 using OCMClip;
 using Serilog;
 using System;
@@ -118,11 +119,34 @@ namespace OCMApp.Internal
                     OnSettingsChange();
                     RefreshFavorites();
                     LoadFavoriteWindowState();
+
+                    SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
                 } catch (Exception ex)
                 {
                     Log.Error(ex, "Critical Application Error (restart needed)");
                     InitError = true;
                 }
+            }
+        }
+
+        private void SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e)
+        {
+            try
+            {
+                switch (e.Mode)
+                {
+                    case PowerModes.Resume:
+                        OnSetupClipGet();
+                        break;
+                    case PowerModes.StatusChange:
+                        break;
+                    case PowerModes.Suspend:
+                        Clip.StopWatcher();
+                        break;
+                }
+            } catch (Exception ex)
+            {
+                Log.Error(ex, $"System Powermode changed => New State: {Enum.GetName(typeof(PowerModes), e.Mode)}");
             }
         }
 
