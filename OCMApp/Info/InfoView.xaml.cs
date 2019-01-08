@@ -33,8 +33,8 @@ namespace OCMApp.Info
         private string GetVersion()
         {
             return Assembly.GetEntryAssembly().GetName().Version.Major + "." +
-                Assembly.GetEntryAssembly().GetName().Version.MajorRevision + "." +
-                Assembly.GetEntryAssembly().GetName().Version.Minor;
+                Assembly.GetEntryAssembly().GetName().Version.Minor + "." +
+                Assembly.GetEntryAssembly().GetName().Version.Build;
         }
 
         private void WebsiteLink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
