@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace OCMApp
 {
-    public class MainWindowViewModel : BaseViewModel
+    public class MainWindowViewModel : BaseViewModel, IDisposable
     {
         public enum Tabs
         {
@@ -138,5 +138,28 @@ namespace OCMApp
                     break;
             }
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    clipDataFiles = null;
+                    clipDataImages = null;
+                    clipDataTexts = null;
+                }
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+        #endregion
     }
 }

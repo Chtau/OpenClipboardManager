@@ -34,6 +34,16 @@ namespace OCMApp
             MainTabControl.SelectionChanged += MainTabControl_SelectionChanged;
         }
 
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            if (_viewModel != null)
+            {
+                _viewModel.Dispose();
+                DataContext = null;
+            }
+        }
+
         private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0 && e.AddedItems[0] is TabItem tab)
