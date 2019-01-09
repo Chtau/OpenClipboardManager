@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OCMClip.ClipHandler.Entities
 {
-    public abstract class ClipData
+    public abstract class ClipData: IDisposable
     {
         public Guid Id { get; set; }
         public DateTime DateCreated { get; set; }
@@ -14,5 +14,12 @@ namespace OCMClip.ClipHandler.Entities
         public string ApplicationWindowTitle { get; set; }
         public string ProcessName { get; set; }
         public int ProcessId { get; set; }
+
+        public void Dispose()
+        {
+            ApplicationName = null;
+            ApplicationWindowTitle = null;
+            ProcessName = null;
+        }
     }
 }

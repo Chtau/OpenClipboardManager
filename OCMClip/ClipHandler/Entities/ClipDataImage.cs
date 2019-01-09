@@ -7,9 +7,15 @@ using OCMClip.ClipHandler.Entities;
 
 namespace OCMClip.ClipHandler.Entities
 {
-    public class ClipDataImage : ClipData
+    public class ClipDataImage : ClipData, IDisposable
     {
         public byte[] Value { get; set; }
         public Enums.ImageFormatType FormatType { get; set; }
+
+        public new void Dispose()
+        {
+            Value = null;
+            base.Dispose();
+        }
     }
 }

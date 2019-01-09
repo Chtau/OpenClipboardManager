@@ -364,6 +364,7 @@ namespace OCMApp.Internal
         }
         #endregion
 
+        #region Favorites
         public void SaveFavoriteWindowState()
         {
             try
@@ -400,6 +401,7 @@ namespace OCMApp.Internal
             }
             return false;
         }
+        #endregion
 
         #region Clipboard
         public void PostAndGet(string value)
@@ -460,9 +462,8 @@ namespace OCMApp.Internal
         {
             try
             {
-                var entity = new DAL.Models.ClipText(e);
-                LastClip.ClipText = entity;
-                DBContext.InsertClipText(entity);
+                LastClip.ClipText = new DAL.Models.ClipText(e);
+                DBContext.InsertClipText(LastClip.ClipText);
             }
             catch (Exception ex)
             {
@@ -474,9 +475,8 @@ namespace OCMApp.Internal
         {
             try
             {
-                var entity = new DAL.Models.ClipImage(e);
-                LastClip.ClipImage = entity;
-                DBContext.InsertClipImage(new DAL.Models.ClipImage(e));
+                LastClip.ClipImage = new DAL.Models.ClipImage(e);
+                DBContext.InsertClipImage(LastClip.ClipImage);
             }
             catch (Exception ex)
             {
@@ -488,9 +488,8 @@ namespace OCMApp.Internal
         {
             try
             {
-                var entity = new DAL.Models.ClipFile(e);
-                LastClip.ClipFile = entity;
-                DBContext.InsertClipFile(new DAL.Models.ClipFile(e));
+                LastClip.ClipFile = new DAL.Models.ClipFile(e);
+                DBContext.InsertClipFile(LastClip.ClipFile);
             }
             catch (Exception ex)
             {

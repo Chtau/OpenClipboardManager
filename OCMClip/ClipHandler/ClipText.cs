@@ -26,8 +26,6 @@ namespace OCMClip.ClipHandler
         /// <returns></returns>
         public Entities.ClipDataText Handle(string textValue)
         {
-            logger.Diagnostic("ClipText handle => " + textValue);
-
             if (!string.IsNullOrWhiteSpace(textValue) && lastValue != textValue)
             {
                 if (OnGetEntity(textValue, OnGetCurrentTextFormat(), out Entities.ClipDataText entity))

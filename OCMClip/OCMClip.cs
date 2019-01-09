@@ -77,17 +77,29 @@ namespace OCMClip
 
         private void Instance_ClipboardTextRecived(object sender, string e)
         {
-            ClipboardTextChanged?.Invoke(this, ClipHandler.ClipHandle.Instance.Text(e));
+            using (var entity = ClipHandler.ClipHandle.Instance.Text(e))
+            {
+                if (entity != null)
+                    ClipboardTextChanged?.Invoke(this, entity);
+            }
         }
 
         private void Instance_ClipboardImageRecived(object sender, System.Drawing.Image e)
         {
-            ClipboardImageChanged?.Invoke(this, ClipHandler.ClipHandle.Instance.Image(e));
+            using (var entity = ClipHandler.ClipHandle.Instance.Image(e))
+            {
+                if (entity != null)
+                    ClipboardImageChanged?.Invoke(this, entity);
+            }
         }
 
         private void Instance_ClipboardFileListRecived(object sender, System.Collections.Specialized.StringCollection e)
         {
-            ClipboardFileChanged?.Invoke(this, ClipHandler.ClipHandle.Instance.File(e));
+            using (var entity = ClipHandler.ClipHandle.Instance.File(e))
+            {
+                if (entity != null)
+                    ClipboardFileChanged?.Invoke(this, entity);
+            }
         }
 
         #region IDisposable Support
