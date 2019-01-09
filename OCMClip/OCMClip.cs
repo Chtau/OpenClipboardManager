@@ -77,38 +77,17 @@ namespace OCMClip
 
         private void Instance_ClipboardTextRecived(object sender, string e)
         {
-            if (ClipboardTextChanged != null)
-            {
-                ClipHandler.Entities.ClipDataText entity = ClipHandler.ClipHandle.Instance.Text(e);
-                if (entity != null)
-                {
-                    ClipboardTextChanged?.Invoke(this, entity);
-                }
-            }
+            ClipboardTextChanged?.Invoke(this, ClipHandler.ClipHandle.Instance.Text(e));
         }
 
         private void Instance_ClipboardImageRecived(object sender, System.Drawing.Image e)
         {
-            if (ClipboardImageChanged != null)
-            {
-                ClipHandler.Entities.ClipDataImage entity = ClipHandler.ClipHandle.Instance.Image(e);
-                if (entity != null)
-                {
-                    ClipboardImageChanged?.Invoke(this, entity);
-                }
-            }
+            ClipboardImageChanged?.Invoke(this, ClipHandler.ClipHandle.Instance.Image(e));
         }
 
         private void Instance_ClipboardFileListRecived(object sender, System.Collections.Specialized.StringCollection e)
         {
-            if (ClipboardFileChanged != null)
-            {
-                ClipHandler.Entities.ClipDataFile entity = ClipHandler.ClipHandle.Instance.File(e);
-                if (entity != null)
-                {
-                    ClipboardFileChanged?.Invoke(this, entity);
-                }
-            }
+            ClipboardFileChanged?.Invoke(this, ClipHandler.ClipHandle.Instance.File(e));
         }
 
         #region IDisposable Support
@@ -120,6 +99,7 @@ namespace OCMClip
             {
                 if (disposing)
                 {
+                    Watcher.Instance.StopTimer();
                     Watcher.Instance.ClipboardFileListRecived -= Instance_ClipboardFileListRecived;
                     Watcher.Instance.ClipboardImageRecived -= Instance_ClipboardImageRecived;
                     Watcher.Instance.ClipboardTextRecived -= Instance_ClipboardTextRecived;
