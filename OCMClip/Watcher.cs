@@ -44,7 +44,6 @@ namespace OCMClip
         public event EventHandler<System.Collections.Specialized.StringCollection> ClipboardFileListRecived;
         public bool UseOwnThread { get; set; } = true;
 
-        private Thread workingThread = null;
         private System.Timers.Timer dispatcherTimer;
         private bool isRestarting = false;
         private ConfigurationWatcher configuration;
@@ -184,28 +183,15 @@ namespace OCMClip
         {
             if (UseOwnThread)
             {
-                if (workingThread != null)
-                {
-                    try
-                    {
-                        workingThread.Abort();
-                    } catch (Exception ex)
-                    {
-                        OCMClip.logger.Error(ex);
-                    } finally
-                    {
-                        workingThread = null;
-                        GC.Collect();
-                    }
-                }
-                workingThread = new Thread(
+                var workingThread1 = new Thread(
                     delegate ()
                     {
                         action();
                     });
-                workingThread.SetApartmentState(ApartmentState.STA);
-                workingThread.Start();
-                workingThread.Join();
+                workingThread1.SetApartmentState(ApartmentState.STA);
+                workingThread1.Start();
+                workingThread1.Join();
+                GC.Collect();
             }
             else
                 action();
