@@ -95,6 +95,7 @@
     <Compile Include="ILogger.cs" />
     <Compile Include="OCMClip.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="STATaskScheduler.cs" />
     <Compile Include="Watcher.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

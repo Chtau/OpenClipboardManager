@@ -47,6 +47,7 @@ namespace OCMClip
         private System.Timers.Timer dispatcherTimer;
         private bool isRestarting = false;
         private ConfigurationWatcher configuration;
+        private STATaskScheduler sta = new STATaskScheduler(1);
 
         private void OnStartTimer(int refreshRateMilliseconds, int refreshRateSeconds)
         {
@@ -183,15 +184,16 @@ namespace OCMClip
         {
             if (UseOwnThread)
             {
-                var workingThread1 = new Thread(
+                Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None, sta).GetAwaiter().GetResult();
+                /*var workingThread1 = new Thread(
                     delegate ()
                     {
                         action();
                     });
                 workingThread1.SetApartmentState(ApartmentState.STA);
                 workingThread1.Start();
-                workingThread1.Join();
-                GC.Collect();
+                workingThread1.Join();*/
+                //GC.Collect();
             }
             else
                 action();

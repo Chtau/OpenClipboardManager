@@ -47,6 +47,7 @@ namespace OCMApp.Internal
         const string DB_File = "ocm.db";
         const string Clipboard_Get_Send_Key = "^c";
         const string Clipboard_Post_Send_Key = "^v";
+        const int Init_Start_Clip_Watcher_Seconds_Delay = 10;
 
         public OCMClip.OCMClip Clip { get; private set; }
         public OCMHotKey.OCMHotKey HotKey { get; private set; }
@@ -116,7 +117,7 @@ namespace OCMApp.Internal
                     OnLoadSettings();
                     DBContext = new DAL.DBContext(System.IO.Path.Combine(AppUserFolder, DB_File));
 
-                    OnSettingsChange();
+                    OnSettingsChange(true);
                     RefreshFavorites();
                     LoadFavoriteWindowState();
 
@@ -209,7 +210,7 @@ namespace OCMApp.Internal
             return false;
         }
 
-        private void OnSettingsChange()
+        private void OnSettingsChange(bool delayClipLoad = false)
         {
             try
             {
@@ -231,9 +232,22 @@ namespace OCMApp.Internal
                         defaultFile,
                         Settings.ClipWatcherDefaultImageFormat
                         ));
+                if (delayClipLoad)
+                {
+                    // if we don't wait on the startup with starting the watcher 
+                    // there could be a confilict with the STA thread of the watcher and the WPF STA thread
+                    Task.Run(() =>
+                    {
+                        System.Threading.Thread.Sleep((int)TimeSpan.FromSeconds(Init_Start_Clip_Watcher_Seconds_Delay).TotalMilliseconds);
+                        OnSetupClipGet();
+                    });
+                } else
+                {
+                    OnSetupClipGet();
+                }
+                
                 Localize.SetLanguage();
 
-                OnSetupClipGet();
                 OnSetupClipPost();
                 OnSetupAutostart();
                 OnSetupFavorites();
