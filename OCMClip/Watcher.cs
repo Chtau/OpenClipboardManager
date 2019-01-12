@@ -119,6 +119,9 @@ namespace OCMClip
                     {
                         ClipboardFileListRecived?.Invoke(this, System.Windows.Forms.Clipboard.GetFileDropList());
                     }
+                } catch (System.Runtime.InteropServices.ExternalException eex)
+                {
+                    OCMClip.logger.Diagnostic(eex.ToString());
                 } catch (Exception ex)
                 {
                     OCMClip.logger.Error(ex);
@@ -135,6 +138,10 @@ namespace OCMClip
                     try
                     {
                         System.Windows.Forms.Clipboard.SetText(value, (System.Windows.Forms.TextDataFormat)(int)format);
+                    }
+                    catch (System.Runtime.InteropServices.ExternalException eex)
+                    {
+                        OCMClip.logger.Diagnostic(eex.ToString());
                     }
                     catch (Exception ex)
                     {
@@ -154,6 +161,10 @@ namespace OCMClip
                     {
                         System.Windows.Forms.Clipboard.SetImage(value);
                     }
+                    catch (System.Runtime.InteropServices.ExternalException eex)
+                    {
+                        OCMClip.logger.Diagnostic(eex.ToString());
+                    }
                     catch (Exception ex)
                     {
                         OCMClip.logger.Error(ex);
@@ -172,6 +183,10 @@ namespace OCMClip
                     {
                         System.Windows.Forms.Clipboard.SetFileDropList(value);
                     }
+                    catch (System.Runtime.InteropServices.ExternalException eex)
+                    {
+                        OCMClip.logger.Diagnostic(eex.ToString());
+                    }
                     catch (Exception ex)
                     {
                         OCMClip.logger.Error(ex);
@@ -185,15 +200,6 @@ namespace OCMClip
             if (UseOwnThread)
             {
                 Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None, sta).GetAwaiter().GetResult();
-                /*var workingThread1 = new Thread(
-                    delegate ()
-                    {
-                        action();
-                    });
-                workingThread1.SetApartmentState(ApartmentState.STA);
-                workingThread1.Start();
-                workingThread1.Join();*/
-                //GC.Collect();
             }
             else
                 action();
