@@ -605,23 +605,22 @@ namespace OCMApp.Internal
         }
         #endregion
 
-        private Favorites.FavoritesWindow _favoritesWindow;
+        #region Favorites Window
+        private WeakReference<Favorites.FavoritesWindow> weakFavorites;
 
         public void ShowFavoritesWindow()
         {
             if (Helper.WindowCheck.IsWindowOpen<Favorites.FavoritesWindow>())
             {
-                _favoritesWindow.Close();
-                _favoritesWindow = null;
+                if (weakFavorites != null && weakFavorites.TryGetTarget(out Favorites.FavoritesWindow favorites))
+                    favorites.Close();
             }
             else
             {
-                if (_favoritesWindow == null || _favoritesWindow.Visibility == System.Windows.Visibility.Visible)
-                {
-                    _favoritesWindow = new Favorites.FavoritesWindow();
-                }
-                _favoritesWindow.Show();
-                _favoritesWindow.Activate();
+                var favoritesWindow = new Favorites.FavoritesWindow();
+                weakFavorites = new WeakReference<Favorites.FavoritesWindow>(favoritesWindow);
+                favoritesWindow.Show();
+                favoritesWindow.Activate();
             }
         }
 
@@ -647,8 +646,9 @@ namespace OCMApp.Internal
         public void RefreshFavorites()
         {
             _favoriteItems = OnFavoritesRefresh();
-            if (_favoritesWindow != null)
-                _favoritesWindow.Refresh();
+            if (weakFavorites != null && weakFavorites.TryGetTarget(out Favorites.FavoritesWindow favorites))
+                favorites.Refresh();
         }
+        #endregion
     }
 }

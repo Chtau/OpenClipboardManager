@@ -55,36 +55,19 @@ namespace OCMApp
             }
         }
 
-        private MainWindow _mainWindow;
-        private MainWindow MainWindow
-        {
-            get
-            {
-                if (_mainWindow == null)
-                    _mainWindow = new MainWindow();
-                return _mainWindow;
-            }
-            set
-            {
-                _mainWindow = value;
-            }
-        }
-
+        private WeakReference<MainWindow> weakMainWindow;
         private void ShowMainWindow()
         {
             if (Helper.WindowCheck.IsWindowOpen<MainWindow>())
             {
-                MainWindow.Close();
-                MainWindow = null;
-            }
-            else
+                if (weakMainWindow != null && weakMainWindow.TryGetTarget(out MainWindow main))
+                    main.Close();
+            } else
             {
-                if (MainWindow.Visibility == System.Windows.Visibility.Visible)
-                {
-                    MainWindow = null;
-                }
-                MainWindow.Show();
-                MainWindow.Activate();
+                var mainWindow = new MainWindow();
+                weakMainWindow = new WeakReference<MainWindow>(mainWindow);
+                mainWindow.Show();
+                mainWindow.Activate();
             }
         }
 
