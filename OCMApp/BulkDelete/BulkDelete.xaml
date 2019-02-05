@@ -20,9 +20,9 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Source='Older then:',Converter={ StaticResource LocalizeConverter}}"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Source='Older_then',Converter={ StaticResource LocalizeConverter}}"/>
         <DatePicker Grid.Row="0" Grid.Column="1" x:Name="beforeDate"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="{Binding Source='Application Name:',Converter={ StaticResource LocalizeConverter}}"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="{Binding Source='Application_Name',Converter={ StaticResource LocalizeConverter}}"/>
         <TextBox Grid.Row="1" Grid.Column="1" x:Name="appName"/>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,10">
             <Button x:Name="refresh" Style="{StaticResource SquareButtonStyle}"
@@ -38,7 +38,7 @@
         <Grid Grid.Row="3" Grid.ColumnSpan="2" Margin="0">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <Label Content="0" x:Name="itemsLabel"/>
-                <Label Content="{Binding Source='Items to delete',Converter={ StaticResource LocalizeConverter}}"/>
+                <Label Content="{Binding Source='Items_to_delete',Converter={ StaticResource LocalizeConverter}}"/>
             </StackPanel>
             <Button x:Name="delete" Style="{StaticResource AccentedSquareButtonStyle}"
                     Click="Delete_Click"

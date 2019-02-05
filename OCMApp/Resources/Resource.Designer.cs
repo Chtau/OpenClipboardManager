@@ -124,6 +124,15 @@ namespace OCMApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application Name:.
+        /// </summary>
+        internal static string Application_Name {
+            get {
+                return ResourceManager.GetString("Application_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Autostart.
         /// </summary>
         internal static string Autostart {
@@ -237,6 +246,15 @@ namespace OCMApp.Resources {
         internal static string Default_Image_format {
             get {
                 return ResourceManager.GetString("Default_Image_format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
             }
         }
         
@@ -394,6 +412,15 @@ namespace OCMApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Items to delete.
+        /// </summary>
+        internal static string Items_to_delete {
+            get {
+                return ResourceManager.GetString("Items_to_delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jpeg.
         /// </summary>
         internal static string Jpeg {
@@ -462,6 +489,15 @@ namespace OCMApp.Resources {
         internal static string Modifier_2 {
             get {
                 return ResourceManager.GetString("Modifier_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Older then:.
+        /// </summary>
+        internal static string Older_then {
+            get {
+                return ResourceManager.GetString("Older_then", resourceCulture);
             }
         }
         

@@ -315,4 +315,16 @@
   <data name="Yellow" xml:space="preserve">
     <value>Gelb</value>
   </data>
+  <data name="Application_Name" xml:space="preserve">
+    <value>Anwendungsname:</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Items_to_delete" xml:space="preserve">
+    <value>Dinge zu löschen</value>
+  </data>
+  <data name="Older_then" xml:space="preserve">
+    <value>Älter als:</value>
+  </data>
 </root>
