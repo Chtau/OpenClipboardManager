@@ -86,7 +86,7 @@ namespace OCMApp.DAL
                 "SELECT ApplicationName as Application, SUM(1) as Total, SUM(1) as Text, 0 as Image, 0 as File FROM ClipText GROUP BY ApplicationName"
                 + " UNION SELECT ApplicationName as Application, SUM(1) as Total, 0 as Text, SUM(1) as Image, 0 as File FROM ClipImage GROUP BY ApplicationName"
                 + " UNION SELECT ApplicationName as Application, SUM(1) as Total, 0 as Text, 0 as Image, SUM(1) as File FROM ClipFile GROUP BY ApplicationName"
-                + " ) GROUP BY Application");
+                + " ) GROUP BY Application ORDER BY Total DESC, Text DESC, Image DESC, File DESC");
         }
 
         public async Task<Models.LastClip> GetLastValues()
