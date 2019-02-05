@@ -92,7 +92,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="350" Binding="{Binding Value}" Header="{Binding Source='Content',Converter={ StaticResource LocalizeConverter}}" />
+                            <DataGridTextColumn Width="350" Binding="{Binding Preview}" Header="{Binding Source='Content',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding DateCreated}" Header="{Binding Source='Created',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding ApplicationName}" Header="{Binding Source='Application',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding ApplicationWindowTitle}" Header="{Binding Source='Window',Converter={ StaticResource LocalizeConverter}}" />
@@ -138,7 +138,7 @@
                             <DataGridTemplateColumn Header="{Binding Source='Image',Converter={ StaticResource LocalizeConverter}}" Width="75">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding Value}" />
+                                        <Image Source="{Binding Preview}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -184,7 +184,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="350" Binding="{Binding Value}" Header="{Binding Source='Content',Converter={ StaticResource LocalizeConverter}}" />
+                            <DataGridTextColumn Width="350" Binding="{Binding Preview}" Header="{Binding Source='Content',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding DateCreated}" Header="{Binding Source='Created',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding ApplicationName}" Header="{Binding Source='Application',Converter={ StaticResource LocalizeConverter}}" />
                             <DataGridTextColumn Binding="{Binding ApplicationWindowTitle}" Header="{Binding Source='Window',Converter={ StaticResource LocalizeConverter}}" />
