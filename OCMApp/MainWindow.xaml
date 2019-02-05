@@ -201,7 +201,7 @@
                             <DataGridTextColumn Width="350" Binding="{Binding Preview}" Header="{Binding Source='Content',Converter={ StaticResource LocalizeConverter}}" >
                                 <DataGridTextColumn.CellStyle>
                                     <Style TargetType="DataGridCell">
-                                        <Setter Property="ToolTip" Value="{Binding Value}" />
+                                        <Setter Property="ToolTip" Value="{Binding Value ,Converter={ StaticResource FileListConverter}}" />
                                     </Style>
                                 </DataGridTextColumn.CellStyle>
                             </DataGridTextColumn>
