@@ -80,6 +80,42 @@ namespace OCMApp.DAL
         }
         #endregion
 
+        public async Task<int> ItemsToDelete(string appName = null, DateTime? dateBefore = null)
+        {
+            int textItems = await DB.Table<Models.ClipText>()
+                .CountAsync(x => (dateBefore == null || x.DateCreated < dateBefore)
+                && (appName == null || x.ApplicationName.ToLower() == appName.ToLower()));
+            int imageItems = await DB.Table<Models.ClipImage>()
+                .CountAsync(x => (dateBefore == null || x.DateCreated < dateBefore)
+                && (appName == null || x.ApplicationName.ToLower() == appName.ToLower()));
+            int fileItems = await DB.Table<Models.ClipFile>()
+                .CountAsync(x => (dateBefore == null || x.DateCreated < dateBefore)
+                && (appName == null || x.ApplicationName.ToLower() == appName.ToLower()));
+            return textItems + imageItems + fileItems;
+        }
+
+        public async Task<bool> ItemsDelete(string appName = null, DateTime? dateBefore = null)
+        {
+            try
+            {
+                int textItems = await DB.Table<Models.ClipText>()
+                    .DeleteAsync(x => (dateBefore == null || x.DateCreated < dateBefore)
+                    && (appName == null || x.ApplicationName.ToLower() == appName.ToLower()));
+                int imageItems = await DB.Table<Models.ClipImage>()
+                    .DeleteAsync(x => (dateBefore == null || x.DateCreated < dateBefore)
+                    && (appName == null || x.ApplicationName.ToLower() == appName.ToLower()));
+                int fileItems = await DB.Table<Models.ClipFile>()
+                    .DeleteAsync(x => (dateBefore == null || x.DateCreated < dateBefore)
+                    && (appName == null || x.ApplicationName.ToLower() == appName.ToLower()));
+
+                return true;
+            } catch (Exception ex)
+            {
+                Log.Error(ex, $"Error while deleting Items => Query: appName={appName} dateBefore={dateBefore}");
+                return false;
+            }
+        }
+
         public Task<List<Models.Summary>> GetSummary()
         {
             return DB.QueryAsync<Models.Summary>("SELECT Application, SUM(Total) as Total, SUM(Text) as Text, SUM(Image) as Image, SUM(File) as File FROM ( " +

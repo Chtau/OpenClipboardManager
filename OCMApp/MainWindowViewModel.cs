@@ -1,4 +1,5 @@
 ﻿using OCMApp.Internal;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -106,14 +107,39 @@ namespace OCMApp
                 return _refreshCommand;
             }
         }
-        
+
+        private ICommand _deleteCommand;
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                if (_deleteCommand == null)
+                {
+                    _deleteCommand = new RelayCommand(
+                        p => true,
+                        async p =>
+                        {
+                            new BulkDelete.BulkDelete().ShowDialog();
+                            await OnRefresh();
+                        });
+                }
+                return _deleteCommand;
+            }
+        }
+
         private async Task OnRefresh()
         {
-            ClipDataTexts = new ObservableCollection<DAL.Models.ClipText>(await Internal.Global.Instance.DBContext.GetClipText());
-            ClipDataImages = new ObservableCollection<DAL.Models.ClipImage>(await Internal.Global.Instance.DBContext.GetClipImage());
-            ClipDataFiles = new ObservableCollection<DAL.Models.ClipFile>(await Internal.Global.Instance.DBContext.GetClipFile());
-            Summary = new ObservableCollection<DAL.Models.Summary>(await Global.Instance.DBContext.GetSummary());
-            OnChangeTabRows();
+            try
+            {
+                ClipDataTexts = new ObservableCollection<DAL.Models.ClipText>(await Internal.Global.Instance.DBContext.GetClipText());
+                ClipDataImages = new ObservableCollection<DAL.Models.ClipImage>(await Internal.Global.Instance.DBContext.GetClipImage());
+                ClipDataFiles = new ObservableCollection<DAL.Models.ClipFile>(await Internal.Global.Instance.DBContext.GetClipFile());
+                Summary = new ObservableCollection<DAL.Models.Summary>(await Global.Instance.DBContext.GetSummary());
+                OnChangeTabRows();
+            } catch (Exception ex)
+            {
+                Log.Error(ex, "OnRefresh failed to load data");
+            }
         }
 
         private void OnChangeTabRows()
