@@ -9,6 +9,7 @@ namespace OCMApp.DAL.Models
 {
     public class ClipImage : Clip
     {
+        public byte[] Preview { get; set; }
         public byte[] Value { get; set; }
         public Enums.ImageFormatType FormatType { get; set; }
 
@@ -20,6 +21,7 @@ namespace OCMApp.DAL.Models
         public ClipImage(ClipDataImage entity) : this()
         {
             Value = entity.Value;
+            Preview = Value;
             FormatType = entity.FormatType;
             base.Set(entity);
         }

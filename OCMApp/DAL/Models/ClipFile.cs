@@ -9,6 +9,7 @@ namespace OCMApp.DAL.Models
 {
     public class ClipFile : Clip
     {
+        public string Preview { get; set; }
         public string Value { get; set; }
 
         public ClipFile()
@@ -23,6 +24,8 @@ namespace OCMApp.DAL.Models
                 Value = "";
                 for (int i = 0; i < entity.Value.Count; i++)
                 {
+                    if (i == 0)
+                        Preview = entity.Value[i];
                     Value += entity.Value[i];
                     if (i < (entity.Value.Count - 1))
                         Value += ";";
