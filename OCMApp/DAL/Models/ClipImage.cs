@@ -25,7 +25,7 @@ namespace OCMApp.DAL.Models
             try
             {
                 if (Value != null)
-                    Preview = OCMClip.ClipHandler.ConvertImage.ImageToByteArray(OCMClip.ClipHandler.ConvertImage.ResizeImage(Value, 240, 240), Enums.ImageFormatType.Png);
+                    Preview = OCMClip.ClipHandler.ConvertImage.ImageToByteArray(OCMClip.ClipHandler.ConvertImage.ResizeImage(Value, 360, 360), Enums.ImageFormatType.Png);
             } catch (Exception ex)
             {
                 Log.Error(ex, "Could not convert Image for Preview");
