@@ -1,4 +1,5 @@
 ﻿using OCMClip.ClipHandler.Entities;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,15 @@ namespace OCMApp.DAL.Models
         public ClipImage(ClipDataImage entity) : this()
         {
             Value = entity.Value;
-            Preview = Value;
+            try
+            {
+                if (Value != null)
+                    Preview = OCMClip.ClipHandler.ConvertImage.ImageToByteArray(OCMClip.ClipHandler.ConvertImage.ResizeImage(Value, 240, 240), Enums.ImageFormatType.Png);
+            } catch (Exception ex)
+            {
+                Log.Error(ex, "Could not convert Image for Preview");
+                Preview = Value;
+            }
             FormatType = entity.FormatType;
             base.Set(entity);
         }

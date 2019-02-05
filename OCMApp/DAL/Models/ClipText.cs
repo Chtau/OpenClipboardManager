@@ -22,7 +22,10 @@ namespace OCMApp.DAL.Models
         public ClipText(ClipDataText entity) : this()
         {
             Value = entity.Value;
-            Preview = Value.Substring(0, 55);
+            if (Value.Length > 55)
+                Preview = Value.Substring(0, 55);
+            else
+                Preview = Value;
             SourceTextFormat = entity.SourceTextFormat;
             base.Set(entity);
         }
