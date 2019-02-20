@@ -160,6 +160,7 @@
     <Compile Include="Blacklist\Blacklist.xaml.cs">
       <DependentUpon>Blacklist.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Blacklist\BlacklistViewModel.cs" />
     <Compile Include="BulkDelete\BulkDelete.xaml.cs">
       <DependentUpon>BulkDelete.xaml</DependentUpon>
     </Compile>
