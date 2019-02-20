@@ -476,8 +476,11 @@ namespace OCMApp.Internal
         {
             try
             {
-                LastClip.ClipText = new DAL.Models.ClipText(e);
-                DBContext.InsertClipText(LastClip.ClipText);
+                if (AllowClip(e))
+                {
+                    LastClip.ClipText = new DAL.Models.ClipText(e);
+                    DBContext.InsertClipText(LastClip.ClipText);
+                }
             }
             catch (Exception ex)
             {
@@ -489,8 +492,11 @@ namespace OCMApp.Internal
         {
             try
             {
-                LastClip.ClipImage = new DAL.Models.ClipImage(e);
-                DBContext.InsertClipImage(LastClip.ClipImage);
+                if (AllowClip(e))
+                {
+                    LastClip.ClipImage = new DAL.Models.ClipImage(e);
+                    DBContext.InsertClipImage(LastClip.ClipImage);
+                }
             }
             catch (Exception ex)
             {
@@ -502,8 +508,11 @@ namespace OCMApp.Internal
         {
             try
             {
-                LastClip.ClipFile = new DAL.Models.ClipFile(e);
-                DBContext.InsertClipFile(LastClip.ClipFile);
+                if (AllowClip(e))
+                {
+                    LastClip.ClipFile = new DAL.Models.ClipFile(e);
+                    DBContext.InsertClipFile(LastClip.ClipFile);
+                }
             }
             catch (Exception ex)
             {
@@ -652,6 +661,17 @@ namespace OCMApp.Internal
         #endregion
 
         #region Blacklist
+
+        private bool AllowClip(OCMClip.ClipHandler.Entities.ClipData clipData)
+        {
+            if (BlacklistItems.Any(x => x.NormalizedValue == clipData.ApplicationName?.ToUpper()
+            || x.NormalizedValue == clipData.ApplicationWindowTitle?.ToUpper()
+            || x.NormalizedValue == clipData.ProcessName?.ToUpper()
+            || x.NormalizedValue == clipData.ProcessId.ToString()))
+                return false;
+            return true;
+        }
+
         private List<DAL.Models.Blacklist> _blacklistItems;
         public List<DAL.Models.Blacklist> BlacklistItems
         {
