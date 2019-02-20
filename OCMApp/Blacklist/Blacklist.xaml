@@ -7,8 +7,54 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:OCMApp.Blacklist"
         mc:Ignorable="d"
-        Title="{Binding Source='Blacklist',Converter={ StaticResource LocalizeConverter}}" Height="450" Width="800">
+        Title="{Binding Source='Blacklist',Converter={ StaticResource LocalizeConverter}}" Height="350" Width="300">
     <Grid Margin="15">
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                <TextBox x:Name="inputValue" />
+            </StackPanel>
+            <Button Grid.Column="1" x:Name="add" Style="{StaticResource AccentedSquareButtonStyle}"
+                    Click="Add_Click"
+                    HorizontalAlignment="Right"
+                    Width="100">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconModern VerticalAlignment="Center" Kind="Add" />
+                    <Label Content="{Binding Source='Add',Converter={ StaticResource LocalizeConverter}}" />
+                </StackPanel>
+            </Button>
+        </Grid>
+        <DataGrid Grid.Row="1"
+                  RowHeaderWidth="0"
+                    SelectionUnit="FullRow"
+                    AutoGenerateColumns="false"
+                    Margin="5"
+                    HeadersVisibility="All" IsReadOnly="True" RowHeight="1" HorizontalGridLinesBrush="#FF555555" VerticalGridLinesBrush="#FF505050" IsTextSearchEnabled="True" GridLinesVisibility="Horizontal"
+                    FrozenColumnCount="1"
+                    x:Name="blacklistGrid">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn MaxWidth="35">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="DeleteItem" Click="DeleteItem_Click" Height="10" MaxHeight="1" Margin="0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconModern Width="16" Height="10" Kind="Delete" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Width="*" Header="{Binding Source='Blacklist',Converter={ StaticResource LocalizeConverter}}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Controls:MetroWindow>
