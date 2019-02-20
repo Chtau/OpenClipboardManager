@@ -57,6 +57,8 @@
                       Command="{Binding DeleteCommand}"/>
             <MenuItem x:Name="AddFavorite" Header="{Binding Source='Add_Favorite',Converter={ StaticResource LocalizeConverter}}"
                       Click="AddFavorite_Click"/>
+            <MenuItem Header="{Binding Source='Blacklist',Converter={ StaticResource LocalizeConverter}}"
+                      Command="{Binding BlacklistCommand}"/>
         </Menu>
         <Controls:MetroAnimatedSingleRowTabControl x:Name="MainTabControl" Grid.Row="1">
             <TabItem Header="{Binding Source='Text',Converter={ StaticResource LocalizeConverter}}" x:Name="TabText">

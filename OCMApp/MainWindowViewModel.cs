@@ -127,6 +127,29 @@ namespace OCMApp
             }
         }
 
+        private ICommand _blacklistCommand;
+        public ICommand BlacklistCommand
+        {
+            get
+            {
+                if (_blacklistCommand == null)
+                {
+                    _blacklistCommand = new RelayCommand(
+                        p => true,
+                        p =>
+                        {
+                            if (!Helper.WindowCheck.IsWindowOpen<Blacklist.Blacklist>())
+                                new Blacklist.Blacklist().Show();
+                            else
+                            {
+                                Helper.WindowCheck.WindowInstance<Blacklist.Blacklist>()?.Activate();
+                            }
+                        });
+                }
+                return _blacklistCommand;
+            }
+        }
+
         private async Task OnRefresh()
         {
             try

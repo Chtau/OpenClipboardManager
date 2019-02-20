@@ -157,6 +157,9 @@
       <DependentUpon>ApplicationErrorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="BaseViewModel.cs" />
+    <Compile Include="Blacklist\Blacklist.xaml.cs">
+      <DependentUpon>Blacklist.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BulkDelete\BulkDelete.xaml.cs">
       <DependentUpon>BulkDelete.xaml</DependentUpon>
     </Compile>
@@ -211,6 +214,10 @@
     <Compile Include="Settings\SettingsViewModel.cs" />
     <Compile Include="Settings\WindowState.cs" />
     <Page Include="ApplicationError\ApplicationErrorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Blacklist\Blacklist.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
