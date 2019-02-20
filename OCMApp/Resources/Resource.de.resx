@@ -327,4 +327,10 @@
   <data name="Older_then" xml:space="preserve">
     <value>Älter als:</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="Blacklist" xml:space="preserve">
+    <value>Ignore Liste</value>
+  </data>
 </root>

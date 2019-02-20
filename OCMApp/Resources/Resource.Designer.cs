@@ -97,6 +97,15 @@ namespace OCMApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Favorite.
         /// </summary>
         internal static string Add_Favorite {
@@ -156,6 +165,15 @@ namespace OCMApp.Resources {
         internal static string BaseLight {
             get {
                 return ResourceManager.GetString("BaseLight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blacklist.
+        /// </summary>
+        internal static string Blacklist {
+            get {
+                return ResourceManager.GetString("Blacklist", resourceCulture);
             }
         }
         
