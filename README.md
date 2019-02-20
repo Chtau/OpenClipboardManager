@@ -14,6 +14,7 @@ Open Clipboard Manager (short OCM) is an open source Clipboard Manager/History A
   * UI Theme
   * Autostart
   * English/German
+  * Blacklist (allow to ignore Applications/Process)
   
 
 
