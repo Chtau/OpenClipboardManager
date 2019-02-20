@@ -650,5 +650,29 @@ namespace OCMApp.Internal
                 favorites.Refresh();
         }
         #endregion
+
+        #region Blacklist
+        private List<DAL.Models.Blacklist> _blacklistItems;
+        public List<DAL.Models.Blacklist> BlacklistItems
+        {
+            get
+            {
+                if (_blacklistItems == null)
+                    _blacklistItems = OnBlacklistRefresh();
+                return _blacklistItems;
+            }
+        }
+
+        public void RefreshBlacklist()
+        {
+            _blacklistItems = OnBlacklistRefresh();
+        }
+
+        private List<DAL.Models.Blacklist> OnBlacklistRefresh()
+        {
+            var newFav = Task.Run(DBContext.Blacklist).GetAwaiter().GetResult();
+            return newFav;
+        }
+        #endregion
     }
 }

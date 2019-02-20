@@ -27,6 +27,7 @@ namespace OCMApp.DAL
             await DB.CreateTableAsync<Models.FavoriteContentText>();
             await DB.CreateTableAsync<Models.FavoriteContentImage>();
             await DB.CreateTableAsync<Models.FavoriteContentFile>();
+            await DB.CreateTableAsync<Models.Blacklist>();
         }
 
         #region Clip insert
@@ -274,6 +275,52 @@ namespace OCMApp.DAL
             catch (Exception ex)
             {
                 Log.Error(ex, "Failed to delete Favorite view model");
+            }
+            return false;
+        }
+        #endregion
+
+        #region Blacklist
+
+        public async Task<List<Models.Blacklist>> Blacklist()
+        {
+            return await DB.Table<Models.Blacklist>().ToListAsync();
+        }
+
+        public async Task<bool> InsertBlacklist(Models.Blacklist blacklist)
+        {
+            try
+            {
+                if (blacklist != null)
+                {
+                    await DB.InsertAsync(blacklist);
+                    
+                    Internal.Global.Instance.RefreshBlacklist();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to insert new Blacklist item");
+            }
+            return false;
+        }
+
+        public async Task<bool> DeleteBlacklist(Models.Blacklist blacklist)
+        {
+            try
+            {
+                if (blacklist != null)
+                {
+                    await DB.DeleteAsync(blacklist);
+
+                    Internal.Global.Instance.RefreshBlacklist();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to delete Blacklist item");
             }
             return false;
         }
